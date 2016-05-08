@@ -11,7 +11,6 @@ $config['db']['db'] = "priph";
 // TABLES
 $config['db']['tables']['member'] = "member";
 $config['db']['tables']['login_attempts'] = "login_attempts";
-$config['db']['tables']['api_keys'] = "api_keys";
 $config['db']['tables']['session_token'] = "session_token";
 $config['db']['tables']['upload_token'] = "upload_token";
 $config['db']['tables']['pictures'] = "pictures";
@@ -61,5 +60,26 @@ function openDB(){
   return $mysqli;
 }
 
+function openCON(){
+  global $config;
+  $mysqli = new mysqli($config['db']['host'], $config['db']['user'], $config['db']['pass']);
+  if ($mysqli->connect_errno) {
+    return false;
+  }
+  return $mysqli;
+}
+
+
+/* API RESULT FUNCTIONS */
+
+function error($errmsg, $response = null){
+  $fresponse = ["response" => $response, "error" => $errmsg];
+  die(json_encode($fresponse));
+}
+
+function response($response, $error = false){
+  $fresponse = ["response" => $response, "error" => false];
+  die(json_encode($fresponse));
+}
 
 ?>
