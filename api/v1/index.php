@@ -14,6 +14,9 @@ $_GET['api_key'] = "NOo0WppuSl97XfppbVVm1kEBbMdkiomh";
 require 'config.php';
 require 'functions.php';
 
+/* CHECK IF CONFIG SET */
+if(configExists()){error("Please install Priph first!");}
+
 /* START GETTING PARAMS */
 if(isset($_GET['action'])){$action = $_GET['action'];}else{error("\"action\" is not set!");}
 if(isset($_GET['api_key'])){$api_key = $_GET['api_key'];}else{error("\"api_key\" is not set!");}

@@ -1,6 +1,10 @@
 <?php
 
-/* DB-CONFIG*/
+/* DB-CONFIG */
+
+// ----------------------------------------
+// CONFIG WILL BE OVERWRITEN BY config.json
+// ----------------------------------------
 
 // GLOBAL
 $config['db']['host'] = "localhost";
