@@ -1,0 +1,6 @@
+# SSL Rewrite
+RewriteEngine On
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://priph.com/$1 [R=301,L]
+
+Options -Indexes

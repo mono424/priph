@@ -1,0 +1,24 @@
+
+  [check] Delete Picture
+  • Share Picture
+  • Edit Picture
+  • Create Gallery Folders
+    • Select Photos for multible Shareing
+  • Open Picture Dialog
+  • Upload Picture -> Error/Success Message
+  • DragnDrop Upload File
+  • Upload Video
+
+  • Comment Pictures and Videos
+  • change email
+
+
+
+
+
+  Bugs already found:
+
+  • Delete Picture with wrong id, causes error!
+  • add preloader to login register menu / useroverlay
+  • Delete Slide JS ERRORS
+  • iPhone Home Slide is ugly and broken

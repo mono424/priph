@@ -1,0 +1,14 @@
+{
+  "uploadOnSave": false,
+  "deleteLocal": false,
+  "hostname": "ftp.priph.com",
+  "port": "21",
+  "ignore": [
+    ".remote-sync.json",
+    ".git/**"
+  ],
+  "username": "atom_priph@priph.com",
+  "password": "@B?xR_Nk6i~(",
+  "transport": "ftp",
+  "target": "/"
+}

@@ -1,0 +1,28 @@
+
+/* SLIDE */
+#slide1{
+  position:relative;
+  background-color: #5187B5;
+}
+
+
+/* LESS ABOUT */
+.less_about{
+  position:absolute;
+  top: 0;
+  color: white;
+  width: 100vw;
+  padding-top: 20px;
+  opacity: 0.4;
+  cursor:pointer;
+}
+
+.less_about p{
+  margin-top: 5px;
+  color: white;
+}
+
+.less_about:hover{
+  opacity: 0.7;
+  /*transition: ease-in 0.1s;*/
+}

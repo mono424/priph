@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<!-- NOT DOCUMENTED:  -->
+<head>
+  <meta charset="utf-8">
+  <title>Priph API</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <!-- at least a bit styling.. -->
+  <style media="screen">
+  body{
+    background: rgb(57, 59, 57);
+  }
+  #wrapper{
+    background: white;
+    width: 1000px;
+    margin: 60px auto;
+    padding: 10px 20px;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.4) 1px 1px 1px;
+  }
+  h1{
+    text-align: center;
+  }
+  h2{
+    color: rgb(87, 190, 214);
+    border-bottom:dotted 5px rgb(87, 190, 214);
+  }
+  p {
+    font-size: 18px;
+    padding-left: 10px;
+  }
+
+  code{
+    font-size: 18px;
+  }
+  </style>
+</head>
+<body>
+  <div id="wrapper">
+    <h1>Priph API</h1>
+
+    <h2>Overview</h2>
+    <p>
+      The root of the API is located at: <code>http://priph.com/api/v1</code><br>
+      You wont need a API-Key or something!<br>Made for Wizards by a proud Developer <3
+    </p><br>
+    <h2>Required Params</h2>
+    <p>
+      There is at least one required Parameter:
+    </p>
+    <ul>
+      <li>action</li>
+    </ul>
+    <p>
+      Note: depending on the action, there are may other required Parameter.<br>
+    </p><br>
+    <h2>Answer Encoding</h2>
+    <p>
+      Every Answer given by API is JSON encoded. Nothing else available!
+    </p><br>
+
+
+
+
+    <h2>Action - Basic</h2><br><hr><br>
+    <h3>Check API</h3>
+    <code>GET: http://priph.com/api/v1/?action=check</code><br>
+    Success:
+    <pre>
+      {"response":true,"error":false}
+    </pre><br><hr><br>
+    <h3>Create Upload Token</h3>
+    <code>GET: http://priph.com/api/v1/?action=create-upload-token</code><br>
+    Success:
+    <pre>
+      {"response":[upload-token],"error":false}
+    </pre><br><hr><br>
+
+
+
+
+    <h2>Action - Login / Logout</h2><br><hr><br>
+    <h3>Login User</h3>
+    <code>GET: http://priph.com/api/v1/?action=login&user=[user]&pass=[pass]</code><br>
+    Success:
+    <pre>
+      {"response":true,"error":false}
+    </pre>
+    Unsuccess:
+    <pre>
+      {"response":false,"error":false}
+    </pre><br><hr><br>
+    <h3>Attempt Login by Cookie</h3>
+    <code>GET: http://priph.com/api/v1/?action=loginByCookie</code><br>
+    Success:
+    <pre>
+      {"response":true,"error":false}
+    </pre>
+    Unsuccess:
+    <pre>
+      {"response":false,"error":false}
+    </pre><br><hr><br>
+    <h3>Logout User</h3>
+    <code>GET: http://priph.com/api/v1/?logout</code><br>
+    Success:
+    <pre>
+      {"response":true,"error":false}
+    </pre><br><hr><br>
+
+
+
+
+    <h2>Action - Get User Information</h2><br><hr><br>
+    <h3>Get User Info</h3>
+    <code>GET: http://priph.com/api/v1/?action=user-info</code><br>
+    Success:
+    <pre>
+      {"response":{"id":"98","email":"jon@do.com","displayname":"Jon","is_admin":"0"},"error":false}
+    </pre><br><hr><br>
+    <h3>Get User Profilepicture</h3>
+    <code>GET: http://priph.com/api/v1/?action=getProfilePicture&user=[user-id_optional]&width=[width_optional]&height=[height_optional]</code><br>
+    Success:
+    <pre>
+      IMAGE - JPEG
+    </pre><br><hr><br>
+    <h3>Get User Uploaded Pictures</h3>
+    <code>GET: http://priph.com/api/v1/?action=user-get-pictures</code><br>
+    Success:
+    <pre>
+      {"response":[{"id":"129","name":"runnin_unicorn.jpg"},{"id":"837","name":"big_globe.jpg"}],"error":false}
+    </pre><br><hr><br>
+    <h3>Get User Uploaded Picture</h3>
+    <code>GET: http://priph.com/api/v1/?action=getPicture&id=[picture_id]&width=[width_optional]&height=[height_optional]</code><br>
+    Success:
+    <pre>
+      IMAGE - JPEG
+    </pre><br><hr><br>
+    <h3>Get User Sessions</h3>
+    <code>GET: http://priph.com/api/v1/?action=user-get-sessions</code><br>
+    Success:
+    <pre>
+      {"response":[{"session":"f56g3Do","token":"x4y7z","browser":"Chrome","ip":"123.123.123.11","last_update":"2016-04-28 23:52:48"},{"session":"x09s9j2d","token":false,"browser":"Chrome","ip":"133.153.133.11","last_update":"2016-04-28 22:07:32"}],"error":false}
+    </pre>
+    <p class="bg-info">
+      <b>NOTE:</b> You will only receive the Token of your current Session!
+    </p>
+    <p class="bg-info">
+      <b>NOTE:</b> Session and Token Values can be much longer than in the example!
+    </p>
+    <br><hr><br>
+
+
+    <h2>Action - Set User Information</h2><br><hr><br>
+    <h3>Change User Displayname</h3>
+    <code>GET: http://priph.com/api/v1/?action=user-change-displayname&displayname=[new-displayname]</code><br>
+    Success:
+    <pre>
+      {"response":true,"error":false}
+    </pre><br><hr><br>
+    <h3>Change User Profilepicture</h3>
+    <code>GET: http://priph.com/api/v1/?action=uploadProfilePicture&token=[upload-token]</code><br>
+    <code>POST: file=[jpg-image]</code><br>
+    Success:
+    <pre>
+      {"response":true,"error":false}
+    </pre>
+    <p class="bg-info">
+      <b>NOTE:</b> You will need to create a upload-token first!
+    </p>
+    <br><hr><br>
+    <h3>Change User Password</h3>
+    <code>GET: http://priph.com/api/v1/?action=user-change-password&pass=[password]&new_pass=[new-password]</code><br>
+    Success:
+    <pre>
+      {"response":true,"error":false}
+    </pre><br><hr><br>
+    <h3>Upload Picture</h3>
+    <code>GET: http://priph.com/api/v1/?action=uploadPicture&token=[upload-token]</code><br>
+    <code>POST: file=[jpg-image]</code><br>
+    Success:
+    <pre>
+      {"response":true,"error":false}
+    </pre><br><hr><br>
+    <h3>Delete User Uploaded Picture</h3>
+    <code>GET: http://priph.com/api/v1/?action=deletePicture&id=[picture_id]</code><br>
+    Success:
+    <pre>
+      {"response":true,"error":false}
+    </pre><br><hr><br>
+    <h3>Delete User Session</h3>
+    <code>GET: http://priph.com/api/v1/?action=user-session-delete&session=[session_id]</code><br>
+    Success:
+    <pre>
+      {"response":true,"error":false}
+    </pre>
+    <br><hr><br>
+
+
+
+
+    <h2>Action - Register User</h2><br><hr><br>
+    <h3>Register new User</h3>
+    <code>GET: http://priph.com/api/v1/?action=register&user=[email]</code><br>
+    Success:
+    <pre>
+      {"response":true,"error":false}
+    </pre>
+    <p class="bg-info">
+      <b>NOTE:</b> User has to verfiy Account before logging in to it!
+    </p>
+    <br><hr><br>
+    <h3>Verify new Users Registration</h3>
+    <code>GET: http://priph.com/api/v1/?action=validate&user=[email]&verification=[code]
+      &pass=[password]&displayname=[displayname]&pass2=[password_repeat_optional]</code><br>
+    Success:
+    <pre>
+      {"response":true,"error":false}
+    </pre>
+    <br><hr><br>
+  </div>
+</body>
+</html>

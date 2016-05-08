@@ -1,0 +1,136 @@
+/* SMALL SCREEN */
+
+@media screen and (max-width: 860px){
+
+  /* USER SLIDE WRAPPER*/
+  #user_slide .body .wrapper{
+    width:98%;
+    padding-left: 1%;
+    padding-right: 1%;
+  }
+
+}
+
+
+
+/* MOBILE */
+
+@media screen and (max-width: 660px){
+
+  /* UPLOAD STATUS */
+  #uploadStatus{
+    bottom: 5px;
+  }
+
+  /* ADMIN TAB*/
+  .user_searchbar{
+    padding-top: 50px;
+  }
+
+  .searchbar{
+    right:1.5%;
+    width: 98.5%;
+  }
+
+  #user_search_mode{
+    width: 18%;
+  }
+  #user_search_text{
+    width: 52%;
+  }
+  user_search_form .button{
+    width: 18%;
+  }
+
+  /* LOGO */
+  .logo{
+    width:80%;
+    margin-top: 28vh;
+  }
+
+  /* galleryRefresh */
+  #galleryRefresh{
+    display:none;
+  }
+
+  /* DropText */
+  .dropText{
+    display:none;
+  }
+
+  /* BUTTON STUFF */
+  .button-intro{
+    display: block;
+    margin: 10px 20px;
+    cursor:pointer;
+  }
+
+  /* MORE ABOUT */
+  .more_about{
+    padding-bottom: 10px;
+  }
+
+  /* OVERLAYS*/
+
+  .overlay{
+    width: 100vw;
+    height: 80vh;
+    max-height: 80vh;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 20vh 0 0 0;
+    border-radius: 0;
+  }
+
+  /* USER SLIDE MENU */
+  #user_slide .head ul{
+    margin:0 0 0 15%;
+  }
+
+  /* USER GALLERY */
+  .image_gallery .image_item{
+    position:relative;
+    width: 49%;
+    height: 200px;
+    margin: 1% .5% 0 .5%;
+    float: left;
+    overflow:hidden;
+  }
+
+  /* FOOTER */
+  .footer{
+    text-align:center;
+  }
+  .footer a{
+    white-space: nowrap;
+  }
+  .intro-overlay .footer{
+    /*background: transparent;*/
+  }
+}
+
+
+/* POTATO */
+
+@media screen and (max-width: 380px){
+
+  /* ADMIN TAB*/
+  #user_search_text{
+    width: 48%;
+  }
+
+  /* USER SLIDE MENU */
+  #user_slide .head ul li div{
+    font-size: 16px;
+  }
+
+  #user_slide .head ul li{
+    padding-right: 5px;
+  }
+
+  #user_slide .head ul{
+    margin:0 0 0 10%;
+  }
+
+}
