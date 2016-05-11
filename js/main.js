@@ -67,6 +67,8 @@ function defineStuff() {
   snapshotCloseBtn = document.querySelector('#snapshot_close');
   snapshotCanvas = document.querySelector('#webcamArea canvas');
   snapshotImage = document.querySelector('#webcamArea img');
+  webcamUploadOv = document.querySelector('#webcamUploadOv');
+  mobileCameraSnapshot = document.querySelector('#mobileCameraSnapshot');
   uploadPictureBtn.addEventListener('click', uploadPictureHandler);
   webcamSnapshotBtn.addEventListener('click', webcamSnapshotHandler);
   document.addEventListener('dragenter', documentDragenterHandler);
@@ -75,6 +77,7 @@ function defineStuff() {
   uploadDragArea.addEventListener('drop', uploadDragAreaDropHandler);
   snapshotDoBtn.addEventListener('click', snapshotDoBtnHandler);
   snapshotCloseBtn.addEventListener('click', snapshotCloseBtnHandler);
+  webcamUploadOv.addEventListener('click', snapshotUploadBtnHandler);
 
   /* DISPLAY SETTINGS */
   userSettingsErrorBar = document.querySelector("#user_settings .errorbar");
@@ -195,8 +198,8 @@ function startNextUpload(){
   uploadFileBusy = true;
   var file = uploadFileQueue[0];
   uploadFileQueue.shift();
-  if(file.type=="image/jpeg"){
-    uploadPicture(file, function(data){
+  if(file.type=="image/jpeg" || (typeof file.type == 'undefined')){
+    uploadPicture(file, function(data){console.log(data);
       if(data.error){notie.alert(3,data.error,2);}
       else if(!data){notie.alert(3,'Unknown Error occured!',2);}
       else{notie.alert(1, 'Picture uploaded successful!', 2);}
@@ -341,13 +344,45 @@ function uploadPictureHandler(e){
 
 /* WEBCAM STUFF */
 
+function snapshotUploadBtnHandler(e){
+  // DISABLED ATM
+  notie.alert(4, 'Not available atm!', 3);return;
+  addToUploadQueue(snapshotImage.src);
+}
+
+
+
+
 var webcamstream;
+var newPhoto=false;
 
 function snapshotDoBtnHandler(e){
-  snapshotCanvas.getContext('2d').drawImage(webcamSnapshotVideo,0,0,300,150);
-  var data = snapshotCanvas.toDataURL('image/jpeg');
-  var dataURL = snapshotCanvas.toDataURL();
-  snapshotImage.setAttribute('src', data);
+  if(newPhoto){
+    resetSnaptshot();
+  }else{
+    snapshotCanvas.style.opacity = "1";
+    snapshotImage.style.opacity = "1";
+    webcamUploadOv.style.display = "block";
+    // set the canvas to the dimensions of the video
+    snapshotCanvas.width = webcamSnapshotVideo.clientWidth;
+    snapshotCanvas.height = webcamSnapshotVideo.clientHeight;
+    // COPY IMAGE
+    snapshotCanvas.getContext('2d').drawImage(webcamSnapshotVideo,0,0);
+    var data = snapshotCanvas.toDataURL('image/jpeg');
+    var dataURL = snapshotCanvas.toDataURL();
+    snapshotImage.setAttribute('src', data);
+    // CHANGE BUTTON
+    snapshotDoBtn.innerHTML = "New Photo";
+    newPhoto=true;
+  }
+}
+
+function resetSnaptshot(){
+  snapshotCanvas.style.opacity = "0";
+  snapshotImage.style.opacity = "0";
+  webcamUploadOv.style.display = "none";
+  snapshotDoBtn.innerHTML = "Take Snapshot";
+  newPhoto=false;
 }
 
 function snapshotCloseBtnHandler(e){
@@ -356,13 +391,29 @@ function snapshotCloseBtnHandler(e){
 }
 
 var videosettings = {
-    audio: false,
-    video: true
+  "audio": false,
+  "video": {
+    "mandatory": {
+      "minWidth": 320,
+      "maxWidth": 1280,
+      "minHeight": 180,
+      "maxHeight": 720,
+      "minFrameRate": 30
+    },
+    "optional": []
+  }
 };
+
 function webcamSnapshotHandler(e){
   // DISABLED ATM
-  // notie.alert(4, 'Not available atm!', 3);return;
+  //notie.alert(4, 'Not available atm!', 3);return;
 
+  // IF MOBILE
+  if(checkMobile()){
+    mobileCameraSnapshot.click();return;
+  }
+
+  resetSnaptshot();
   var onFail = function(){notie.alert(3, 'Unknown Error!', 3);}
   if (hasGetUserMedia()) {
     if (navigator.getUserMedia) {

@@ -14,7 +14,7 @@ function request(params,cb){
     while(is_request){}
     is_request = 1;
   }
-  $.get(url + "?" + params, function( data ) {
+  $.get(url + "?sessionid="+sessionid + "&" + params, function( data ) {
     is_request=0;
     if(cb){cb(data);}
   }, "json" );
@@ -39,7 +39,7 @@ function uploadFileRequest(params, file_data, cb, upload_status){
         }, false);
         return xhr;
       },
-      url: url + "?token=" + token + "&" + params,
+      url: url + "?sessionid=" + sessionid + "&token=" + token + "&" + params,
       dataType: 'json',
       cache: false,
       contentType: false,
@@ -109,14 +109,14 @@ function uploadPicture(picture, cb, upload_status){
 function generatePrivateImageUrl(id, width, height){
   var addParams = "";
   if(width && height){addParams = "&width="+width+"&height="+height;}
-  return url + "?action=getPicture&id="+id+addParams;
+  return url + "?sessionid="+sessionid + "&action=getPicture&id="+id+addParams;
 }
 
 function profilePictureUrl(user_id, width, height){
   var addParams = "";
   if(user_id){addParams = "&user=" + user_id;}
   if(width && height){addParams += "&width="+width+"&height="+height;}
-  return url + "?action=getProfilePicture"+addParams;
+  return url + "?sessionid="+sessionid + "&action=getProfilePicture"+addParams;
 }
 
 function deletePicture(id, cb){

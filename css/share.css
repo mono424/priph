@@ -1,0 +1,100 @@
+.cf:after {
+  content: ".";
+  clear: both;
+  display: block;
+  visibility: hidden;
+  height: 0px;
+}
+
+body {
+  font-family: helvetica, sans-serif;
+  background-color: rgb(250, 250, 250);
+  margin:0;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+}
+
+.topbar{
+  width: 100vw;
+  height: 70px;
+  background: rgb(255, 255, 255);
+  border-bottom: 1px solid rgba(95, 95, 95, 0.1);
+}
+
+.wrapper{
+  position:relative;
+  width: 1000px;
+  min-height: 300px;
+  margin: 50px auto 0 auto;
+  background-color: white;
+  border-radius: 4px;
+  border: 1px solid rgba(95, 95, 95, 0.15);
+}
+
+/* IMAGE CONTENT OF WRAPPER */
+
+.wrapper .image{
+  background-color: black;
+  width: 600px;
+  min-height: 100%;
+  height: auto;
+  margin:0;
+  padding:0;
+}
+
+.wrapper img{
+  width: 100%;
+  height: auto;
+  margin:0;
+  padding:0;
+}
+
+/* INFO CONTENT OF WRAPPER */
+
+.wrapper .info{
+  position:absolute;
+  left:600px;
+  top:0;
+  height: 100%;
+  width:400px;
+}
+
+/* AUTHOR */
+
+.wrapper .info .author{
+  margin: 10px;
+  cursor:pointer;
+}
+
+.wrapper .info .author img{
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: solid rgba(0, 0, 0, 0.2) 1px;
+  float: right;
+}
+
+.wrapper .info .author div{
+  float: right;
+  font-weight: bolder;
+  color: rgb(99, 99, 99);
+  padding: 22px 10px 0 0;
+}
+
+/* COMMENTS */
+
+.wrapper .info .commentbox{
+  width: 100%;
+  height: auto;
+  margin: 5px 15px;
+}
+
+.wrapper .info .commentbox p{
+  font-size: 12px;
+  font-weight: bolder;
+  color: rgba(0, 0, 0, 0.4);
+}

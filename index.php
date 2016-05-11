@@ -1,7 +1,18 @@
 <?php
+/* SKIN */
 $skin = "default";
 $skin_muted = true;
 $skin_video = false;
+
+/* API RESTRICTION*/
+session_start();
+if(!$_SESSION['sessionid']){
+  $sessionid = md5(mt_rand(0,999999999));
+  $_SESSION['sessionid'] = $sessionid;
+}else{
+  $sessionid = $_SESSION['sessionid'];
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,6 +58,9 @@ $skin_video = false;
   <!-- REMODAL -->
   <script type="text/javascript" src="js/remodal.min.js"></script>
 
+  <!-- PULL 2 REFRESH -->
+  <script type="text/javascript" src="js/jquery.p2r.min.js" defer></script>
+
   <!-- CIRCLE PROGRESS -->
   <script type="text/javascript" src="js/circle-progress.js"></script>
 
@@ -69,6 +83,7 @@ $skin_video = false;
   if(isset($_GET['verify'])){echo "startPage = 'verify';";}
   ?>
   var skinVideoDisabled = <?php echo !$skin_video; ?>;
+  var sessionid = '<?php echo $sessionid; ?>';
   </script>
 
 
@@ -438,9 +453,16 @@ $skin_video = false;
           <!-- WEBCAM OUTPUT -->
           <video autoplay></video>
           <!-- IMAGE CANVAS -->
-          <canvas></canvas>
+          <canvas class="snap-ov"></canvas>
           <!-- IMAGE -->
-          <img src="" alt="" />
+          <img class="snap-ov" src="" alt="" />
+          <!-- UPLOAD -->
+          <div class="snap-ov" id="webcamUploadOv">
+            <i class="fa fa-chevron-circle-up" aria-hidden="true"></i>
+            <p>
+              Upload to Priph
+            </p>
+          </div>
         </div>
 
         <!-- WEBCAM BUTTONS -->
@@ -448,7 +470,7 @@ $skin_video = false;
         <button id="snapshot_close" type="button">Close</button>
 
         <!-- FOR MOBILE -->
-        <input style="display:none;" type="file" accept="image/*;capture=camera">
+        <input id="mobileCameraSnapshot" style="display:none;" type="file" accept="image/*;capture=camera">
       </div>
     </div>
 

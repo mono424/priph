@@ -5,11 +5,17 @@
 */
 
 /* NO ERRORS */
-//error_reporting(0);
+error_reporting(0);
+
+/* SESSIONS :) */
+session_start();
 
 /* LOAD FUNCTIONS AND CONFIG */
 require 'config.php';
 require 'functions.php';
+
+/* SECURITY - priph.com restriction */
+if(!isset($_GET['sessionid']) || $_GET['sessionid'] !== $_SESSION['sessionid']){error("Sorry, the API is not Public atm!");}
 
 /* START GETTING PARAMS */
 if(isset($_GET['action'])){$action = $_GET['action'];}else{error("\"action\" is not set!");}

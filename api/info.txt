@@ -5,7 +5,7 @@
     > NOT USED IN MAIN-PRIPH-PAGE
     > used to make a quick small api-documentation
 
-  -> fortawesome
+  -> fontawesome
     > used it for the awesome icons! <3
 
   -> jquery
@@ -24,6 +24,11 @@
   -> circle-progress
     > a jquery plugin for the amazing circle progress on image uploading!
 
+  -> jQuery Pull to Refresh
+    > a jquery plugin for the lovely refresh on mobilephone!
+
+  -> PHPMailer
+    > A PHP Mail framework, to send better verify-registration-emails!
 
 ######  LINKS TO THE EXTERNAL STUFF  ######
 
@@ -33,6 +38,7 @@
   -> Remodal: http://vodkabears.github.io/remodal/
   -> notie: https://jaredreich.com/projects/notie/
   -> circle-progress: http://kottenator.github.io/jquery-circle-progress/
+  -> jQuery Pull to Refresh: https://github.com/luis-kaufmann-silva/jquery-p2r
 
 
 - Khadim Fall
