@@ -21,12 +21,12 @@ if(!isset($_GET['sessionid']) || $_GET['sessionid'] !== $_SESSION['sessionid']){
 if(isset($_GET['action'])){$action = $_GET['action'];}else{error("\"action\" is not set!");}
 
 /* SECURITY */
-if(!preg_match("/^[A-z0-9_-]{3,}$/",$action)){error("\"action\" includes illigal or under 3 chars!");}
+if(!preg_match("/^[A-z0-9_-]{3,}$/",$action)){error("\"action\" includes illigal and/or under 3 chars!");}
 
 /* CHECK ACTION WHICH USER WANTS EXISTS AND REQUIRE IT */
 $file = "action/".$action.".php";
 if(file_exists($file)){
-  require $file;
+  require_once($file);
   response(run_action());
 }else{error("\"action\" is not valid!");}
 
