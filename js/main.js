@@ -348,6 +348,7 @@ function snapshotUploadBtnHandler(e){
   // DISABLED ATM
   // notie.alert(4, 'Not available atm!', 3);return;
   addToUploadQueue(snapshotImage.src);
+  resetSnaptshot();
 }
 
 
