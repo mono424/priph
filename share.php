@@ -1,3 +1,10 @@
+<?php
+
+/* API RESTRICTION SESSION */
+require 'session.php';
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +25,24 @@
   <!-- <script type="text/javascript" src="http://priph.com/api/v1/js/script.min.js"></script> -->
   <script type="text/javascript" src="api/v1/js/script.local.js"></script>
 
-  <!--  -->
+  <!-- JQUERY -->
+  <script src="js/jquery-1.12.3.min.js"></script>
+
+  <!-- SHARE JS -->
+  <script type="text/javascript" src="js/share.js"></script>
+
+  <!-- SESSION FOR API -->
+  <?php echoSessionScript(); ?>
+
+  <!-- IMAGE SOURCE -->
+  <?php
+  // IF USERS OWN IMAGE
+  if(isset($_GET['privateImage'])){
+    echo "<script>var privateImage = '".$_GET['privateImage']."';</script>";
+  }else{
+    echo "<script>var privateImage = false;</script>";
+  }
+  ?>
 </head>
 <body>
   <!-- <div class="topbar"></div> -->
@@ -27,62 +51,29 @@
 
     <!-- IMAGE CONTENT -->
     <div class="image">
-      <img src="https://placebear.com/g/400/500" alt="" />
+      <img id="image" src="" alt="" />
     </div>
 
     <!-- INFO CONTENT -->
     <div class="info">
-      <!-- AUTHOR STUFF -->
-      <div class="author cf">
-        <img src="https://placebear.com/g/50/50" alt="" />
-        <div>Khadim Fall</div>
-      </div>
-      <hr>
+      <div class="infowrap">
 
-      <!-- COMMENTBOX -->
-      <div class="comment-hl">Comments</div>
-      <div class="commentbox">
+        <!-- AUTHOR STUFF -->
+        <div class="author cf">
+          <img id="author_image" src="" alt="" />
+          <div id="author_name"></div>
+        </div>
+        <hr>
 
-        <!-- A COMMENT -->
-        <div class="comment">
-
-          <!-- COMMENT AUTHOR -->
-          <div class="comment-author cf">
-            <img src="https://placebear.com/g/20/20" alt="" />
-            <div>Khadim Fall</div>
-          </div>
-
-          <!-- COMMENT CONTENT -->
-          <div class="content">
-            <p>
-              Das ist ein standart Kommentar in Deutsch :OO Das ist ein standart Kommentar in Deutsch :OO Und der ist auch noch ziemlich lang
-            </p>
-          </div>
+        <!-- COMMENTBOX -->
+        <div class="comment-hl">Comments</div>
+        <div id="commentbox" class="commentbox">
+        </div>
+        <div class="comment-form">
+            <input type="text" name="comment" placeholder="Write something nice..">
+            <img id="user_image" src="" alt="" />
         </div>
 
-        <!-- A COMMENT -->
-        <div class="comment">
-
-          <!-- COMMENT AUTHOR -->
-          <div class="comment-author cf">
-            <img src="https://placebear.com/g/20/20" alt="" />
-            <div>Khadim Fall</div>
-          </div>
-
-          <!-- COMMENT CONTENT -->
-          <div class="content">
-            <p>
-              Das ist ein standart Kommentar in Deutsch :OO Das ist ein standart Kommentar in Deutsch :OO Und der ist auch noch ziemlich lang
-            </p>
-          </div>
-        </div>
-
-      </div>
-      <div class="comment-form">
-        <div class="commentwrap">
-          <input type="text" name="comment" placeholder="Write something nice..">
-          <img src="https://placebear.com/g/20/20" alt="" />
-        </div>
       </div>
     </div>
 
