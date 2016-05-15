@@ -10,7 +10,7 @@ function galleryLoad(){
       for(i=0;i<data.response.length;i++){
         var img = data.response[i];
         var img_src_thumb = generatePrivateImageUrl(img.id, 260, 220);
-        var img_src_full = generatePrivateImageUrl(img.id);
+        var img_src_full = generatePriphPrivateImageUrl(img.id);
         galleryContainer.innerHTML += "\n" + createImageItem(img_src_thumb,img_src_full,img.id);
       }
       //mobileHoverFix();
@@ -43,6 +43,9 @@ function deleteImageConfirm(id){
   });
 }
 
+function generatePriphPrivateImageUrl(id){
+  return "share.php?privateImage="+id;
+}
 
 /*function mobileHoverFix(){
   $('.image_gallery .image_item').on("touchstart", function (e) {

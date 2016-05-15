@@ -23,16 +23,29 @@ hr {
   height: 70px;
   background: rgb(255, 255, 255);
   border-bottom: 1px solid rgba(95, 95, 95, 0.1);
+  text-align:center;
 }
+
+/* LOGO */
+
+.logo{
+  margin-top: 30px;
+  height: 60px;
+  width: auto;
+}
+
+
+/* WRAPPER*/
 
 .wrapper{
   position:relative;
   width: 1000px;
   min-height: 300px;
-  margin: 50px auto 0 auto;
+  margin: 30px auto 30px auto;
   background-color: white;
   border-radius: 4px;
   border: 1px solid rgba(95, 95, 95, 0.15);
+  display:none; /* fades in */
 }
 
 /* IMAGE CONTENT OF WRAPPER */
@@ -49,7 +62,7 @@ hr {
 .wrapper img{
   width: 100%;
   height: auto;
-  margin:0;
+  margin:0 0 -5px 0;
   padding:0;
 }
 
@@ -63,10 +76,15 @@ hr {
   width:400px;
 }
 
+.info .infowrap{
+  position:relative;
+  padding: 2%;
+  height: 100%;
+}
+
 /* AUTHOR */
 
 .wrapper .info .author{
-  margin: 10px;
   cursor:pointer;
 }
 
@@ -85,16 +103,96 @@ hr {
   padding: 22px 10px 0 0;
 }
 
-/* COMMENTS */
+/* COMMENTBOX */
 
 .wrapper .info .commentbox{
-  width: 100%;
-  height: auto;
-  margin: 5px 15px;
+  height: 60%;
+  overflow-y: auto;
 }
 
-.wrapper .info .commentbox p{
+.wrapper .info .comment-hl{
   font-size: 12px;
   font-weight: bolder;
   color: rgba(0, 0, 0, 0.4);
+  margin: 5px 0 5px 20px;
+}
+
+/* COMMENT */
+
+.comment{
+  margin: 25px 0;
+}
+
+.comment .comment-author{
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.comment .comment-author:hover{
+  opacity: 1;
+}
+
+.comment .comment-author img{
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: solid rgba(0, 0, 0, 0.2) 1px;
+  float: left;
+  margin-right: 10px;
+}
+
+.comment .comment-author div{
+  float: left;
+  margin: 6px 5px 0 0;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.comment .content {
+  margin: 5px 0;
+  padding: 5px 10px;
+  border-radius: 2px;
+  border: solid 1px rgba(190, 190, 190, 0.4);
+}
+
+.comment .content  p{
+  margin:0;
+  color: rgba(113, 113, 113, 0.6);
+}
+
+/* FOR FLOAT CHANGE ON EVERY SECOND COMMENT */
+
+.comment:nth-child(even) .comment-author img {
+    float: right;
+}
+
+.comment:nth-child(even) .comment-author div {
+    float: right;
+}
+
+/* COMMENT FORM */
+
+.comment-form {
+  position:absolute;
+  bottom:10px;
+  width:100%;
+  height: 40px;
+}
+
+.comment-form input{
+  width: 84%;
+  font-size: 14px;
+  padding: 1%;
+  position:absolute;
+  left:8%;
+  top:0;
+}
+
+.comment-form img{
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: solid rgba(0, 0, 0, 0.2) 1px;
+  position:absolute;
+  left: 0;
+  top: 0;
 }
