@@ -3,6 +3,22 @@
 #slide1{
   position:relative;
   background-color: #5187B5;
+  overflow:auto;
+}
+
+
+/* SLIDE WRAPPER */
+#slide1 .about-wrapper{
+  width: 100vw;
+  height: 100vh;
+  overflow-y:auto;
+  overflow-x:hidden;
+}
+
+#slide1 .about-content{
+  width: 100vw;
+  height: 100vh;
+  position:relative;
 }
 
 
@@ -25,4 +41,47 @@
 .less_about:hover{
   opacity: 0.7;
   /*transition: ease-in 0.1s;*/
+}
+
+
+/* FEATURES */
+.features-side{
+  position:absolute;
+  top: 0;
+  left: 0;
+  width: 50vw;
+  height: 85vh;
+  padding-top: 15vh;
+}
+
+.features-box{
+  margin: 20px 20px 20px 50px;
+  position: relative;
+  height: 20vh;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.features-box i{
+  font-size: 120px;
+  position: absolute;
+  left:0;
+  top:0;
+}
+
+.features-box p{
+  font-size: 30px;
+  position: absolute;
+  left:160px;
+  top:0;
+}
+
+
+/* COMMENTS */
+.comment-side{
+  position:absolute;
+  top: 0;
+  left: 50vw;
+  width: 50vw;
+  height: 90vh;
+  padding-top: 10vh;
 }

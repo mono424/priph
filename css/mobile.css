@@ -1,3 +1,41 @@
+/* MIDDLE SCREEN */
+
+@media screen and (max-width: 1200px){
+
+  .features-side{
+    width: 100vw;
+  }
+
+  .comment-side{
+    top: 100vh;
+    left: 50vw;
+    width: 100vw;
+  }
+
+  /* INFO > FEATURES */
+  #slide1 .about-content{
+    height: 200vh;
+  }
+
+  .features-box i{
+    font-size: 100px;
+  }
+
+  .features-box p{
+    font-size: 20px;
+  }
+
+  /* FOOTER */
+  #slide1 .footer{
+    text-align:center;
+  }
+  #slide1 .footer a{
+    white-space: nowrap;
+  }
+
+}
+
+
 /* SMALL SCREEN */
 
 @media screen and (max-width: 860px){
@@ -108,6 +146,7 @@
   .intro-overlay .footer{
     /*background: transparent;*/
   }
+
 }
 
 
