@@ -21,15 +21,6 @@
     font-size: 100px;
   }
 
-  .features-box p{
-    font-size: 20px;
-  }
-
-  /* INFO > COMMENTS */
-  .comment-box .quote q{
-    font-size: 20px;
-  }
-
   /* FOOTER */
   #slide1 .footer{
     text-align:center;
@@ -50,6 +41,16 @@
     width:98%;
     padding-left: 1%;
     padding-right: 1%;
+  }
+
+  /* INFO > FEATURES */
+  .features-box p{
+    font-size: 20px;
+  }
+
+  /* INFO > COMMENTS */
+  .comment-box .quote q{
+    font-size: 20px;
   }
 
 }
