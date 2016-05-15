@@ -8,7 +8,7 @@
 
   .comment-side{
     top: 100vh;
-    left: 50vw;
+    left: 0;
     width: 100vw;
   }
 
@@ -145,6 +145,62 @@
   }
   .intro-overlay .footer{
     /*background: transparent;*/
+  }
+
+  /* ABOUT CONTENT*/
+  #slide1 .about-content{
+    height: 2800px;
+  }
+
+  /* FEATURE BOX */
+  .features-side{
+    height: 1200px;
+  }
+
+  .features-box{
+    margin: 20px 0 20px 0;
+    height: 300px;
+  }
+
+  .features-box i{
+    font-size: 120px;
+    position: absolute;
+    left:0;
+    top:0;
+    width: 100vw;
+    text-align: center;
+  }
+
+  .features-box p{
+    font-size: 20px;
+    position: absolute;
+    left:0;
+    top:130px;
+    padding: 0 10px;
+    text-align:center;
+  }
+
+  /* COMMENTS */
+  .comment-side{
+    top: 1100px;
+  }
+
+  .comment-box{
+    margin: 20px 0 20px 0;
+    height: 400px;
+  }
+
+  .comment-box img{
+    margin: 0 25vw;
+    width: 50vw;
+    height: 50vw;
+  }
+
+  .comment-box .quote{
+    position: absolute;
+    left:0;
+    top:50vw;
+    padding: 10px;
   }
 
 }
