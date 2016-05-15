@@ -1,16 +1,11 @@
 
-  [check] Delete Picture
-  • Share Picture
-  • Edit Picture
+  • Share Picture, advanced sharing
+  • Comment Pictures and Videos
   • Create Gallery Folders
     • Select Photos for multible Shareing
-  • Open Picture Dialog
-  • Upload Picture -> Error/Success Message
-  • DragnDrop Upload File
-  • Upload Video
 
-  • Comment Pictures and Videos
   • change email
+  • Edit Picture
 
 
 
