@@ -1,17 +1,12 @@
 <?php
+
+/* API RESTRICTION SESSION */
+require 'session.php';
+
 /* SKIN */
 $skin = "default";
 $skin_muted = true;
 $skin_video = false;
-
-/* API RESTRICTION*/
-session_start();
-if(!$_SESSION['sessionid']){
-  $sessionid = md5(mt_rand(0,999999999));
-  $_SESSION['sessionid'] = $sessionid;
-}else{
-  $sessionid = $_SESSION['sessionid'];
-}
 
 ?>
 <!DOCTYPE html>
@@ -83,9 +78,10 @@ if(!$_SESSION['sessionid']){
   if(isset($_GET['verify'])){echo "startPage = 'verify';";}
   ?>
   var skinVideoDisabled = <?php echo !$skin_video; ?>;
-  var sessionid = '<?php echo $sessionid; ?>';
   </script>
 
+  <!-- SESSION FOR API -->
+  <?php echoSessionScript(); ?>
 
 </head>
 <body>
