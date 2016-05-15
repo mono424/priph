@@ -414,6 +414,7 @@ $skin_video = false;
           <div class="about-content">
             <!-- FEATURE SIDE -->
             <div class="features-side">
+              <h1>Features</h1>
               <div class="features-box">
                 <i class="fa fa-cloud" aria-hidden="true"></i>
                 <p>
@@ -439,8 +440,41 @@ $skin_video = false;
 
             <!-- COMMENT SIDE -->
             <div class="comment-side">
+              <h1>Opinions</h1>
               <div class="comment-box">
+                <img src="img/com_0.jpg" alt="" />
+                <div class="quote">
+                  <q>
+                    I use Priph since 3 Month now, it offers me the easiest way to share Photos with my Family.
+                  </q>
+                  <footer>
+                    - <cite>Mrs. Mai</cite>
+                  </footer>
+                </div>
+              </div>
 
+              <div class="comment-box">
+                <img src="img/com_1.jpg" alt="" />
+                <div class="quote">
+                  <q>
+                    After i saw the security features of Priph, it was clear: Priph is the only Cloud for my Photos!
+                  </q>
+                  <footer>
+                    - <cite>Mr. Lambard</cite>
+                  </footer>
+                </div>
+              </div>
+
+              <div class="comment-box">
+                <img src="img/com_2.jpg" alt="" />
+                <div class="quote">
+                  <q>
+                    As Model I dont have much time, so i was happy that i found Priph, which allows me to share my Photos save and Fast!
+                  </q>
+                  <footer>
+                    - <cite>Ms. Simmenson</cite>
+                  </footer>
+                </div>
               </div>
 
             </div>
