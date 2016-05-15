@@ -401,24 +401,63 @@ $skin_video = false;
 
         </div>
 
-      <!-- END OF SLIDE -->
+        <!-- END OF SLIDE -->
       </div>
 
 
 
       <!-- INFO CONTAINER -->
       <div id="slide1" data-anchor="info" class="section">
+        <!-- INFO WRAPPER -->
+        <div class="about-wrapper">
+          <!-- INFO CONTENT DIV -->
+          <div class="about-content">
+            <!-- FEATURE SIDE -->
+            <div class="features-side">
+              <div class="features-box">
+                <i class="fa fa-cloud" aria-hidden="true"></i>
+                <p>
+                  All your Photos in the Cloud and available on all your Devices
+                </p>
+              </div>
 
-        <!-- BACK TO TOP BUTTON -->
-        <div id="less_btn" class="less_about">
-          <center>
-            <i class="fa fa-arrow-up" aria-hidden="true"></i>
-            <p>Back to Top</p>
-          </center>
+              <div class="features-box">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                <p>
+                  Share your Photos with your Family or Friends easily and save, even if they aren't on Priph!
+                </p>
+              </div>
+
+              <div class="features-box">
+                <i class="fa fa-shield" aria-hidden="true"></i>
+                <p>
+                  Give your Photos a Save storage! Priph is using https and got many security advantages!
+                </p>
+              </div>
+
+            </div>
+
+            <!-- COMMENT SIDE -->
+            <div class="comment-side">
+              <div class="comment-box">
+
+              </div>
+
+            </div>
+
+
+            <!-- BACK TO TOP BUTTON -->
+            <div id="less_btn" class="less_about">
+              <center>
+                <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                <p>Back to Top</p>
+              </center>
+            </div>
+
+            <!-- FOOTER -->
+            <?php require 'files/footer.php'; ?>
+          </div>
         </div>
-
-        <!-- FOOTER -->
-        <?php require 'files/footer.php'; ?>
       </div>
     </div>
 
