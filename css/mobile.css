@@ -25,6 +25,11 @@
     font-size: 20px;
   }
 
+  /* INFO > COMMENTS */
+  .comment-box .quote q{
+    font-size: 20px;
+  }
+
   /* FOOTER */
   #slide1 .footer{
     text-align:center;
@@ -149,12 +154,16 @@
 
   /* ABOUT CONTENT*/
   #slide1 .about-content{
-    height: 2800px;
+    height: 2600px;
   }
 
   /* FEATURE BOX */
   .features-side{
     height: 1200px;
+  }
+
+  .features-side h1{
+    padding-bottom: 40px;
   }
 
   .features-box{
@@ -181,13 +190,17 @@
   }
 
   /* COMMENTS */
-  .comment-side{
+  .comment-side {
     top: 1100px;
+  }
+
+  .comment-side h1{
+    padding-bottom: 40px;
   }
 
   .comment-box{
     margin: 20px 0 20px 0;
-    height: 400px;
+    height: 350px;
   }
 
   .comment-box img{
