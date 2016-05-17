@@ -498,12 +498,34 @@ $skin_video = false;
 
 
     <!-- REMODAL DIALOG TEMPLATE -->
-    <div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
+    <div class="remodal modal-dialog" data-remodal-id="modal-dialog" data-remodal-options="hashTracking: false">
       <button data-remodal-action="close" class="remodal-close"></button>
       <h1></h1>
       <p></p>
       <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
       <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
+    </div>
+
+    <!-- REMODAL SHARE TEMPLATE -->
+    <div class="remodal modal-share" data-remodal-id="modal-share" data-remodal-options="hashTracking: false">
+      <button data-remodal-action="close" class="remodal-close"></button>
+      <div class="content">
+        <h1>Generate Share-Link</h1>
+        <div class="share-menu-wrapper">
+          <div class="share-menu-item">
+            <i class="fa fa-globe" aria-hidden="true"></i>
+            <p>Share Public</p>
+          </div>
+          <div class="share-menu-item">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            <p>Share with Priph-User</p>
+          </div>
+          <div class="share-menu-item">
+            <i class="fa fa-user-secret" aria-hidden="true"></i>
+            <p>Share One-Time</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- OVERLAY DRAG AND DROP PART -->

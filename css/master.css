@@ -159,7 +159,8 @@ button.priph:hover{
   border-radius: 3px;
   height: auto;
   display: inline-block;
-  padding: 13px 15vw;
+  padding: 13px 0;
+  width: 35vw;
   margin: 0 10px;
   cursor:pointer;
 }
@@ -1049,4 +1050,49 @@ button.priph:hover{
 
 .user-container .user-item ul li.danger:hover{
   color: rgb(230, 139, 139);
+}
+
+
+/* SHARE MODAL */
+
+.modal-share h1{
+  margin-bottom: 15px;
+}
+
+.modal-share .headline{
+  font-size: 14px;
+
+}
+
+.modal-share .share-menu-wrapper{
+  height: 120px;
+}
+
+.modal-share .share-menu-wrapper .share-menu-item{
+  width:30%;
+  height: 110px;
+  padding: 5px 0;
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 4px;
+  border: 2px solid rgb(230, 230, 230);
+  transition: ease-in 0.2s;
+}
+
+.modal-share .share-menu-wrapper .share-menu-item:hover{
+  color: rgb(230, 230, 230);
+  background-color: rgb(52, 52, 52);
+}
+
+.modal-share .share-menu-wrapper .share-menu-item:hover p{
+  color: rgb(230, 230, 230);
+}
+
+.modal-share .share-menu-wrapper .share-menu-item p{
+  color: #2b2e38;
+  margin:0;
+}
+
+.modal-share .share-menu-wrapper .share-menu-item i{
+ font-size: 90px;
 }

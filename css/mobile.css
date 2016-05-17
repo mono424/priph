@@ -106,6 +106,7 @@
   .button-intro{
     display: block;
     margin: 10px 20px;
+    width:auto;
     cursor:pointer;
   }
 
@@ -215,6 +216,17 @@
     left:0;
     top:50vw;
     padding: 10px;
+  }
+
+  /* SHARE MODAL */
+  .modal-share .share-menu-wrapper{
+    height: 380px;
+  }
+
+  .modal-share .share-menu-wrapper .share-menu-item{
+    width:200px;
+    margin: 4px auto;
+    display:block;
   }
 
 }
