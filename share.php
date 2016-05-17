@@ -21,6 +21,9 @@ require 'session.php';
   <!-- MOBILE ;) -->
   <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
 
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+
   <!-- PRIPH JS API -->
   <!-- <script type="text/javascript" src="http://priph.com/api/v1/js/script.min.js"></script> -->
   <script type="text/javascript" src="api/v1/js/script.local.js"></script>
@@ -32,15 +35,25 @@ require 'session.php';
   <script type="text/javascript" src="js/share.js"></script>
 
   <!-- SESSION FOR API -->
-  <?php echoSessionScript(); ?>
+  <?php echoSessionScript(); echo "\n"; ?>
 
-  <!-- IMAGE SOURCE -->
+  <!-- PRIVATE IMAGE SOURCE -->
   <?php
   // IF USERS OWN IMAGE
   if(isset($_GET['privateImage'])){
-    echo "<script>var privateImage = '".$_GET['privateImage']."';</script>";
+    echo "<script type=\"text/javascript\">var privateImage = '".$_GET['privateImage']."';</script>\n";
   }else{
-    echo "<script>var privateImage = false;</script>";
+    echo "<script type=\"text/javascript\">var privateImage = false;</script>\n";
+  }
+  ?>
+
+  <!-- PUBLIC IMAGE SOURCE -->
+  <?php
+  // IF SHARE LINK
+  if(isset($_GET['image']) && isset($_GET['verifier'])){
+    echo "<script type=\"text/javascript\">\n    var image = '".$_GET['image']."';\n    var verifier = '".$_GET['verifier']."';\n  </script>\n\n";
+  }else{
+    echo "<script type=\"text/javascript\">var imageid = false;</script>\n\n";
   }
   ?>
 </head>
@@ -77,6 +90,10 @@ require 'session.php';
       </div>
     </div>
 
+  </div>
+  <div class="not-found">
+    <i class="fa fa-frown-o" aria-hidden="true"></i>
+    <p>Image not Found!</p>
   </div>
 </body>
 </html>

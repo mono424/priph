@@ -1,27 +1,29 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
-/* DEFINE STUFF */
-wrapper = document.querySelector('.wrapper');
+  /* DEFINE STUFF */
+  wrapper = document.querySelector('.wrapper');
 
-image = wrapper.querySelector('#image');
-author_name = wrapper.querySelector('#author_name');
-author_image = wrapper.querySelector('#author_image');
-user_image = wrapper.querySelector('#user_image');
-commentbox = wrapper.querySelector('#commentbox');
+  image = wrapper.querySelector('#image');
+  author_name = wrapper.querySelector('#author_name');
+  author_image = wrapper.querySelector('#author_image');
+  user_image = wrapper.querySelector('#user_image');
+  commentbox = wrapper.querySelector('#commentbox');
 
 
-/* LOAD USERINFO */
-loadUserInfo(function(){
-  setupCommentBar();
+  /* LOAD USERINFO */
+  loadUserInfo(function(){
+    // SETUP COMMENT BAR
+    setupCommentBar();
 
-  // IF PRIVATE IMAGE LOAD IT
-  if(privateImage){
-    loadPrivateImage(privateImage);
-  }
-});
-
-/* LOADING PUBLIC IMAGE */
-
+    // LOAD THE IMAGE
+    if(privateImage){
+      loadPrivateImage(privateImage);
+    }else if (imageid) {
+      loadPublicImage(imageid, verifier);
+    }else{
+      imageNotFound();
+    }
+  });
 
 });
 
@@ -31,7 +33,8 @@ $(window).load(function() {
 })
 
 
-// LOAD IMAGE
+// LOAD PRIVATE IMAGE
+
 function loadPrivateImage(id){
   image.src = generatePrivateImageUrl(id);
   loadPrivateAuthorInfo();
@@ -45,6 +48,14 @@ function loadPrivateAuthorInfo(){
     author_image.src = profilePictureUrl(userinfo.id, 58, 58);
   });
 }
+
+// LOAD PUBLIC IMAGE
+
+function loadPublicImage(id, verifier){
+  console.log(id);
+}
+
+
 
 
 // LOAD USERINFO
@@ -61,6 +72,13 @@ function setupCommentBar(){
 }
 
 
+
+// ERROR
+
+function imageNotFound(){
+  document.querySelector('.wrapper').style.display = "none";
+  document.querySelector('.not-found').style.display = "block";
+}
 
 
 

@@ -2,11 +2,17 @@
 
 /* DB-CONFIG */
 
-// GLOBAL
+// GLOBAL ONLINE
 $config['db']['host'] = "localhost";
-$config['db']['user'] = "root";
-$config['db']['pass'] = "";
-$config['db']['db'] = "priph";
+$config['db']['user'] = "pripcyoy_priph";
+$config['db']['pass'] = "T%yWkKQLl^za";
+$config['db']['db'] = "pripcyoy_priph";
+
+// GLOBAL OFFLINE
+// $config['db']['host'] = "localhost";
+// $config['db']['user'] = "root";
+// $config['db']['pass'] = "";
+// $config['db']['db'] = "priph";
 
 // TABLES
 $config['db']['tables']['member'] = "member";
@@ -14,6 +20,7 @@ $config['db']['tables']['login_attempts'] = "login_attempts";
 $config['db']['tables']['session_token'] = "session_token";
 $config['db']['tables']['upload_token'] = "upload_token";
 $config['db']['tables']['pictures'] = "pictures";
+$config['db']['tables']['share'] = "share";
 
 // LOGIN
 $config['login']['max_attempts'] = 10;      // max wrong attempts in

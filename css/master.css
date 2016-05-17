@@ -774,18 +774,13 @@ button.priph:hover{
   top: 15px;
 }
 
-.image_gallery .image_item .image_share{
+.image_gallery .image_item .image_open{
   right: 45px;
   top: 15px;
 }
 
-.image_gallery .image_item .image_open{
+.image_gallery .image_item .image_share{
   right: 75px;
-  top: 15px;
-}
-
-.image_gallery .image_item .image_edit{
-  right: 105px;
   top: 15px;
 }
 
@@ -1066,6 +1061,27 @@ button.priph:hover{
 
 .modal-share .share-menu-wrapper{
   height: 120px;
+}
+
+.modal-share .share-preloader{
+  display:none;
+  padding: 15px 0;
+}
+
+.modal-share .share-output{
+  display:none;
+  padding: 15px 0 0 0;
+}
+
+.modal-share .share-output input{
+  width: 90%;
+  padding: 4px 2px;
+  border-radius: 2px;
+  font-size: 14px;
+  color: rgb(250, 250, 250);
+  background-color: rgb(61, 124, 88);
+  border: solid 1px rgb(93, 130, 109);
+  text-align:center;
 }
 
 .modal-share .share-menu-wrapper .share-menu-item{

@@ -26,7 +26,7 @@ function user_exist($user_id){
   $res = $con->query("SELECT `id` FROM $table WHERE `id`='$user_id' LIMIT 1");
 
   // CHECK & RETURN
-  if(!$res || $res->num_rows > 0){return true;}else{return false;}
+  if($res && $res->num_rows > 0){return true;}else{return false;}
 }
 
 function userIsAdmin($user_id){
@@ -399,6 +399,38 @@ function getUserProfilePicture($user_id){
   return $array['imageurl'];
 }
 
+function getUserIdFromMail($mail, $con = false){
+  // CONFIG STUFF
+  global $config;
+  $table = $config['db']['tables']['member'];
+
+  // OPEN CONNECTION IF NOT EXIST
+  if(!$con){
+    $con = openDB();
+    if($con === false){error('SQL ERROR');}
+  }
+
+  // GET ID
+  $res = $con->query("SELECT `id` FROM $table WHERE `email`='$mail' LIMIT 1");
+  if(!$res){return false;} // USER DOES NOT EXIST
+  $info = $res->fetch_array();
+  return $info['id'];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* HANDLE USER PICTURES */
 
 function getUserPictures($user_id){
@@ -498,23 +530,69 @@ function deleteAllPictures($user_id, $con=false){
   return true;
 }
 
-function getUserIdFromMail($mail, $con = false){
-  // CONFIG STUFF
-  global $config;
-  $table = $config['db']['tables']['member'];
+/* CHECK PICTURE */
 
-  // OPEN CONNECTION IF NOT EXIST
+function checkImageExists($user_id, $picture_id, $con = false){
+  // GLOBAL STUFF
+  global $config;
+  $table = $config['db']['tables']['pictures'];
+
+  // OPEN NEW DB CONNECTION IF NOT EXISTS
   if(!$con){
     $con = openDB();
     if($con === false){error('SQL ERROR');}
   }
 
-  // GET ID
-  $res = $con->query("SELECT `id` FROM $table WHERE `email`='$mail' LIMIT 1");
-  if(!$res){return false;} // USER DOES NOT EXIST
-  $info = $res->fetch_array();
-  return $info['id'];
+  // SECURITY
+  $picture_id = $con->real_escape_string($picture_id);
+  $user_id = $con->real_escape_string($user_id);
+
+  // GET INFORMATION
+  $res = $con->query("SELECT `path` FROM $table WHERE `id`='$picture_id' AND `user_id`='$user_id' LIMIT 1");
+  if($res && $res->num_rows > 0){$ret = true;}else{$ret=false;}
+  return $ret;
 }
 
+/* SHARE PICTURE */
+
+function generatePictureShareInfo($user_id, $picture_id, $userRestrictionID,  $commentsEnabled, $singleTimeLink, $con = false){
+  // GLOBAL STUFF
+  global $config;
+  $table = $config['db']['tables']['share'];
+
+  // OPEN NEW DB CONNECTION IF NOT EXISTS
+  if(!$con){
+    $con = openDB();
+    if($con === false){error('SQL ERROR');}
+  }
+
+  // CHECK IMAGE
+  if(!checkImageExists($user_id, $picture_id, $con)){error('Invalid Picture ID!');}
+
+  // CHECK USER EXISTS ON PRIPH SHARE
+  if($userRestrictionID){
+    if(!user_exist($userRestrictionID)){error('Invalid Priph-User!');}
+  }else{
+    $userRestrictionID = 0;
+  }
+
+  // GENERATE VERFIER
+  $verifier = randomPass(32);
+
+  // SECURITY
+  $picture_id = $con->real_escape_string($picture_id);
+  $verifier = $con->real_escape_string($verifier);
+  $userRestrictionID = $con->real_escape_string($userRestrictionID);
+  $commentsEnabled = ($commentsEnabled) ? 1 : 0;
+  $singleTimeLink = ($singleTimeLink) ? 1 : 0;
+
+
+  // WRITE INFORMATION
+  $con->query("INSERT INTO $table (`picture_id`,`verifier`,`restrict_to_user_id`,`comments_enabled`,`single_time_link`)
+                                  VALUES ('$picture_id','$verifier','$userRestrictionID','$commentsEnabled','$singleTimeLink')");
+
+  // RETURN
+  return ['id' => $con->insert_id, 'verifier' => $verifier];
+}
 
  ?>
