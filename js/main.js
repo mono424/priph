@@ -906,25 +906,24 @@ function cutString(string, length){
 }
 
 var inst;
-var dialogID = 0;
 function niceConfirm(title, text, success, abort){
   // VAR :P
-  inst = $('[data-remodal-id=modal]').remodal();
+  inst = $('[data-remodal-id=modal-dialog]').remodal();
 
   // SET DATA
-  remodal = document.querySelector('.remodal');
+  remodal = document.querySelector('.modal-dialog');
   remodal.querySelector('h1').innerHTML = title;
   remodal.querySelector('p').innerHTML = text;
 
   // CALLBACKS
-  if(success){$(document).on('confirmation', '.remodal', success);}
-  if(abort){$(document).on('cancellation', '.remodal', abort);}
+  if(success){$(document).on('confirmation', '.modal-dialog', success);}
+  if(abort){$(document).on('cancellation', '.modal-dialog', abort);}
 
-  // CLEANUP
-  $(document).on('closed', '.remodal', function (e) {
-    $(document).off('confirmation', '.remodal');
-    $(document).off('cancellation', '.remodal');
-    $(document).off('closed', '.remodal');
+  // CLEANUP ON MODAL CLOSE
+  $(document).on('closed', '.modal-dialog', function (e) {
+    $(document).off('confirmation', '.modal-dialog');
+    $(document).off('cancellation', '.modal-dialog');
+    $(document).off('closed', '.modal-dialog');
   });
 
   //GO!GO!GO!
@@ -939,3 +938,22 @@ function hasGetUserMedia() {
   return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
     navigator.mozGetUserMedia || navigator.msGetUserMedia);
   }
+
+
+/* SHARE MODAL */
+function showSharePictureModal(id){
+  // VAR :P
+  inst = $('[data-remodal-id=modal-share]').remodal();
+
+  // SET DATA
+  remodal = document.querySelector('.modal-share');
+  //remodal.querySelector('.content').innerHTML = "";
+
+  // CLEANUP ON MODAL CLOSE
+  $(document).on('closed', '.modal-share', function (e) {
+    $(document).off('closed', '.modal-share');
+  });
+
+  //GO!GO!GO!
+  inst.open();
+}
