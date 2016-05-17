@@ -196,3 +196,25 @@ hr {
   left: 0;
   top: 0;
 }
+
+
+
+/* ERROR */
+
+.not-found{
+  color:rgba(0, 0, 0, 0.4);
+  margin:auto;
+  width: 320px;
+  display:none;
+  text-align:center;
+  margin-top: 20vh;
+}
+
+.not-found i{
+  font-size: 320px;
+}
+
+.not-found p{
+  font-size: 36px;
+  font-weight: bolder;
+}

@@ -512,18 +512,26 @@ $skin_video = false;
       <div class="content">
         <h1>Generate Share-Link</h1>
         <div class="share-menu-wrapper">
-          <div class="share-menu-item">
+          <div id="public-share" class="share-menu-item">
             <i class="fa fa-globe" aria-hidden="true"></i>
             <p>Share Public</p>
           </div>
-          <div class="share-menu-item">
+          <div id="priph-share" class="share-menu-item">
             <i class="fa fa-user" aria-hidden="true"></i>
             <p>Share with Priph-User</p>
           </div>
-          <div class="share-menu-item">
+          <div id="onetime-share" class="share-menu-item">
             <i class="fa fa-user-secret" aria-hidden="true"></i>
             <p>Share One-Time</p>
           </div>
+        </div>
+        <div class="share-preloader">
+          <img src="img/preloader.gif" alt="" />
+        </div>
+        <div class="share-output">
+          <input id="output-share-link" type="text" name="name" value="">
+          <br><br><br>
+          <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
         </div>
       </div>
     </div>

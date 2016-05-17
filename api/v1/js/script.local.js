@@ -127,6 +127,9 @@ function deleteSession(id, cb){
   request('action=user-session-delete&session='+id, cb);
 }
 
+function generateShareInfo(picture, toUser, comments, singleTimeLink, cb){
+  request('action=user-generate-share-info&picture='+picture+'&to-user='+toUser+"&comments="+comments+"&single-time-link="+singleTimeLink, cb);
+}
 
 
 

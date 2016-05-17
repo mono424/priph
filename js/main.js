@@ -945,9 +945,43 @@ function showSharePictureModal(id){
   // VAR :P
   inst = $('[data-remodal-id=modal-share]').remodal();
 
-  // SET DATA
-  remodal = document.querySelector('.modal-share');
-  //remodal.querySelector('.content').innerHTML = "";
+  // GET CONTROLS
+  var remodalContent = document.querySelector('.modal-share .content');
+  var remodalMenu = remodalContent.querySelector('.share-menu-wrapper');
+  var remodalOut = remodalContent.querySelector('.share-output');
+  var remodalPreloader = remodalContent.querySelector('.share-preloader');
+  var publicShareBtn = remodalMenu.querySelector('#public-share');
+  var priphShareBtn = remodalMenu.querySelector('#priph-share');
+  var onetimeShareBtn = remodalMenu.querySelector('#onetime-share');
+  var remodelOutInput = remodalOut.querySelector('#output-share-link');
+
+  // SHOW RIGHT THINGS :P
+  remodalMenu.style.display = "block";
+  remodalOut.style.display = "none";
+  remodalPreloader.style.display = "none";
+
+  // SOME HANDLER STUFF
+  publicShareBtn.onclick = function(){
+    remodalMenu.style.display = "none";
+    remodalPreloader.style.display = "block";
+    generateShareInfo(id, 0, 1, 0, function(data){
+        shareLinkCallback(data, remodelOutInput);
+        remodalOut.style.display = "block";
+        remodalPreloader.style.display = "none";
+    });
+  };
+  priphShareBtn.onclick = function(){
+    notie.alert(4, 'Not available atm!', 3);
+  };
+  onetimeShareBtn.onclick = function(){
+    remodalMenu.style.display = "none";
+    remodalPreloader.style.display = "block";
+    generateShareInfo(id, 0, 1, 1, function(data){
+        shareLinkCallback(data, remodelOutInput);
+        remodalOut.style.display = "block";
+        remodalPreloader.style.display = "none";
+    });
+  };
 
   // CLEANUP ON MODAL CLOSE
   $(document).on('closed', '.modal-share', function (e) {
@@ -956,4 +990,11 @@ function showSharePictureModal(id){
 
   //GO!GO!GO!
   inst.open();
+}
+
+function shareLinkCallback(data, input){
+  if(data.error){/* ERROR */notie.alert(3, data.error, 2);return;}
+  if(!data.response){/* ERROR */notie.alert(3, 'Unknown Error!', 2);return;}
+  console.log(data);
+  input.value = "https://priph.com/share.php?image="+data.response.id+"&verifier="+data.response.verifier;
 }

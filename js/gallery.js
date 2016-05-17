@@ -27,7 +27,6 @@ function galleryLoad(){
 function createImageItem(thumbimg_src, fullimg_src, id){
   var item = '<div class="image_item" style="background: url('+thumbimg_src+') no-repeat; background-size: cover;">';
   item +=       '<!-- Overlay Buttons -->';
-  item +=       '<i class="fa fa-pencil-square-o image_overlay image_edit" aria-hidden="true"></i>';
   item +=       '<a target="_blank" href="'+fullimg_src+'"><i class="fa fa-external-link image_overlay image_open" aria-hidden="true"></i></a>';
   item +=       '<i onclick="showSharePictureModal(\''+id+'\');" class="fa fa-share-square image_overlay image_share" aria-hidden="true"></i>';
   item +=       '<a onclick="deleteImageConfirm(\''+id+'\');"><i class="fa fa-trash-o image_overlay image_delete" aria-hidden="true"></i></a>';
