@@ -54,9 +54,6 @@ $config['mail']['reply_mail'] = "";
 $config['mail']['reply_name'] = "";
 
 
-// API KEY INFOheight
-// $config['keyinfo'];
-
 // MYSQLi
 function openDB(){
   global $config;

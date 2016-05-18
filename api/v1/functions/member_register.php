@@ -7,9 +7,6 @@ function registerUser($user, $pass = ""){
   global $config;
   $table = $config['db']['tables']['member'];
 
-  // ALLOWED TO REGISTER USERS ??
-  if(!$config['keyinfo']['allow_register_user']){error('Not allowed!');}
-
   // USER EXISTS
   $user_id = getUserIdFromMail($user);
   if($user_id){error('Email is already registered!');}
