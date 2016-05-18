@@ -2,17 +2,11 @@
 
 /* DB-CONFIG */
 
-// GLOBAL ONLINE
-$config['db']['host'] = "localhost";
-$config['db']['user'] = "pripcyoy_priph";
-$config['db']['pass'] = "T%yWkKQLl^za";
-$config['db']['db'] = "pripcyoy_priph";
-
 // GLOBAL OFFLINE
-// $config['db']['host'] = "localhost";
-// $config['db']['user'] = "root";
-// $config['db']['pass'] = "";
-// $config['db']['db'] = "priph";
+$config['db']['host'] = "localhost";
+$config['db']['user'] = "root";
+$config['db']['pass'] = "";
+$config['db']['db'] = "priph";
 
 // TABLES
 $config['db']['tables']['member'] = "member";
@@ -41,6 +35,7 @@ $config['upload']['max_picture_size'] = 5 * 1000 * 1000; // 5MB
 $config['upload']['picture_extensions'] = ['jpeg','jpg'];
 $config['upload']['picture_path'] = "../../images/uploaded";
 
+
 // EMAIL AUTH STUFF
 $config['mail']['host'] = '';
 $config['mail']['user'] = '';
@@ -52,6 +47,22 @@ $config['mail']['SMTPSecure'] = 'ssl';
 $config['mail']['from_name'] = "";
 $config['mail']['reply_mail'] = "";
 $config['mail']['reply_name'] = "";
+
+
+
+//  ### ONLINE CONFIG OVERWRITE ###
+
+// DB
+$config['db']['host'] = "localhost";
+$config['db']['user'] = "pripcyoy_priph";
+$config['db']['pass'] = "T%yWkKQLl^za";
+$config['db']['db'] = "pripcyoy_priph";
+//EMAIL
+$config['mail']['host'] = 'server132.web-hosting.com';
+$config['mail']['user'] = 'noreply@priph.com';
+$config['mail']['pass'] = 'c*#^BV(Z5d?^';
+
+
 
 
 // MYSQLi
