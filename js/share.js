@@ -21,19 +21,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }else if (imageid) {
       loadPublicImage(imageid, verifier);
     }else{
-      imageNotFound();
+      error("Image not found!");
     }
   });
 
 });
 
-$(window).load(function() {
-  /* FADE IN WRAPPER */
-  $(wrapper).fadeIn(1000);
-})
 
 
-// LOAD PRIVATE IMAGE
+
+
+
+
+// **** LOAD PRIVATE IMAGE
 
 function loadPrivateImage(id){
   image.src = generatePrivateImageUrl(id);
@@ -42,19 +42,68 @@ function loadPrivateImage(id){
 
 function loadPrivateAuthorInfo(){
   userInfo(function(data){
-    console.log(data);
     userinfo = data.response;
-    author_name.innerHTML = userinfo.displayname;
-    author_image.src = profilePictureUrl(userinfo.id, 58, 58);
+    setAuthorInfo(userinfo.id, userinfo.displayname);
+
+    // PAGE LOADED
+    loaded();
   });
 }
 
-// LOAD PUBLIC IMAGE
+
+
+
+
+
+
+// **** LOAD PUBLIC IMAGE
 
 function loadPublicImage(id, verifier){
-  console.log(id);
+  publicGetShareInfo(id, verifier, function(data){
+    if(data.error){error(data.error);return;}
+    if(!data.response){error('Unknown Error!');return;}
+
+    // SET AUTHOR INFO
+    setAuthorInfo(data.response.author.id, data.response.author.displayname)
+
+    // SET IMG SOURCE
+    image.src = publicGeneratePictureSrc(data.response.picture_token.id, data.response.picture_token.token);
+
+    // DO WARNING IF SINGLE TIME LINK
+    if(data.response.single_time_link){/* WARNING */}
+
+    // DISABLE COMMENT BAR IF COMMENTS ARE DISABLED
+    if(!data.response.comments_enabled){/* DISABLE */}
+
+
+    // PAGE LOADED
+    loaded();
+  });
 }
 
+
+
+
+
+
+
+// **** OTHER STUFF
+
+
+// SET AUTHOR INFO
+
+function setAuthorInfo(id, displayname){
+  author_name.innerHTML = displayname;
+  author_image.src = profilePictureUrl(id, 58, 58);
+}
+
+
+
+// PAGE LOADED
+
+function loaded(){
+  $(wrapper).fadeIn(1000);
+}
 
 
 
@@ -75,9 +124,9 @@ function setupCommentBar(){
 
 // ERROR
 
-function imageNotFound(){
-  document.querySelector('.wrapper').style.display = "none";
-  document.querySelector('.not-found').style.display = "block";
+function error(text){
+  document.querySelector('.error p').innerHTML = text;
+  $('.error').fadeIn(1000);
 }
 
 

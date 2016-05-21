@@ -131,6 +131,17 @@ function generateShareInfo(picture, toUser, comments, singleTimeLink, cb){
   request('action=user-generate-share-info&picture='+picture+'&to-user='+toUser+"&comments="+comments+"&single-time-link="+singleTimeLink, cb);
 }
 
+function publicGetShareInfo(shareid, verifier, cb){
+  request('action=public-get-share-info&shareid='+shareid+'&verifier='+verifier, cb);
+}
+
+function publicGeneratePictureSrc(id, token, width, height){
+  var addParams = "";
+  if(width && height){addParams += "&width="+width+"&height="+height;}
+  return url + "?sessionid="+sessionid + "&action=publicGetPicture&id="+id+"&token="+token+addParams;
+}
+
+
 
 
 /* ADMIN FUNCTIONS */

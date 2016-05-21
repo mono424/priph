@@ -595,4 +595,128 @@ function generatePictureShareInfo($user_id, $picture_id, $userRestrictionID,  $c
   return ['id' => $con->insert_id, 'verifier' => $verifier];
 }
 
+function getPictureShareInfo($user, $shareId, $verifier, $con = false){
+  // GLOBAL STUFF
+  global $config;
+  $table = $config['db']['tables']['share'];
+
+  // OPEN NEW DB CONNECTION IF NOT EXISTS
+  if(!$con){
+    $con = openDB();
+    if($con === false){error('SQL ERROR');}
+  }
+
+  // SECURITY
+  $user = $con->real_escape_string($user);
+  $shareId = $con->real_escape_string($shareId);
+  $verifier = $con->real_escape_string($verifier);
+
+  // LOOK IF EXISTS AND GET SHARE INFO
+  $res = $con->query("SELECT * FROM $table WHERE `id` = '$shareId' AND `verifier` = '$verifier'");
+
+  // EXISTS ?!
+  if($res && $res->num_rows > 0){$info = $res->fetch_assoc();}else{error('Not found!');}
+
+  // CHECK ACCESS
+  if(!$info['restrict_to_user_id'] == "0" && !($user && $info['restrict_to_user_id'] == $user)){
+    error('Not allowed!');
+  }
+
+  // IF SINGLE TIME LINK
+  if($info['single_time_link'] && $info['views'] > 0){
+    error('Link expired!');
+  }
+
+  // ADD A VIEW
+  $con->query("UPDATE $table SET `views`='".($info['views']+1)."' WHERE `id` = '$shareId'");
+
+  // generateShareLink
+  $pictureInfo = generatePublicPictureToken($info['picture_id'],$con);
+  $authorInfo = getAuthorInfo($info['picture_id'],$con);
+
+  // DO THE OUTPUT
+  $out = [];
+  $out['picture_token'] = $pictureInfo;
+  $out['author'] = $authorInfo;
+  $out['single_time_link'] = $info['single_time_link'];
+  $out['comments_enabled'] = $info['comments_enabled'];
+  $out['created'] = $info['created'];
+
+  // todo: get info and picture and return!
+
+  return $out;
+}
+
+function generatePublicPictureToken($picture, $con = false){
+  // GLOBAL STUFF
+  global $config;
+  $table = $config['db']['tables']['public_picture_token'];
+
+  // OPEN NEW DB CONNECTION IF NOT EXISTS
+  if(!$con){
+    $con = openDB();
+    if($con === false){error('SQL ERROR');}
+  }
+
+  // SECURITY
+  $picture = $con->real_escape_string($picture);
+  $token = $con->real_escape_string(randomPass(64));
+
+  // INSERT IT
+  $con->query("INSERT INTO $table (`picture_id`,`token`) VALUES ('$picture','$token')");
+
+  // RETURN
+  return ['id'=>$con->insert_id,'token'=>$token];
+}
+
+function getAuthorInfo($picture, $con = false){
+  // GLOBAL STUFF
+  global $config;
+  $table = $config['db']['tables']['pictures'];
+  $table_member = $config['db']['tables']['member'];
+
+  // OPEN NEW DB CONNECTION IF NOT EXISTS
+  if(!$con){
+    $con = openDB();
+    if($con === false){error('SQL ERROR');}
+  }
+
+  // SECURITY
+  $picture = $con->real_escape_string($picture);
+
+  // GET INFO
+  $res = $con->query("SELECT $table_member.`id` as `id`, $table_member.`displayname` as `displayname` FROM $table JOIN $table_member ON $table.`user_id`=$table_member.`id` WHERE $table.`id`='$picture'");
+  if($res && $res->num_rows > 0){$array = $res->fetch_assoc();}else{return false;}
+
+  // RETURN
+  return $array;
+}
+
+function getPublicPicturePath($id, $token){
+  // GLOBAL STUFF
+  global $config;
+  $table = $config['db']['tables']['pictures'];
+  $token_table = $config['db']['tables']['public_picture_token'];
+
+  // OPEN NEW DB CONNECTION
+  $con = openDB();
+  if($con === false){return false;}
+
+  // SECURITY
+  $id = $con->real_escape_string($id);
+  $token = $con->real_escape_string($token);
+
+  // GET PICTURE ID
+  $res = $con->query("SELECT `picture_id` FROM $token_table WHERE `id`='$id' AND `token`='$token' LIMIT 1");
+  if($res && $res->num_rows > 0){$picId = $res->fetch_assoc()['picture_id'];}else{return false;}
+
+  // DELETE TOKEN
+  $con->query("DELETE FROM $token_table WHERE `id`='$id' AND `token`='$token'");
+
+  // GET INFORMATION
+  $res = $con->query("SELECT `path` FROM $table WHERE `id`='$picId' LIMIT 1");
+  if($res && $res->num_rows > 0){$array = $res->fetch_assoc();}else{return false;}
+  return $array['path'];
+}
+
  ?>

@@ -51,7 +51,7 @@ require 'session.php';
   <?php
   // IF SHARE LINK
   if(isset($_GET['image']) && isset($_GET['verifier'])){
-    echo "<script type=\"text/javascript\">\n    var image = '".$_GET['image']."';\n    var verifier = '".$_GET['verifier']."';\n  </script>\n\n";
+    echo "<script type=\"text/javascript\">\n    var imageid = '".$_GET['image']."';\n    var verifier = '".$_GET['verifier']."';\n  </script>\n\n";
   }else{
     echo "<script type=\"text/javascript\">var imageid = false;</script>\n\n";
   }
@@ -91,7 +91,7 @@ require 'session.php';
     </div>
 
   </div>
-  <div class="not-found">
+  <div class="error">
     <i class="fa fa-frown-o" aria-hidden="true"></i>
     <p>Image not Found!</p>
   </div>

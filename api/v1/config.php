@@ -15,6 +15,7 @@ $config['db']['tables']['session_token'] = "session_token";
 $config['db']['tables']['upload_token'] = "upload_token";
 $config['db']['tables']['pictures'] = "pictures";
 $config['db']['tables']['share'] = "share";
+$config['db']['tables']['public_picture_token'] = "public_picture_token";
 
 // LOGIN
 $config['login']['max_attempts'] = 10;      // max wrong attempts in

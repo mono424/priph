@@ -201,7 +201,7 @@ hr {
 
 /* ERROR */
 
-.not-found{
+.error{
   color:rgba(0, 0, 0, 0.4);
   margin:auto;
   width: 320px;
@@ -210,11 +210,11 @@ hr {
   margin-top: 20vh;
 }
 
-.not-found i{
+.error i{
   font-size: 320px;
 }
 
-.not-found p{
+.error p{
   font-size: 36px;
   font-weight: bolder;
 }
