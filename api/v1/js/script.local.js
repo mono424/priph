@@ -141,6 +141,11 @@ function publicGeneratePictureSrc(id, token, width, height){
   return url + "?sessionid="+sessionid + "&action=publicGetPicture&id="+id+"&token="+token+addParams;
 }
 
+function shortLink(link, cb){
+  link = encodeURIComponent(link);
+  request('action=short-link&link='+link, cb);
+}
+
 
 
 

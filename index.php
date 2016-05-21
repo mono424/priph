@@ -529,7 +529,9 @@ $skin_video = false;
           <img src="img/preloader.gif" alt="" />
         </div>
         <div class="share-output">
-          <input id="output-share-link" type="text" name="name" value="">
+          <input id="output-share-link" type="text" name="name" value=""><br>
+          <br>or a bit shorter<br><br>
+          <input id="output-share-link-short" type="text" name="name" value="">
           <br><br><br>
           <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
         </div>

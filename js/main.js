@@ -955,6 +955,7 @@ function showSharePictureModal(id){
   var priphShareBtn = remodalMenu.querySelector('#priph-share');
   var onetimeShareBtn = remodalMenu.querySelector('#onetime-share');
   var remodelOutInput = remodalOut.querySelector('#output-share-link');
+  var remodelOutShortInput = remodalOut.querySelector('#output-share-link-short');
 
   // SHOW RIGHT THINGS :P
   remodalMenu.style.display = "block";
@@ -966,7 +967,7 @@ function showSharePictureModal(id){
     remodalMenu.style.display = "none";
     remodalPreloader.style.display = "block";
     generateShareInfo(id, 0, 1, 0, function(data){
-        shareLinkCallback(data, remodelOutInput);
+        shareLinkCallback(data, remodelOutInput, remodelOutShortInput);
         remodalOut.style.display = "block";
         remodalPreloader.style.display = "none";
     });
@@ -978,7 +979,7 @@ function showSharePictureModal(id){
     remodalMenu.style.display = "none";
     remodalPreloader.style.display = "block";
     generateShareInfo(id, 0, 1, 1, function(data){
-        shareLinkCallback(data, remodelOutInput);
+        shareLinkCallback(data, remodelOutInput, remodelOutShortInput);
         remodalOut.style.display = "block";
         remodalPreloader.style.display = "none";
     });
@@ -993,9 +994,14 @@ function showSharePictureModal(id){
   inst.open();
 }
 
-function shareLinkCallback(data, input){
+function shareLinkCallback(data, input, shortInput){
   if(data.error){/* ERROR */notie.alert(3, data.error, 2);return;}
   if(!data.response){/* ERROR */notie.alert(3, 'Unknown Error!', 2);return;}
-  console.log(data);
-  input.value = "https://priph.com/share.php?image="+data.response.id+"&verifier="+data.response.verifier;
+  var link = "https://priph.com/share.php?image="+data.response.id+"&verifier="+data.response.verifier;
+  input.value = link;
+  shortInput.value = "loading..";
+  shortLink(link, function(data){
+    if(data.error || !data.response){shortInput.value = "Priph couldnt create a shortlink :(";return;}
+    shortInput.value = data.response;
+  });
 }
