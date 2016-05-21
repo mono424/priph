@@ -1,8 +1,6 @@
 <?php
 
 function run_action(){
-  if(attemptAuth(false, false)){
-
     // GET OPTIONAL PARAMS
     $user = (isset($_GET['user'])) ? $_GET['user'] : getUserFromCookie();;
     $width = (isset($_GET['width'])) ? $_GET['width'] : 0;
@@ -24,9 +22,6 @@ function run_action(){
     // DISPLAY THE IMAGE
     header('Content-Type: image/jpeg');
     imagejpeg($image);
-  }else{
-    die(''); // TODO: MAYBE DISPALY NOT LOGGED IN IMAGE
-  }
 }
 
  ?>

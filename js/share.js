@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   author_image = wrapper.querySelector('#author_image');
   user_image = wrapper.querySelector('#user_image');
   commentbox = wrapper.querySelector('#commentbox');
+  commentform = wrapper.querySelector('.comment-form');
 
 
   /* LOAD USERINFO */
@@ -117,7 +118,7 @@ function loadUserInfo(cb){
 }
 
 function setupCommentBar(){
-  user_image.src = profilePictureUrl(userinfo.id, 26, 26);
+  if(userinfo){user_image.src = profilePictureUrl(userinfo.id, 26, 26);}else{commentform.style.display = 'none';}
 }
 
 
