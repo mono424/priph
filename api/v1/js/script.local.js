@@ -14,10 +14,21 @@ function request(params,cb){
     while(is_request){}
     is_request = 1;
   }
-  $.get(url + "?sessionid="+sessionid + "&" + params, function( data ) {
-    is_request=0;
-    if(cb){cb(data);}
-  }, "json" );
+
+  $.ajax({
+    url: url + "?sessionid="+sessionid + "&" + params,
+    dataType: 'json',
+    type: 'get',
+    cache: false,
+    success: function(data){
+      if(cb){cb(data);}
+    },
+    done: function(data){
+    },
+    error: function(data){
+      if(cb){cb(false);}
+    }
+  });
 }
 
 function uploadFileRequest(params, file_data, cb, upload_status){
@@ -146,6 +157,27 @@ function shortLink(link, cb){
   request('action=short-link&link='+link, cb);
 }
 
+function userGetPictureComments(id, cb){
+  request('action=user-get-picture-comments&id='+id, cb);
+}
+
+function updateCommentToken(pictureid, token, cb){
+  request('action=updateCommentToken&pictureid='+pictureid+'&token='+token, cb);
+}
+
+function deleteCommentToken(pictureid, token, cb){
+  request('action=deleteCommentToken&pictureid='+pictureid+'&token='+token, cb);
+}
+
+function addPictureComment(pictureid, token, comment, cb){
+  // have to change it to post cuz to long!
+  comment = encodeURIComponent(comment);
+  request('action=addPictureComment&pictureid='+pictureid+'&token='+token+'&comment='+comment, cb);
+}
+
+function deletePictureComment(commentid, token, cb){
+  request('action=deletePictureComment&commentid='+pictureid+'&token='+token, cb);
+}
 
 
 
