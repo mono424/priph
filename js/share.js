@@ -10,7 +10,30 @@ document.addEventListener("DOMContentLoaded", function(event) {
   commentbox = wrapper.querySelector('#commentbox');
   commentform = wrapper.querySelector('.comment-form');
   commenttextbox = wrapper.querySelector('#commenttextbox');
+  commentContextMenu = document.querySelector('.comment-menu');
+  commentContextMenuDeleteButton = document.querySelector('#comment_delete');
+  lastContextComment = false;
 
+  commentContextMenuDeleteButton.addEventListener('click', function(e){
+    var commentid = this.parentElement.dataset.commentid;
+    var comment = document.querySelector('#'+this.parentElement.dataset.commentcontentid);
+    comment.style.opacity ="0.3";
+    $(commentContextMenu).hide(100);
+    deletePictureComment(commentid,commentToken, function(data){
+      if(data.error){console.log(data.error);comment.style.opacity ="1";return;}
+      else if(!data.response){console.log('Unknown Error!');comment.style.opacity ="1";return;}
+      comment.remove();
+    });
+  });
+
+  document.addEventListener('click', function(e){
+    // If the clicked element is not the menu
+    if (!$(e.target).parents('.comment-menu').length > 0) {
+      // Hide it
+      $(commentContextMenu).hide(100);
+      if(lastContextComment){lastContextComment.style.background = "";}
+    }
+  });
 
   /* LOAD USERINFO */
   loadUserInfo(function(){
@@ -60,6 +83,9 @@ function loadPrivateImage(id){
       // SET COMMENTS
       addCommentsToBox(data.response);
 
+      // SET HANDLER
+      addContextMenuHandler();
+
       // PAGE LOADED
       loaded();
     })
@@ -82,7 +108,8 @@ function loadPublicImage(id, verifier){
     if(!data.response){error('Unknown Error!');return;}
 
     // SET AUTHOR INFO
-    setAuthorInfo(data.response.author.id, data.response.author.displayname);
+    currentUser = data.response.author.id;
+    setAuthorInfo(currentUser, data.response.author.displayname);
 
     // SET IMG SOURCE
     image.src = publicGeneratePictureSrc(data.response.picture_token.id, data.response.picture_token.token);
@@ -102,8 +129,9 @@ function loadPublicImage(id, verifier){
       window.addEventListener("beforeunload", function(e){
         deleteCommentTokenHandler();
       }, false);
-      setupCommentBarHandler();
 
+      // SET COMMENTS
+      setupCommentBarHandler();
 
     }else{/* DISABLE */}
 
@@ -112,6 +140,8 @@ function loadPublicImage(id, verifier){
       addCommentsToBox(data.response.comments);
     }
 
+    // SET HANDLER
+    addContextMenuHandler();
 
 
     // PAGE LOADED
@@ -143,7 +173,10 @@ function sendComment(text){
     // todo: better error display
     if(data.error){console.log(data.error);commentItem.remove();}
     else if(!data.response){console.log('Unknown Error!');commentItem.remove();}
-    else{
+    else{console.log(data);
+      commentItem.dataset.commentid = data.response.comment_id;
+      commentItem.dataset.authorid = data.response.user_id;
+      addContextMenuHandler();
       commentItem.style.opacity = '1';
     }
     commenttextbox.value = "";
@@ -170,7 +203,9 @@ function loadPrivateAuthorInfo(cb){
 function addCommentsToBox(comments){
   for(var i = 0; i < comments.length; i++){
     var comment = comments[i];
-    addCommentToBox(comment.displayname, profilePictureUrl(comment.user_id, 26, 26), comment.text);
+    var commentitem = addCommentToBox(comment.displayname, profilePictureUrl(comment.user_id, 26, 26), comment.text, 'pub_com_'+comment.comment_id);
+    commentitem.dataset.commentid = comment.comment_id;
+    commentitem.dataset.authorid = comment.user_id;
   }
 }
 
@@ -242,4 +277,28 @@ function generateComment(author_name, author_img, content, id){
   var out = '<div class="comment">';
   out += '<div class="content"'+id+'><div class="comment-author cf"><img src="'+author_img+'" alt="" /><div>'+author_name+'</div></div><p>'+content+'</p></div></div></div>';
   return out;
+}
+
+
+// SHOW CONTEXT-MENU
+function addContextMenuHandler(){
+  var comments = document.querySelectorAll('.comment .content');
+  for(var i = 0; i < comments.length; i++){
+    var comment = comments[i];
+    comment.oncontextmenu = commentContextHandler;
+  }
+}
+
+function commentContextHandler(e){
+    e.preventDefault();
+    if(lastContextComment){lastContextComment.style.background = "";}
+    lastContextComment = this;
+    if(privateImage || this.dataset.authorid == currentUser){
+      commentContextMenu.dataset.commentid = this.dataset.commentid;
+      commentContextMenu.dataset.commentcontentid = this.id;
+      commentContextMenu.style.top = event.pageY + "px";
+      commentContextMenu.style.left = event.pageX + "px";
+      $(commentContextMenu).fadeIn(100);
+      this.style.background = "rgb(236, 236, 236)";
+    }
 }

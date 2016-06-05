@@ -870,9 +870,10 @@ function addPictureComment($authorid, $picture_id, $token, $text, $con = false){
   // ADD PICTURE COMMENT
   $con->query("INSERT INTO `$table_comments` (`picture_id`,`user_id`,`text`) VALUES ('$picture_id','$authorid','$text')");
   if($con->error){error("SQL QUERY ERROR");}
+  $comid = $con->insert_id;
 
   // RETURN
-  return true;
+  return ['comment_id' => $comid,'user_id' => $authorid];
 }
 
 
@@ -928,11 +929,10 @@ function getPictureComment($commentid, $con = false){
   }
 
   // SECURITY
-  $id = $con->real_escape_string($id);
-
+  $commentid = $con->real_escape_string($commentid);
 
   // LOOK IF EXISTS AND GET COMMENTS
-  $res = $con->query("SELECT * FROM `$table` WHERE `comment_id`='$id'");
+  $res = $con->query("SELECT * FROM `$table` WHERE `comment_id`='$commentid'");
 
   // EXISTS IF YES DO OUTPUT
   if($res && $res->num_rows > 0){return $res->fetch_assoc();}else{return false;}
@@ -950,24 +950,27 @@ function deletePictureComment($authorid, $commentid, $token, $con = false){
     if($con === false){error('SQL ERROR');}
   }
 
+  // GET COMMENT INFO
+  $comment = getPictureComment($commentid, $con);
+  if(!$comment){return false;}
+
   // TOKEN VALID OR IMAGE AUTHOR
   if($token){
     // CHECK TOKEN
-    if(!checkPictureCommentToken($picture_id, $token, $con)){
+    if(!checkPictureCommentToken($comment['picture_id'], $token, $con)){
       return false;
     }
     $isPictureAuthor = false;
   }else{
     // CHECK IF USER AUTHOR OF IMAGE
-    $info = getAuthorInfo($picture_id);
+    $info = getAuthorInfo($comment['picture_id']);
     if(!$info || $info['id'] !== $authorid){
       return false;
     }
     $isPictureAuthor = true;
   }
 
-  // GET COMMENT INFO AND CHECK IF ALLOWED TO DELETE
-  $comment = getPictureComment($commentid, $con);
+
   if(!$isPictureAuthor && $comment['user_id'] != $authorid){
     return false;
   }

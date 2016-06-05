@@ -176,7 +176,7 @@ function addPictureComment(pictureid, token, comment, cb){
 }
 
 function deletePictureComment(commentid, token, cb){
-  request('action=deletePictureComment&commentid='+pictureid+'&token='+token, cb);
+  request('action=deletePictureComment&commentid='+commentid+'&token='+token, cb);
 }
 
 

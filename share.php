@@ -98,5 +98,11 @@ require 'session.php';
     <i class="fa fa-frown-o" aria-hidden="true"></i>
     <p>Image not Found!</p>
   </div>
+
+  <!-- COMMENT CONTEXT-MENU -->
+  <ul class='comment-menu'>
+    <li id="comment_delete"><i class="fa fa-trash" aria-hidden="true"></i> Delete</li>
+  </ul>
+
 </body>
 </html>
