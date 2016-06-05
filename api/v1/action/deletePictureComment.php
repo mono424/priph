@@ -2,24 +2,24 @@
 
 function run_action(){
   if(attemptAuth()){
-    // GET PARAM
-    if(isset($_GET['id'])){$id = $_GET['id'];}else{error("\"id\" is not set!");}
+    // LOGGED IN ??
+    if(attemptAuth()){
+      $user = getUserFromCookie();
+    }else{
+      error('Not logged in!');
+    }
 
-    // GET USER
-    $user = getUserFromCookie();
-    if(!$user){error('Not logged in!');}
+    // GET PARAMETER
+    if(isset($_GET['commentid'])){$commentid = $_GET['commentid'];}else{error("\"commentid\" is not set!");}
 
-    // CHECK ID
-    if(!is_numeric($id)){error("\"id\" is illigal!");}
+    // OPTIONAL PARAMETERS
+    $token = (isset($_GET['token'])) ? $_GET['token'] : false;
 
-    // DELETE PICTURE
-    deletePictureComment($user, $id);
-
-    // RETURN TRUE
-    return true;
+    // DELETE COMMENT
+    return deletePictureComment($user, $commentid, $token);
   }else{
     error('Not logged in!');
   }
 }
 
- ?>
+?>
