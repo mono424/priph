@@ -633,13 +633,22 @@ function getPictureShareInfo($user, $shareId, $verifier, $con = false){
   // generateShareLink
   $pictureInfo = generatePublicPictureToken($info['picture_id'],$con);
   $authorInfo = getAuthorInfo($info['picture_id'],$con);
+  $comments = [];
+  $comment_token = false;
+  if($info['comments_enabled']){
+    $comments = getPictureComments($info['picture_id'], false, $con);
+    $comment_token = generatePictureCommentToken($info['picture_id'], $con);
+  }
 
   // DO THE OUTPUT
   $out = [];
+  $out['pictureid'] = $info['picture_id'];
   $out['picture_token'] = $pictureInfo;
   $out['author'] = $authorInfo;
   $out['single_time_link'] = $info['single_time_link'];
   $out['comments_enabled'] = $info['comments_enabled'];
+  $out['comments'] = $comments;
+  $out['comment_token'] = $comment_token;
   $out['created'] = $info['created'];
 
   // todo: get info and picture and return!
@@ -718,5 +727,199 @@ function getPublicPicturePath($id, $token){
   if($res && $res->num_rows > 0){$array = $res->fetch_assoc();}else{return false;}
   return $array['path'];
 }
+
+
+
+/* COMMENT SYSTEM */
+
+// -> TOKEN
+
+function generatePictureCommentToken($picture_id, $con = false){
+  // GLOBAL STUFF
+  global $config;
+  $table_token = $config['db']['tables']['comment_token'];
+  $valid_time = $config['comment']['token_valid'];
+
+  // OPEN NEW DB CONNECTION IF NOT EXISTS
+  if(!$con){
+    $con = openDB();
+    if($con === false){error('SQL ERROR');}
+  }
+
+  // SECURITY & VARS
+  $picture_id = $con->real_escape_string($picture_id);
+  $token = $con->real_escape_string(generateCommentToken($picture_id,$con));
+  $valid = time() + $valid_time;
+
+  // CREATE TOKEN
+  $con->query("INSERT INTO `$table_token` (`picture_id`,`token`,`valid`) VALUES ('$picture_id','$token','$valid')");
+
+  // RETUR INFO
+  return ['token' => $token, 'valid' => $valid_time];
+}
+
+function checkPictureCommentToken($picture_id, $token, $con = false){
+  // GLOBAL STUFF
+  global $config;
+  $table_token = $config['db']['tables']['comment_token'];
+
+  // OPEN NEW DB CONNECTION IF NOT EXISTS
+  if(!$con){
+    $con = openDB();
+    if($con === false){error('SQL ERROR');}
+  }
+
+  // SECURITY & VARS
+  $picture_id = $con->real_escape_string($picture_id);
+  $token = $con->real_escape_string($token);
+
+  // GET TOKEN VALID TIME
+  $res = $con->query("SELECT `valid` FROM `$table_token` WHERE `picture_id`='$picture_id' AND `token`='$token' LIMIT 1");
+  if($res && $res->num_rows > 0){$valid = $res->fetch_assoc()['valid'];}else{return false;}
+
+  // RETURN
+  if($valid >= time()){return true;}else{deletePictureCommentToken($picture_id, $token, $con); return false;}
+}
+
+
+function updatePictureCommentToken($picture_id, $token, $con = false){
+  // GLOBAL STUFF
+  global $config;
+  $table_token = $config['db']['tables']['comment_token'];
+  $valid_time = $config['comment']['token_valid'];
+
+  // OPEN NEW DB CONNECTION IF NOT EXISTS
+  if(!$con){
+    $con = openDB();
+    if($con === false){error('SQL ERROR');}
+  }
+
+  // CHECK TOKEN
+  if(!checkPictureCommentToken($picture_id, $token, $con)){
+    return false;
+  }
+
+  // SECURITY & VARS
+  $picture_id = $con->real_escape_string($picture_id);
+  $token = $con->real_escape_string($token);
+  $valid = time() + $valid_time;
+
+  // UPDATE TOKEN
+  $con->query("UPDATE `$table_token` SET `valid`='$valid' WHERE `picture_id`='$picture_id' AND `token`='$token'");
+  if($con->error){error("SQL QUERY ERROR");}
+
+  // RETURN INFO
+  return true;
+}
+
+function deletePictureCommentToken($picture_id, $token, $con = false){
+  // GLOBAL STUFF
+  global $config;
+  $table_token = $config['db']['tables']['comment_token'];
+
+  // OPEN NEW DB CONNECTION IF NOT EXISTS
+  if(!$con){
+    $con = openDB();
+    if($con === false){error('SQL ERROR');}
+  }
+
+  // SECURITY & VARS
+  $picture_id = $con->real_escape_string($picture_id);
+  $token = $con->real_escape_string($token);
+
+  // DELETE TOKEN
+  $con->query("DELETE FROM `$table_token` WHERE `picture_id`='$picture_id' AND `token`='$token'");
+  if($con->error){error("SQL QUERY ERROR");}
+
+  // RETUR INFO
+  return true;
+}
+
+
+// -> ADD COMMENT
+function addPictureComment($authorid, $picture_id, $token, $text, $con = false){
+  // GLOBAL STUFF
+  global $config;
+  $table_comments = $config['db']['tables']['picture_comments'];
+
+  // OPEN NEW DB CONNECTION IF NOT EXISTS
+  if(!$con){
+    $con = openDB();
+    if($con === false){error('SQL ERROR');}
+  }
+
+
+  if($token){
+    // CHECK TOKEN
+    if(!checkPictureCommentToken($picture_id, $token, $con)){
+      return false;
+    }
+  }else{
+    // CHECK IF USER AUTHOR OF IMAGE
+    $info = getAuthorInfo($picture_id);
+    if(!$info || $info['id'] !== $authorid){
+      return false;
+    }
+  }
+
+  // SECURITY
+  $picture_id = $con->real_escape_string($picture_id);
+  $authorid = $con->real_escape_string($authorid);
+  $text = $con->real_escape_string($text);
+
+  // ADD PICTURE COMMENT
+  $con->query("INSERT INTO `$table_comments` (`picture_id`,`user_id`,`text`) VALUES ('$picture_id','$authorid','$text')");
+  if($con->error){error("SQL QUERY ERROR");}
+
+  // RETURN
+  return true;
+}
+
+
+// -> GET COMMENTS
+
+function getPictureComments($picture_id, $user = false, $con = false){
+  // GLOBAL STUFF
+  global $config;
+  $table = $config['db']['tables']['picture_comments'];
+  $table_member = $config['db']['tables']['member'];
+  $table_pictures = $config['db']['tables']['pictures'];
+
+  // OPEN NEW DB CONNECTION IF NOT EXISTS
+  if(!$con){
+    $con = openDB();
+    if($con === false){error('SQL ERROR');}
+  }
+
+  // SECURITY
+  $picture_id = $con->real_escape_string($picture_id);
+  if($user){
+    $user = $con->real_escape_string($user);
+    $user = " AND `$table_pictures`.`user_id`='".$user."'";
+  }else{
+    $user = "";
+  }
+
+
+  // LOOK IF EXISTS AND GET COMMENTS
+  $res = $con->query("SELECT `$table`.`user_id`,`text`,`displayname`,`comment_id` FROM `$table`
+                      JOIN `$table_member` ON `id`=`$table`.`user_id`
+                      JOIN `$table_pictures` ON `$table_pictures`.`id`=`picture_id` WHERE `picture_id` = '$picture_id'$user ORDER BY `comment_id` ASC");
+
+  // EXISTS IF YES DO OUTPUT
+  $comments = [];
+  if($res && $res->num_rows > 0){
+    while($comment = $res->fetch_assoc()){
+      $comments[] = $comment;
+    }
+    return $comments;
+  }else{return $comments;}
+}
+
+
+
+
+
+
 
  ?>
