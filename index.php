@@ -50,6 +50,9 @@ $skin_video = false;
   <script type="text/javascript" src="js/jquery.fullpage.min.js"></script>
   <script type="text/javascript" src="js/jquery.fullpage.setup.js"></script>
 
+  <!-- masonry -->
+  <script type="text/javascript" src="js/masonry.min.js"></script>
+
   <!-- REMODAL -->
   <script type="text/javascript" src="js/remodal.min.js"></script>
 
@@ -301,7 +304,7 @@ $skin_video = false;
 
           <!-- GALLERY -->
           <div id="user_gallery" class="body">
-            <div id="user_gallery_wrapper" class="wrapper">
+            <div id="user_gallery_wrapper" class="wrapper-fullscreen">
               <div id="galleryRefresh"><i class="fa fa-refresh" aria-hidden="true"></i></div>
               <div id="galleryPreloader" class="bubblingG settingsPreloader"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div>
               <div id="galleryContainer" class="image_gallery cf">

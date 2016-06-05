@@ -92,11 +92,6 @@
     margin-top: 28vh;
   }
 
-  /* galleryRefresh */
-  #galleryRefresh{
-    display:none;
-  }
-
   /* DropText */
   .dropText{
     display:none;
@@ -131,16 +126,6 @@
   /* USER SLIDE MENU */
   #user_slide .head ul{
     margin:0 0 0 15%;
-  }
-
-  /* USER GALLERY */
-  .image_gallery .image_item{
-    position:relative;
-    width: 49%;
-    height: 200px;
-    margin: 1% .5% 0 .5%;
-    float: left;
-    overflow:hidden;
   }
 
   /* FOOTER */

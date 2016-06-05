@@ -16,12 +16,14 @@ $config['db']['tables']['upload_token'] = "upload_token";
 $config['db']['tables']['pictures'] = "pictures";
 $config['db']['tables']['share'] = "share";
 $config['db']['tables']['public_picture_token'] = "public_picture_token";
+$config['db']['tables']['picture_comments'] = "picture_comments";
+$config['db']['tables']['comment_token'] = "comment_token";
 
 // LOGIN
 $config['login']['max_attempts'] = 10;      // max wrong attempts in
 $config['login']['attempt_time'] = 600;     // 10 Min
-$config['login']['cookie_name'] = 'login_token';  // JUST LIKE INFINITY ;)
-$config['login']['cookie_delimiter'] = '/';  // JUST LIKE INFINITY ;)
+$config['login']['cookie_name'] = 'login_token';
+$config['login']['cookie_delimiter'] = '/';
 $config['login']['cookie_expire'] = 2147483647;  // JUST LIKE INFINITY ;)
 
 // UPLOAD RESTRICTIONS
@@ -36,6 +38,8 @@ $config['upload']['max_picture_size'] = 5 * 1000 * 1000; // 5MB
 $config['upload']['picture_extensions'] = ['jpeg','jpg'];
 $config['upload']['picture_path'] = "../../images/uploaded";
 
+// COMMENT RESTRICTIONS
+$config['comment']['token_valid'] = 30;//60 * 5; // 5min
 
 // EMAIL AUTH STUFF
 $config['mail']['host'] = '';
@@ -73,6 +77,7 @@ function openDB(){
   if ($mysqli->connect_errno) {
     return false;
   }
+  mysql_query("SET NAMES 'utf8'");
   return $mysqli;
 }
 
@@ -82,6 +87,7 @@ function openCON(){
   if ($mysqli->connect_errno) {
     return false;
   }
+  mysql_query("SET NAMES 'utf8'");
   return $mysqli;
 }
 
@@ -94,8 +100,45 @@ function error($errmsg, $response = null){
 }
 
 function response($response, $error = false){
+
+  // ENCODE
   $fresponse = ["response" => $response, "error" => false];
-  die(json_encode($fresponse));
+  $string = json_encode($fresponse);
+
+  // CHECK FOR ENCODING ERROR
+  $jsonError = json_error();
+  if($jsonError){error("JSON-Encoding-Error: ".$jsonError);}
+
+  // OUTPUT
+  echo $string;
+
+  die();
+}
+
+function json_error(){
+  switch (json_last_error()) {
+    case JSON_ERROR_NONE:
+        return false;
+    break;
+    case JSON_ERROR_DEPTH:
+        return 'Maximum stack depth exceeded';
+    break;
+    case JSON_ERROR_STATE_MISMATCH:
+        return 'Underflow or the modes mismatch';
+    break;
+    case JSON_ERROR_CTRL_CHAR:
+        return 'Unexpected control character found';
+    break;
+    case JSON_ERROR_SYNTAX:
+        return 'Syntax error, malformed JSON';
+    break;
+    case JSON_ERROR_UTF8:
+        return 'Malformed UTF-8 characters, possibly incorrectly encoded';
+    break;
+    default:
+        return 'Unknown error';
+    break;
+}
 }
 
 ?>

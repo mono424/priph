@@ -59,6 +59,19 @@ function generateUploadToken($con = false){
   return $token;
 }
 
+function generateCommentToken($picture_id, $con = false){
+  // OPEN NEW DB CONNECTION IF NOT EXISTS
+  if(!$con){
+    $con = openDB();
+    if($con === false){error('SQL ERROR');}
+  }
+
+  //CREATE UPLOAD TOKEN
+  do{
+    $token = randomPass(32);
+  }while(checkPictureCommentToken($picture_id, $token, $con));
+  return $token;
+}
 
 
  ?>

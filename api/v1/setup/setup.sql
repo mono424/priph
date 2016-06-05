@@ -9,7 +9,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `login_attempts`
 --
 
-CREATE TABLE `login_attempts` (
+CREATE TABLE IF NOT EXISTS `login_attempts` (
   `user_id` int(11) NOT NULL,
   `time` datetime NOT NULL,
   `clientip` varchar(32) CHARACTER SET latin1 NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE `login_attempts` (
 -- Table structure for table `member`
 --
 
-CREATE TABLE `member` (
+CREATE TABLE IF NOT EXISTS `member` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(64) CHARACTER SET latin1 NOT NULL,
   `displayname` varchar(64) CHARACTER SET latin1 NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE `member` (
 -- Table structure for table `pictures`
 --
 
-CREATE TABLE `pictures` (
+CREATE TABLE IF NOT EXISTS `pictures` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `name` varchar(64) CHARACTER SET latin1 NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE `pictures` (
 -- Table structure for table `session_token`
 --
 
-CREATE TABLE `session_token` (
+CREATE TABLE IF NOT EXISTS `session_token` (
   `session` varchar(64) CHARACTER SET latin1 NOT NULL,
   `user_id` int(11) NOT NULL,
   `token` varchar(64) CHARACTER SET latin1 NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE `session_token` (
 -- Table structure for table `share`
 --
 
-CREATE TABLE `share` (
+CREATE TABLE IF NOT EXISTS `share` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `picture_id` int(11) NOT NULL,
   `verifier` varchar(32) CHARACTER SET latin1 NOT NULL,
@@ -89,8 +89,22 @@ CREATE TABLE `share` (
 -- Table structure for table `upload_token`
 --
 
-CREATE TABLE `upload_token` (
+CREATE TABLE IF NOT EXISTS `upload_token` (
   `user_id` int(11) NOT NULL,
   `token` varchar(64) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `picture_comments`
+--
+
+CREATE TABLE IF NOT EXISTS `picture_comments` (
+  `comment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `picture_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `text` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`comment_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=4 ;
