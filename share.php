@@ -83,8 +83,11 @@ require 'session.php';
         <div id="commentbox" class="commentbox">
         </div>
         <div class="comment-form">
-            <input type="text" name="comment" placeholder="Write something nice..">
             <img id="user_image" src="" alt="" />
+            <div class="input">
+              <input id="commenttextbox" type="text" name="comment" placeholder="Write something nice..">
+            </div>
+            <div style="clear:both;"></div>
         </div>
 
       </div>
