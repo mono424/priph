@@ -1,6 +1,9 @@
 <?php
 
 function run_action(){
+    // DISABLED
+    error('Registrations disabled atm!');
+
     // GET PARAMETER
     if(isset($_GET['user'])){$user = $_GET['user'];}else{error("\"user\" is not set!");}
 

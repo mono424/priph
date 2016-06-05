@@ -877,7 +877,6 @@ function addPictureComment($authorid, $picture_id, $token, $text, $con = false){
 
 
 // -> GET COMMENTS
-
 function getPictureComments($picture_id, $user = false, $con = false){
   // GLOBAL STUFF
   global $config;
@@ -916,7 +915,75 @@ function getPictureComments($picture_id, $user = false, $con = false){
   }else{return $comments;}
 }
 
+// -> GET COMMENT
+function getPictureComment($commentid, $con = false){
+  // GLOBAL STUFF
+  global $config;
+  $table = $config['db']['tables']['picture_comments'];
 
+  // OPEN NEW DB CONNECTION IF NOT EXISTS
+  if(!$con){
+    $con = openDB();
+    if($con === false){error('SQL ERROR');}
+  }
+
+  // SECURITY
+  $id = $con->real_escape_string($id);
+
+
+  // LOOK IF EXISTS AND GET COMMENTS
+  $res = $con->query("SELECT * FROM `$table` WHERE `comment_id`='$id'");
+
+  // EXISTS IF YES DO OUTPUT
+  if($res && $res->num_rows > 0){return $res->fetch_assoc();}else{return false;}
+}
+
+// -> DELETE COMMENT
+function deletePictureComment($authorid, $commentid, $token, $con = false){
+  // GLOBAL STUFF
+  global $config;
+  $table_comments = $config['db']['tables']['picture_comments'];
+
+  // OPEN NEW DB CONNECTION IF NOT EXISTS
+  if(!$con){
+    $con = openDB();
+    if($con === false){error('SQL ERROR');}
+  }
+
+  // TOKEN VALID OR IMAGE AUTHOR
+  if($token){
+    // CHECK TOKEN
+    if(!checkPictureCommentToken($picture_id, $token, $con)){
+      return false;
+    }
+    $isPictureAuthor = false;
+  }else{
+    // CHECK IF USER AUTHOR OF IMAGE
+    $info = getAuthorInfo($picture_id);
+    if(!$info || $info['id'] !== $authorid){
+      return false;
+    }
+    $isPictureAuthor = true;
+  }
+
+  // GET COMMENT INFO AND CHECK IF ALLOWED TO DELETE
+  $comment = getPictureComment($commentid, $con);
+  if(!$isPictureAuthor && $comment['user_id'] != $authorid){
+    return false;
+  }
+
+  // SECURITY
+  $picture_id = $con->real_escape_string($picture_id);
+  $authorid = $con->real_escape_string($authorid);
+  $text = $con->real_escape_string($text);
+
+  // ADD PICTURE COMMENT
+  $con->query("DELETE FROM `$table_comments` WHERE `comment_id`='$commentid'");
+  if($con->error){error("SQL QUERY ERROR");}
+
+  // RETURN
+  return true;
+}
 
 
 
