@@ -108,8 +108,7 @@ function loadPublicImage(id, verifier){
     if(!data.response){error('Unknown Error!');return;}
 
     // SET AUTHOR INFO
-    currentUser = data.response.author.id;
-    setAuthorInfo(currentUser, data.response.author.displayname);
+    setAuthorInfo(data.response.author.id, data.response.author.displayname);
 
     // SET IMG SOURCE
     image.src = publicGeneratePictureSrc(data.response.picture_token.id, data.response.picture_token.token);
@@ -293,7 +292,7 @@ function commentContextHandler(e){
     e.preventDefault();
     if(lastContextComment){lastContextComment.style.background = "";}
     lastContextComment = this;
-    if(privateImage || this.dataset.authorid == currentUser){
+    if(privateImage || this.dataset.authorid == userinfo.id){
       commentContextMenu.dataset.commentid = this.dataset.commentid;
       commentContextMenu.dataset.commentcontentid = this.id;
       commentContextMenu.style.top = event.pageY + "px";
