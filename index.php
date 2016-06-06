@@ -6,7 +6,7 @@ require 'session.php';
 /* SKIN */
 $skin = "default";
 $skin_muted = true;
-$skin_video = false;
+$skin_video = true;
 
 ?>
 <!DOCTYPE html>
@@ -80,7 +80,7 @@ $skin_video = false;
   <?php
   if(isset($_GET['verify'])){echo "startPage = 'verify';";}
   ?>
-  var skinVideoDisabled = <?php echo !$skin_video; ?>;
+  var skinVideoDisabled = <?php echo (!$skin_video) ? 'true' : 'false'; ?>;
   </script>
 
   <!-- SESSION FOR API -->
