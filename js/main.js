@@ -6,12 +6,14 @@ var user_id, email, username, imgsrc, is_admin;
 
 function defineStuff() {
   /* FROM START*/
-  video = document.querySelector(".intro-video video");
+  backgroundVideo = document.querySelector("#backgroundVideo");
   registerButton = document.querySelector("#btn-register");
   loginButton = document.querySelector("#btn-login");
+  skinButton = document.querySelector("#skinButton");
   closeButtons = document.querySelectorAll(".close");
   registerButton.addEventListener('click', registerButtonHandler);
   loginButton.addEventListener('click', loginButtonHandler);
+  skinButton.addEventListener('click', skinButtonHandler);
   for(var i = 0;i<closeButtons.length;i++){
     closeButtons[i].addEventListener('click',closeButtonHandler);
   }
@@ -1007,4 +1009,45 @@ function shareLinkCallback(data, input, shortInput){
     if(data.error || !data.response){shortInput.value = "Priph couldnt create a shortlink :(";return;}
     shortInput.value = data.response;
   });
+}
+
+
+
+// SKIN CHANGE
+function select_skin(sender, skin, mp4, webm){
+  var allskins = document.querySelectorAll('.skin .image');
+  for(var i=0;i<allskins.length;i++){
+    allskins[i].className = "image";
+  }
+  sender.className += " selected";
+  load_skin(skin, mp4, webm);
+}
+
+function load_skin(skin, mp4, webm){
+  backgroundVideo.setAttribute('poster','skin/' + skin + "/poster.jpg");
+  backgroundVideo.innerHTML = "";
+  var video = false;
+  if(mp4){backgroundVideo.innerHTML += '<source src="skin/'+skin+'/video.mp4" type="video/mp4" />';video = true;}
+  if(webm){backgroundVideo.innerHTML += '<source src="skin/'+skin+'/video.webm" type="video/webm" />';video = true;}
+
+  if(webm){
+    backgroundVideo.setAttribute('src','skin/'+skin+'/video.webm');
+  }else if (mp4) {
+    backgroundVideo.setAttribute('src','skin/'+skin+'/video.mp4');
+  }
+
+  initBackground(video);
+
+  // todo: save skin in database ;)
+}
+
+function initBackground(videoSkin){
+  if(!videoSkin || checkMobile()){
+    backgroundVideo.parentElement.style.background="url("+backgroundVideo.poster+") 50% 50%";
+    backgroundVideo.parentElement.style.backgroundSize="cover";
+    backgroundVideo.innerHTML = "";
+    backgroundVideo.style.display = "none"
+  }else{
+    backgroundVideo.style.display = "block"
+  }
 }

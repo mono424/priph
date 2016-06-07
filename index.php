@@ -4,9 +4,9 @@
 require 'session.php';
 
 /* SKIN */
-$skin = "default";
+$skin = "hair";
 $skin_muted = true;
-$skin_video = true;
+$skin_video = false;
 
 ?>
 <!DOCTYPE html>
@@ -107,7 +107,7 @@ $skin_video = true;
           <?php
           $poster = "skin/$skin/poster.jpg";
           if(file_exists($poster)){$poster = " poster=\"$poster\"";}else{$poster="";} ?>
-          <video autoplay loop<?php echo $poster; ?> preload="auto" <?php if($skin_muted){echo "muted";} ?>>
+          <video id="backgroundVideo" autoplay loop<?php echo $poster; ?> preload="auto" <?php if($skin_muted){echo "muted";} ?>>
             <!-- SKIN BACKGROUND VIDEO WEBM -->
             <?php
             $path = "skin/$skin/video.webm";
@@ -133,6 +133,7 @@ $skin_video = true;
             <div class="overlay-menu">
               <ul>
                 <li><a href="#" id="logoutButton">Logout</a></li>
+                <li><a href="#" id="skinButton">Change Skin</a></li>
               </ul>
             </div>
 
@@ -241,160 +242,71 @@ $skin_video = true;
               <a class="close" href="#intro">&#x2716;</a>
             </div>
 
-            <!-- OVERLAY REGISTER PART -->
-            <div class="overlay" id="overlay_register">
-              <form id="form_register" action="index.php" method="post">
-                <h1>Start now, its Free!</h1>
-                <div class="errorbar"></div>
-                <input class="priph" type="email" name="name" value="" placeholder="Your Email" required>
-                <!--<center><div class="g-recaptcha" data-sitekey="6LcPsh0TAAAAAIIYJ1Rx0WVrYONgufSKSYerCn_3"></div></center>-->
-                <button id="registerButton" type="submit">Register</button>
-                <div id="registerPreloader" class="bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div>
-              </form>
-              <a class="close" href="#intro">&#x2716;</a>
-            </div>
-
-            <!-- OVERLAY LOGIN PART -->
-            <div class="overlay" id="overlay_login">
-              <form id="form_login" action="index.php" method="post">
-                <h1>Login</h1>
-                <div class="errorbar"></div>
-                <input class="priph" type="email" name="name" value="" placeholder="Email" required>
-                <input class="priph" type="password" name="pass" value="" placeholder="Password" required>
-                <button id="loginButton" type="submit">Login</button>
-                <div id="loginPreloader" class="bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div>
-              </form>
-              <a class="close" href="#intro">&#x2716;</a>
-            </div>
-
-            <!-- OVERLAY VERIFY PART -->
-            <div class="overlay" id="overlay_verify">
-              <form id="form_verify" action="index.php" method="post">
-                <h1>Verify Account</h1>
-                <div class="errorbar"></div>
-                <input type="email" name="user" value="<?php if(isset($_GET['user'])){echo htmlspecialchars($_GET['user']);} ?>" placeholder="Email" required>
-                <input type="text" pattern="[A-z0-9]{3,64}" name="verifycode" value="<?php if(isset($_GET['verify'])){echo htmlspecialchars($_GET['verify']);} ?>" placeholder="Verification-Code" required>
-                <input type="text" pattern="[A-z0-9_-]{3,64}" name="displayname" value="" placeholder="Displayname" required>
-                <input type="password" pattern=".{4,128}" name="pass" value="" placeholder="Password" required>
-                <input type="password" pattern=".{4,128}" name="pass_wdh" value="" placeholder="Password repeat" required>
-                <button id="verifyButton" type="submit">Verify now!</button>
-                <div id="verifyPreloader" class="bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div>
-              </form>
-              <a class="close" href="#intro">&#x2716;</a>
-            </div>
-
-            <!-- FOOTER -->
-            <?php require 'files/footer.php'; ?>
-          </div>
-        </div>
-
-        <!-- USER AREA -->
-        <div id="user_slide" class="slide" data-anchor="user" style="display:none;">
-
-          <!-- HEADER -->
-          <div class="head">
-            <img src="img/priph_back.png" />
-            <ul>
-              <!-- <li><div class="activ">Profil</div></li> -->
-              <li><div id="userGalleryButton" class="activ">Gallery</div></li>
-              <li><div id="userSettingsButton">Settings</div></li>
-              <li><div id="userAdminButton">Admin</div></li>
-            </ul>
-          </div>
-
-          <!-- GALLERY -->
-          <div id="user_gallery" class="body">
-            <div id="user_gallery_wrapper" class="wrapper-fullscreen">
-              <div id="galleryRefresh"><i class="fa fa-refresh" aria-hidden="true"></i></div>
-              <div id="galleryPreloader" class="bubblingG settingsPreloader"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div>
-              <div id="galleryContainer" class="image_gallery cf">
-                No Images uploaded yet.
+            <!-- OVERLAY SKIN PART -->
+            <div class="overlay cf" id="overlay_skin">
+              <h1>Skin Selection</h1>
+              <?php
+              $skins = scandir('skin');
+              foreach($skins as $_skin){
+                if(trim($_skin,".") == ""){continue;}
+                if($_skin == $skin){$selected = " selected";}else{$selected = "";}
+                if(file_exists("skin/".$_skin."/video.webm")){$webm = "true";}else{$webm = "false";}
+                if(file_exists("skin/".$_skin."/video.mp4")){$mp4 = "true";}else{$mp4 = "false";}
+                if($webm == "true" || $mp4 == "true"){
+                  $type = "Video";
+                }else{
+                  $type = "Picture";
+                }
+                ?>
+                <div class="skin">
+                  <div class="image<?php echo $selected; ?>" onclick="select_skin(this,<?php echo "'$_skin',$mp4,$webm"; ?>);" style="width:100%;height:100%;background: url(skin/<?php echo $_skin; ?>/thumb.jpg);background-size:cover;"></div>
+                  <div class="skin-name"><?php echo $_skin; ?></div>
+                  <div class="skin-type"><?php echo $type; ?></div>
+                </div>
+                <?php } ?>
+                <a class="close" href="#intro">&#x2716;</a>
               </div>
-              <!-- FOOTER -->
-              <?php require 'files/footer.php'; ?>
-            </div>
-          </div>
 
-          <!-- SETTINGS -->
-          <div id="user_settings" class="body" style="display:none;">
-            <div class="wrapper user_settings">
-              <div class="errorbar" style="margin: -20px 0 20px 0;"></div>
-
-              <h1 class="priph">Display Settings</h1>
-              <form id="displaysettings_form" class="settings">
-                <label for="displayname">Picture(jpeg):</label>
-                <input id="displaysettings_image" type="file" name="displayimage" value="" accept="image/jpeg"><br>
-                <label for="displayname">Displayname:</label>
-                <input class="priph" id="displaysettings_displayname" pattern="[A-z0-9_-]{3,64}" type="text" name="displayname" value=""><br>
-                <div id="displaysettingsPreloader" class="bubblingG settingsPreloader"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div>
-                <button class="discard">Discard</button>
-                <button class="save" type="submit">Save</button>
-              </form>
-
-              <h1 class="priph">Account Settings</h1>
-              <form id="accountsettings_form" class="settings">
-                <label for="email">Email:</label>
-                <input class="priph" id="accountsettings_email" type="email" name="email" value="" disabled><br>
-                <label for="pass_old">Old Password:</label>
-                <input class="priph" id="accountsettings_pass_old" type="password" name="pass_old" value="" required><br>
-                <label for="pass">New Password:</label>
-                <input class="priph" id="accountsettings_pass" pattern=".{4,128}" type="password" name="pass" value="" required><br>
-                <label for="pass2">New Password repeat:</label>
-                <input class="priph" id="accountsettings_pass2" pattern=".{4,128}" type="password" name="pass2" value="" required><br>
-                <div id="accountSettingsPreloader" class="bubblingG settingsPreloader"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div>
-                <button class="discard">Discard</button>
-                <button class="save" type="submit">Save</button>
-              </form>
-
-              <h1 class="priph">Activ Sessions</h1>
-              <ul id="activ_sessions">
-
-              </ul>
-              <!-- FOOTER -->
-              <?php require 'files/footer.php'; ?>
-            </div>
-          </div>
-
-          <!-- ADMIN -->
-          <div id="user_admin" class="body" style="display:none;">
-            <div id="user_admin_wrapper" class="wrapper">
-
-
-              <!-- HEADLINE USERS -->
-              <h1 class="priph">Manage User</h1>
-
-              <!-- Searchbar -->
-              <div class="user_searchbar">
-
-                <!-- PAGE & ENTRIES -->
-                Page:
-                <select class="priph" id="admin_user_pages">
-                </select>
-                Entries:
-                <select class="priph" id="admin_user_limit">
-                  <option value="1">1</option>
-                  <option value="5" selected>5</option>
-                  <option value="10">10</option>
-                  <option value="30">30</option>
-                  <option value="50">50</option>
-                  <option value="100">100</option>
-                </select>
-
-                <!-- Search -->
-                <form id="user_search_form" class="searchbar" action="" method="post">
-                  <select id="user_search_mode" class="priph">
-                    <option value="all">All</option>
-                    <option value="id">ID</option>
-                    <option value="email">Email</option>
-                    <option value="displayname">Displayname</option>
-                  </select>
-                  <input id="user_search_text" class="priph" type="text" name="name" value="">
-                  <button class="priph" type="submit"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+              <!-- OVERLAY REGISTER PART -->
+              <div class="overlay" id="overlay_register">
+                <form id="form_register" action="index.php" method="post">
+                  <h1>Start now, its Free!</h1>
+                  <div class="errorbar"></div>
+                  <input class="priph" type="email" name="name" value="" placeholder="Your Email" required>
+                  <!--<center><div class="g-recaptcha" data-sitekey="6LcPsh0TAAAAAIIYJ1Rx0WVrYONgufSKSYerCn_3"></div></center>-->
+                  <button id="registerButton" type="submit">Register</button>
+                  <div id="registerPreloader" class="bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div>
                 </form>
+                <a class="close" href="#intro">&#x2716;</a>
               </div>
 
-              <!-- USER DISPLAY -->
-              <div id="user_container" class="user-container">
+              <!-- OVERLAY LOGIN PART -->
+              <div class="overlay" id="overlay_login">
+                <form id="form_login" action="index.php" method="post">
+                  <h1>Login</h1>
+                  <div class="errorbar"></div>
+                  <input class="priph" type="email" name="name" value="" placeholder="Email" required>
+                  <input class="priph" type="password" name="pass" value="" placeholder="Password" required>
+                  <button id="loginButton" type="submit">Login</button>
+                  <div id="loginPreloader" class="bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div>
+                </form>
+                <a class="close" href="#intro">&#x2716;</a>
+              </div>
+
+              <!-- OVERLAY VERIFY PART -->
+              <div class="overlay" id="overlay_verify">
+                <form id="form_verify" action="index.php" method="post">
+                  <h1>Verify Account</h1>
+                  <div class="errorbar"></div>
+                  <input type="email" name="user" value="<?php if(isset($_GET['user'])){echo htmlspecialchars($_GET['user']);} ?>" placeholder="Email" required>
+                  <input type="text" pattern="[A-z0-9]{3,64}" name="verifycode" value="<?php if(isset($_GET['verify'])){echo htmlspecialchars($_GET['verify']);} ?>" placeholder="Verification-Code" required>
+                  <input type="text" pattern="[A-z0-9_-]{3,64}" name="displayname" value="" placeholder="Displayname" required>
+                  <input type="password" pattern=".{4,128}" name="pass" value="" placeholder="Password" required>
+                  <input type="password" pattern=".{4,128}" name="pass_wdh" value="" placeholder="Password repeat" required>
+                  <button id="verifyButton" type="submit">Verify now!</button>
+                  <div id="verifyPreloader" class="bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div>
+                </form>
+                <a class="close" href="#intro">&#x2716;</a>
               </div>
 
               <!-- FOOTER -->
@@ -402,183 +314,297 @@ $skin_video = true;
             </div>
           </div>
 
-        </div>
+          <!-- USER AREA -->
+          <div id="user_slide" class="slide" data-anchor="user" style="display:none;">
 
-        <!-- END OF SLIDE -->
-      </div>
-
-
-
-      <!-- INFO CONTAINER -->
-      <div id="slide1" data-anchor="info" class="section">
-        <!-- INFO WRAPPER -->
-        <div class="about-wrapper">
-          <!-- INFO CONTENT DIV -->
-          <div class="about-content">
-            <!-- FEATURE SIDE -->
-            <div class="features-side">
-              <h1>Features</h1>
-              <div class="features-box">
-                <i class="fa fa-cloud" aria-hidden="true"></i>
-                <p>
-                  All your Photos in the Cloud and available on all your Devices
-                </p>
-              </div>
-
-              <div class="features-box">
-                <i class="fa fa-users" aria-hidden="true"></i>
-                <p>
-                  Share your Photos with your Family or Friends easily and save, even if they aren't on Priph!
-                </p>
-              </div>
-
-              <div class="features-box">
-                <i class="fa fa-shield" aria-hidden="true"></i>
-                <p>
-                  Give your Photos a Save storage! Priph is using https and got many security advantages!
-                </p>
-              </div>
-
+            <!-- HEADER -->
+            <div class="head">
+              <img src="img/priph_back.png" />
+              <ul>
+                <!-- <li><div class="activ">Profil</div></li> -->
+                <li><div id="userGalleryButton" class="activ">Gallery</div></li>
+                <li><div id="userSettingsButton">Settings</div></li>
+                <li><div id="userAdminButton">Admin</div></li>
+              </ul>
             </div>
 
-            <!-- COMMENT SIDE -->
-            <div class="comment-side">
-              <h1>Opinions</h1>
-              <div class="comment-box">
-                <img src="img/com_0.jpg" alt="" />
-                <div class="quote">
-                  <q>
-                    I use Priph since 3 Month now, it offers me the easiest way to share Photos with my Family.
-                  </q>
-                  <footer>
-                    - <cite>Mrs. Mai</cite>
-                  </footer>
+            <!-- GALLERY -->
+            <div id="user_gallery" class="body">
+              <div id="user_gallery_wrapper" class="wrapper-fullscreen">
+                <div id="galleryRefresh"><i class="fa fa-refresh" aria-hidden="true"></i></div>
+                <div id="galleryPreloader" class="bubblingG settingsPreloader"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div>
+                <div id="galleryContainer" class="image_gallery cf">
+                  No Images uploaded yet.
                 </div>
+                <!-- FOOTER -->
+                <?php require 'files/footer.php'; ?>
               </div>
-
-              <div class="comment-box">
-                <img src="img/com_1.jpg" alt="" />
-                <div class="quote">
-                  <q>
-                    After i saw the security features of Priph, it was clear: Priph is the only Cloud for my Photos!
-                  </q>
-                  <footer>
-                    - <cite>Mr. Lambard</cite>
-                  </footer>
-                </div>
-              </div>
-
-              <div class="comment-box">
-                <img src="img/com_2.jpg" alt="" />
-                <div class="quote">
-                  <q>
-                    As Model I dont have much time, so i was happy that i found Priph, which allows me to share my Photos save and Fast!
-                  </q>
-                  <footer>
-                    - <cite>Ms. Simmenson</cite>
-                  </footer>
-                </div>
-              </div>
-
             </div>
 
+            <!-- SETTINGS -->
+            <div id="user_settings" class="body" style="display:none;">
+              <div class="wrapper user_settings">
+                <div class="errorbar" style="margin: -20px 0 20px 0;"></div>
 
-            <!-- BACK TO TOP BUTTON -->
-            <div id="less_btn" class="less_about">
-              <center>
-                <i class="fa fa-arrow-up" aria-hidden="true"></i>
-                <p>Back to Top</p>
-              </center>
+                <h1 class="priph">Display Settings</h1>
+                <form id="displaysettings_form" class="settings">
+                  <label for="displayname">Picture(jpeg):</label>
+                  <input id="displaysettings_image" type="file" name="displayimage" value="" accept="image/jpeg"><br>
+                  <label for="displayname">Displayname:</label>
+                  <input class="priph" id="displaysettings_displayname" pattern="[A-z0-9_-]{3,64}" type="text" name="displayname" value=""><br>
+                  <div id="displaysettingsPreloader" class="bubblingG settingsPreloader"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div>
+                  <button class="discard">Discard</button>
+                  <button class="save" type="submit">Save</button>
+                </form>
+
+                <h1 class="priph">Account Settings</h1>
+                <form id="accountsettings_form" class="settings">
+                  <label for="email">Email:</label>
+                  <input class="priph" id="accountsettings_email" type="email" name="email" value="" disabled><br>
+                  <label for="pass_old">Old Password:</label>
+                  <input class="priph" id="accountsettings_pass_old" type="password" name="pass_old" value="" required><br>
+                  <label for="pass">New Password:</label>
+                  <input class="priph" id="accountsettings_pass" pattern=".{4,128}" type="password" name="pass" value="" required><br>
+                  <label for="pass2">New Password repeat:</label>
+                  <input class="priph" id="accountsettings_pass2" pattern=".{4,128}" type="password" name="pass2" value="" required><br>
+                  <div id="accountSettingsPreloader" class="bubblingG settingsPreloader"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div>
+                  <button class="discard">Discard</button>
+                  <button class="save" type="submit">Save</button>
+                </form>
+
+                <h1 class="priph">Activ Sessions</h1>
+                <ul id="activ_sessions">
+
+                </ul>
+                <!-- FOOTER -->
+                <?php require 'files/footer.php'; ?>
+              </div>
             </div>
 
-            <!-- FOOTER -->
-            <?php require 'files/footer.php'; ?>
+            <!-- ADMIN -->
+            <div id="user_admin" class="body" style="display:none;">
+              <div id="user_admin_wrapper" class="wrapper">
+
+
+                <!-- HEADLINE USERS -->
+                <h1 class="priph">Manage User</h1>
+
+                <!-- Searchbar -->
+                <div class="user_searchbar">
+
+                  <!-- PAGE & ENTRIES -->
+                  Page:
+                  <select class="priph" id="admin_user_pages">
+                  </select>
+                  Entries:
+                  <select class="priph" id="admin_user_limit">
+                    <option value="1">1</option>
+                    <option value="5" selected>5</option>
+                    <option value="10">10</option>
+                    <option value="30">30</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+
+                  <!-- Search -->
+                  <form id="user_search_form" class="searchbar" action="" method="post">
+                    <select id="user_search_mode" class="priph">
+                      <option value="all">All</option>
+                      <option value="id">ID</option>
+                      <option value="email">Email</option>
+                      <option value="displayname">Displayname</option>
+                    </select>
+                    <input id="user_search_text" class="priph" type="text" name="name" value="">
+                    <button class="priph" type="submit"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                  </form>
+                </div>
+
+                <!-- USER DISPLAY -->
+                <div id="user_container" class="user-container">
+                </div>
+
+                <!-- FOOTER -->
+                <?php require 'files/footer.php'; ?>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- END OF SLIDE -->
+        </div>
+
+
+
+        <!-- INFO CONTAINER -->
+        <div id="slide1" data-anchor="info" class="section">
+          <!-- INFO WRAPPER -->
+          <div class="about-wrapper">
+            <!-- INFO CONTENT DIV -->
+            <div class="about-content">
+              <!-- FEATURE SIDE -->
+              <div class="features-side">
+                <h1>Features</h1>
+                <div class="features-box">
+                  <i class="fa fa-cloud" aria-hidden="true"></i>
+                  <p>
+                    All your Photos in the Cloud and available on all your Devices
+                  </p>
+                </div>
+
+                <div class="features-box">
+                  <i class="fa fa-users" aria-hidden="true"></i>
+                  <p>
+                    Share your Photos with your Family or Friends easily and save, even if they aren't on Priph!
+                  </p>
+                </div>
+
+                <div class="features-box">
+                  <i class="fa fa-shield" aria-hidden="true"></i>
+                  <p>
+                    Give your Photos a Save storage! Priph is using https and got many security advantages!
+                  </p>
+                </div>
+
+              </div>
+
+              <!-- COMMENT SIDE -->
+              <div class="comment-side">
+                <h1>Opinions</h1>
+                <div class="comment-box">
+                  <img src="img/com_0.jpg" alt="" />
+                  <div class="quote">
+                    <q>
+                      I use Priph since 3 Month now, it offers me the easiest way to share Photos with my Family.
+                    </q>
+                    <footer>
+                      - <cite>Mrs. Mai</cite>
+                    </footer>
+                  </div>
+                </div>
+
+                <div class="comment-box">
+                  <img src="img/com_1.jpg" alt="" />
+                  <div class="quote">
+                    <q>
+                      After i saw the security features of Priph, it was clear: Priph is the only Cloud for my Photos!
+                    </q>
+                    <footer>
+                      - <cite>Mr. Lambard</cite>
+                    </footer>
+                  </div>
+                </div>
+
+                <div class="comment-box">
+                  <img src="img/com_2.jpg" alt="" />
+                  <div class="quote">
+                    <q>
+                      As Model I dont have much time, so i was happy that i found Priph, which allows me to share my Photos save and Fast!
+                    </q>
+                    <footer>
+                      - <cite>Ms. Simmenson</cite>
+                    </footer>
+                  </div>
+                </div>
+
+              </div>
+
+
+              <!-- BACK TO TOP BUTTON -->
+              <div id="less_btn" class="less_about">
+                <center>
+                  <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                  <p>Back to Top</p>
+                </center>
+              </div>
+
+              <!-- FOOTER -->
+              <?php require 'files/footer.php'; ?>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
 
 
-    <!-- REMODAL DIALOG TEMPLATE -->
-    <div class="remodal modal-dialog" data-remodal-id="modal-dialog" data-remodal-options="hashTracking: false">
-      <button data-remodal-action="close" class="remodal-close"></button>
-      <h1></h1>
-      <p></p>
-      <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
-      <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
-    </div>
+      <!-- REMODAL DIALOG TEMPLATE -->
+      <div class="remodal modal-dialog" data-remodal-id="modal-dialog" data-remodal-options="hashTracking: false">
+        <button data-remodal-action="close" class="remodal-close"></button>
+        <h1></h1>
+        <p></p>
+        <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
+        <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
+      </div>
 
-    <!-- REMODAL SHARE TEMPLATE -->
-    <div class="remodal modal-share" data-remodal-id="modal-share" data-remodal-options="hashTracking: false">
-      <button data-remodal-action="close" class="remodal-close"></button>
-      <div class="content">
-        <h1>Generate Share-Link</h1>
-        <div class="share-menu-wrapper">
-          <div id="public-share" class="share-menu-item">
-            <i class="fa fa-globe" aria-hidden="true"></i>
-            <p>Share Public</p>
+      <!-- REMODAL SHARE TEMPLATE -->
+      <div class="remodal modal-share" data-remodal-id="modal-share" data-remodal-options="hashTracking: false">
+        <button data-remodal-action="close" class="remodal-close"></button>
+        <div class="content">
+          <h1>Generate Share-Link</h1>
+          <div class="share-menu-wrapper">
+            <div id="public-share" class="share-menu-item">
+              <i class="fa fa-globe" aria-hidden="true"></i>
+              <p>Share Public</p>
+            </div>
+            <div id="priph-share" class="share-menu-item">
+              <i class="fa fa-user" aria-hidden="true"></i>
+              <p>Share with Priph-User</p>
+            </div>
+            <div id="onetime-share" class="share-menu-item">
+              <i class="fa fa-user-secret" aria-hidden="true"></i>
+              <p>Share One-Time</p>
+            </div>
           </div>
-          <div id="priph-share" class="share-menu-item">
-            <i class="fa fa-user" aria-hidden="true"></i>
-            <p>Share with Priph-User</p>
+          <div class="share-preloader">
+            <img src="img/preloader.gif" alt="" />
           </div>
-          <div id="onetime-share" class="share-menu-item">
-            <i class="fa fa-user-secret" aria-hidden="true"></i>
-            <p>Share One-Time</p>
+          <div class="share-output">
+            <input id="output-share-link" type="text" name="name" value=""><br>
+            <br>or a bit shorter<br><br>
+            <input id="output-share-link-short" type="text" name="name" value="">
+            <br><br><br>
+            <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
           </div>
-        </div>
-        <div class="share-preloader">
-          <img src="img/preloader.gif" alt="" />
-        </div>
-        <div class="share-output">
-          <input id="output-share-link" type="text" name="name" value=""><br>
-          <br>or a bit shorter<br><br>
-          <input id="output-share-link-short" type="text" name="name" value="">
-          <br><br><br>
-          <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
         </div>
       </div>
-    </div>
 
-    <!-- OVERLAY DRAG AND DROP PART -->
-    <div class="overlayArea" id="dragArea">
-      <div>
-        <center><p>Drag File here to upload</p></center>
-      </div>
-    </div>
-
-    <!-- OVERLAY WEBCAM PART -->
-    <div class="overlayArea" id="webcamArea">
-      <div>
-
-        <!-- VIDEO CONTAINER -->
-        <div class="video-container">
-          <!-- WEBCAM OUTPUT -->
-          <video autoplay></video>
-          <!-- IMAGE CANVAS -->
-          <canvas class="snap-ov"></canvas>
-          <!-- IMAGE -->
-          <img class="snap-ov" src="" alt="" />
-          <!-- UPLOAD -->
-          <div class="snap-ov" id="webcamUploadOv">
-            <i class="fa fa-chevron-circle-up" aria-hidden="true"></i>
-            <p>
-              Upload to Priph
-            </p>
-          </div>
+      <!-- OVERLAY DRAG AND DROP PART -->
+      <div class="overlayArea" id="dragArea">
+        <div>
+          <center><p>Drag File here to upload</p></center>
         </div>
-
-        <!-- WEBCAM BUTTONS -->
-        <button id="snapshot_do" type="button">Take Snapshot</button>
-        <button id="snapshot_close" type="button">Close</button>
-
-        <!-- FOR MOBILE -->
-        <input id="mobileCameraSnapshot" style="display:none;" type="file" accept="image/*;capture=camera">
       </div>
-    </div>
 
-    <!-- NOTIE -->
-    <script type="text/javascript" src="js/notie.min.js"></script>
-  </body>
-  </html>
+      <!-- OVERLAY WEBCAM PART -->
+      <div class="overlayArea" id="webcamArea">
+        <div>
+
+          <!-- VIDEO CONTAINER -->
+          <div class="video-container">
+            <!-- WEBCAM OUTPUT -->
+            <video autoplay></video>
+            <!-- IMAGE CANVAS -->
+            <canvas class="snap-ov"></canvas>
+            <!-- IMAGE -->
+            <img class="snap-ov" src="" alt="" />
+            <!-- UPLOAD -->
+            <div class="snap-ov" id="webcamUploadOv">
+              <i class="fa fa-chevron-circle-up" aria-hidden="true"></i>
+              <p>
+                Upload to Priph
+              </p>
+            </div>
+          </div>
+
+          <!-- WEBCAM BUTTONS -->
+          <button id="snapshot_do" type="button">Take Snapshot</button>
+          <button id="snapshot_close" type="button">Close</button>
+
+          <!-- FOR MOBILE -->
+          <input id="mobileCameraSnapshot" style="display:none;" type="file" accept="image/*;capture=camera">
+        </div>
+      </div>
+
+      <!-- NOTIE -->
+      <script type="text/javascript" src="js/notie.min.js"></script>
+    </body>
+    </html>

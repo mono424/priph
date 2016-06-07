@@ -1133,3 +1133,39 @@ button.priph:hover{
 .modal-share .share-menu-wrapper .share-menu-item i{
  font-size: 90px;
 }
+
+#overlay_skin .skin{
+  width: 29%;
+  float: left;
+  height: 100px;
+  border: rgb(133, 133, 133) solid 1px;
+  border-radius: 2px;
+  margin-right: 2%;
+  margin-bottom: 10px;
+  position:relative;
+  cursor:pointer;
+}
+
+#overlay_skin .skin .image{
+  opacity: 0.4;
+}
+
+#overlay_skin .skin:hover .image, #overlay_skin .skin .selected{
+  transition: ease-in 0.4s;
+  opacity: 1;
+}
+
+#overlay_skin .skin-name{
+  position:absolute;
+  top: 5px;
+  left: 5px;
+  color: white;
+  font-size: 20px;
+}
+
+#overlay_skin .skin-type{
+  position:absolute;
+  top: 25px;
+  left: 5px;
+  color: rgb(50, 153, 204);
+}

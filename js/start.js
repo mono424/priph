@@ -24,12 +24,18 @@ function loginButtonHandler(){
   overlay_select("login");
 }
 
+function skinButtonHandler(){
+  overlay_select("skin");
+}
+
 function mobileStuff(){
   if(checkMobile() || skinVideoDisabled){
-    video.parentElement.style.background="url("+video.poster+") 50% 50%";
-    video.parentElement.style.backgroundSize="cover";
-    video.remove();
+    backgroundVideo.parentElement.style.background="url("+backgroundVideo.poster+") 50% 50%";
+    backgroundVideo.parentElement.style.backgroundSize="cover";
+    backgroundVideo.innerHTML = "";
+    backgroundVideo.style.display = "none"
   }
+
   if(checkMobile()){
     //webcamSnapshotBtn.innerHTML = "Camera Snapshot";
     webcamSnapshotBtn.style.display = "none";
@@ -60,6 +66,7 @@ function overlay_select(page, speed){
   $('#overlay_login').delay(100).fadeOut(speed);
   $('#overlay_verify').delay(100).fadeOut(speed);
   $('#overlay_impressum').delay(100).fadeOut(speed);
+  $('#overlay_skin').delay(100).fadeOut(speed);
   switch(page){
     case "register":
     $('#overlay_register').delay(350).fadeIn(speed);
@@ -75,6 +82,10 @@ function overlay_select(page, speed){
 
     case "impressum":
     $('#overlay_impressum').delay(350).fadeIn(speed);
+    break;
+
+    case "skin":
+    $('#overlay_skin').delay(350).fadeIn(speed);
     break;
 
     case "main":
