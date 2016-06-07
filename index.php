@@ -133,7 +133,7 @@ $skin_video = false;
             <div class="overlay-menu">
               <ul>
                 <li><a href="#" id="logoutButton">Logout</a></li>
-                <li><a href="#" id="skinButton">Change Skin</a></li>
+                <li><a href="#" id="skinButton">Skin</a></li>
               </ul>
             </div>
 
