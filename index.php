@@ -4,7 +4,7 @@
 require 'session.php';
 
 /* SKIN */
-$skin = "hair";
+$skin = "ice-cream";
 $skin_muted = true;
 $skin_video = false;
 
