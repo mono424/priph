@@ -1038,7 +1038,13 @@ function load_skin(skin, mp4, webm){
 
   initBackground(video);
 
-  // todo: save skin in database ;)
+  // set cookie :)
+  if(video){
+    var skintype = "video";
+  }else{
+    var skintype = "picture";
+  }
+  $.get("php/setSkin.php?sessionid="+sessionid+"&skin="+skin+"&skin_type="+skintype);
 }
 
 function initBackground(videoSkin){

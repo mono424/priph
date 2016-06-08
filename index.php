@@ -4,9 +4,10 @@
 require 'session.php';
 
 /* SKIN */
-$skin = "ice-cream";
+$skin = isset($_COOKIE['skin']) ? $_COOKIE['skin'] :"ice-cream";
 $skin_muted = true;
 $skin_video = false;
+if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video = true;}
 
 ?>
 <!DOCTYPE html>
