@@ -706,6 +706,7 @@ function refreshUserInfo(loadGallery){
 
       updateSession();
     }
+    $.fn.fullpage.reBuild();
   });
 }
 

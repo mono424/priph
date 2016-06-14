@@ -12,6 +12,7 @@ $(document).ready(function() {
   });
   $.fn.fullpage.setMouseWheelScrolling(false);
   $.fn.fullpage.setAllowScrolling(false);
+  $.fn.fullpage.reBuild();
   //touchScroll("user_gallery");
   //touchScroll("user_settings");
 });

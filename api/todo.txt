@@ -1,7 +1,6 @@
 
   • Share Picture, advanced sharing
   • add qr-code to shoten url
-  • Comment Pictures and Videos
   • Infinity Scroll on Gallery
   • Create Gallery Folders
     • Select Photos for multible Shareing
