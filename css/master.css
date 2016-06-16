@@ -759,7 +759,8 @@ button.priph:hover{
 }
 
 .image_gallery .image_item{
-
+  float:left;
+  position:relative;
 }
 
 .image_gallery .image_item img{

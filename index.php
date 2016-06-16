@@ -51,9 +51,6 @@ if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video
   <script type="text/javascript" src="js/jquery.fullpage.min.js"></script>
   <script type="text/javascript" src="js/jquery.fullpage.setup.js"></script>
 
-  <!-- masonry -->
-  <script type="text/javascript" src="js/masonry.min.js"></script>
-
   <!-- REMODAL -->
   <script type="text/javascript" src="js/remodal.min.js"></script>
 

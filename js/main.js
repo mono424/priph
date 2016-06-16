@@ -57,9 +57,6 @@ function defineStuff() {
   galleryContainer = document.querySelector("#galleryContainer");
   galleryRefresh = document.querySelector("#galleryRefresh");
   galleryRefresh.addEventListener('click', galleryRefreshHandler);
-  masonryContainer = $(galleryContainer).masonry({
-    initLayout: false
-  });
 
   /* UPLOAD IMAGE & WEBCAM*/
   uploadPictureBtn = document.querySelector("#upload_picture_btn");
