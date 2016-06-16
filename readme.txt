@@ -18,7 +18,7 @@
   -> Remodal
     > a jquery plugin used for the fancy inpage dialogs! *-*
 
-  x-> notie
+  -> notie
     > a jquery plugin used for the sexy notification comming from the top! :)
 
   -> circle-progress
