@@ -46,6 +46,7 @@ function defineStuff() {
 
   /* LOGO */
   notifyBox = document.querySelector("#notify");
+  notifyBox.addEventListener('click', function(){notify_destroy(this.dataset.notifyid);});
 
   /* LOGO */
   logo = document.querySelector("#logo");
@@ -1060,7 +1061,8 @@ function initBackground(videoSkin){
 }
 
 function notify(type, text, time, left){
-  if(!time){time=3;}
+  var id = Math.floor(Math.random() * (999999999 - 111111111)) + 111111111;
+  notifyBox.dataset.notifyid = id;
   notifyBox.className = "notify";
   if(left){notifyBox.className += " notify-left";}
   if(type == 1){  // success
@@ -1074,7 +1076,15 @@ function notify(type, text, time, left){
   }
   notifyBox.innerHTML = text;
   $(notifyBox).fadeIn(200);
-  setTimeout(function(){
-      $(notifyBox).fadeOut(400);
-  }, time * 1000);
+  if(time){
+    setTimeout(function(){console.log(id);
+      notify_destroy(id);
+    }, time * 1000);
+  }
+}
+
+function notify_destroy(id){
+  if(notifyBox.dataset.notifyid == id){
+    $(notifyBox).fadeOut(400);
+  }
 }
