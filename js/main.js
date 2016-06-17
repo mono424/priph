@@ -1077,7 +1077,7 @@ function notify(type, text, time, left){
   notifyBox.innerHTML = text;
   $(notifyBox).fadeIn(200);
   if(time){
-    setTimeout(function(){console.log(id);
+    setTimeout(function(){
       notify_destroy(id);
     }, time * 1000);
   }
