@@ -56,17 +56,29 @@ $config['mail']['reply_name'] = "";
 
 
 //  ### ONLINE CONFIG OVERWRITE ###
+$config_found = configOverwrite();
 
-// DB
-$config['db']['host'] = "localhost";
-$config['db']['user'] = "pripcyoy_priph";
-$config['db']['pass'] = "T%yWkKQLl^za";
-$config['db']['db'] = "pripcyoy_priph";
-//EMAIL
-$config['mail']['host'] = 'server132.web-hosting.com';
-$config['mail']['user'] = 'noreply@priph.com';
-$config['mail']['pass'] = 'c*#^BV(Z5d?^';
 
+
+
+// CONFIG OVERWRITE
+function configOverwrite($file = "../config.v1.json"){
+  if(!file_exists($file)){
+    return false;
+  }else{
+    global $config;
+    $config = array_replace($config, json_decode(file_get_contents($file),true));
+    return true;
+  }
+}
+
+// CONFIG SAVE
+function configSave($file = "../config.v1.json"){
+  global $config;
+  $json = json_encode($config);
+  file_put_contents($file, $json);
+  return true;
+}
 
 
 
@@ -87,7 +99,7 @@ function openCON(){
   if ($mysqli->connect_errno) {
     return false;
   }
-  mysql_query("SET NAMES 'utf8'");
+  $mysqli->query("SET NAMES 'utf8'");
   return $mysqli;
 }
 
@@ -118,27 +130,27 @@ function response($response, $error = false){
 function json_error(){
   switch (json_last_error()) {
     case JSON_ERROR_NONE:
-        return false;
+    return false;
     break;
     case JSON_ERROR_DEPTH:
-        return 'Maximum stack depth exceeded';
+    return 'Maximum stack depth exceeded';
     break;
     case JSON_ERROR_STATE_MISMATCH:
-        return 'Underflow or the modes mismatch';
+    return 'Underflow or the modes mismatch';
     break;
     case JSON_ERROR_CTRL_CHAR:
-        return 'Unexpected control character found';
+    return 'Unexpected control character found';
     break;
     case JSON_ERROR_SYNTAX:
-        return 'Syntax error, malformed JSON';
+    return 'Syntax error, malformed JSON';
     break;
     case JSON_ERROR_UTF8:
-        return 'Malformed UTF-8 characters, possibly incorrectly encoded';
+    return 'Malformed UTF-8 characters, possibly incorrectly encoded';
     break;
     default:
-        return 'Unknown error';
+    return 'Unknown error';
     break;
-}
+  }
 }
 
 ?>
