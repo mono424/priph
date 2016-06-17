@@ -28,9 +28,6 @@ if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video
   <!-- FULLPAGE CSS -->
   <link rel="stylesheet" href="css/jquery.fullpage.min.css" />
 
-  <!-- NOTIE CSS -->
-  <link rel="stylesheet" href="css/notie.css" />
-
   <!-- REMODAL CSS -->
   <link rel="stylesheet" href="css/remodal.css" />
   <link rel="stylesheet" href="css/remodal-default-theme.css" />
@@ -42,6 +39,7 @@ if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video
   <link rel="stylesheet" href="/css/master.css">
   <link rel="stylesheet" href="/css/about_slide.css">
   <link rel="stylesheet" href="/css/mobile.css">
+  <link rel="stylesheet" href="/css/notify.css">
 
   <!-- JQUERY -->
   <script src="js/jquery-1.12.3.min.js"></script>
@@ -53,9 +51,6 @@ if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video
 
   <!-- REMODAL -->
   <script type="text/javascript" src="js/remodal.min.js"></script>
-
-  <!-- PULL 2 REFRESH -->
-  <script type="text/javascript" src="js/jquery.p2r.min.js" defer></script>
 
   <!-- CIRCLE PROGRESS -->
   <script type="text/javascript" src="js/circle-progress.js"></script>
@@ -602,7 +597,7 @@ if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video
         </div>
       </div>
 
-      <!-- NOTIE -->
-      <script type="text/javascript" src="js/notie.min.js"></script>
+      <!-- NOTIFY -->
+      <div id="notify"></div>
     </body>
     </html>

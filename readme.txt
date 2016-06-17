@@ -18,14 +18,8 @@
   -> Remodal
     > a jquery plugin used for the fancy inpage dialogs! *-*
 
-  -> notie
-    > a jquery plugin used for the sexy notification comming from the top! :)
-
   -> circle-progress
     > a jquery plugin for the amazing circle progress on image uploading!
-
-  -> jQuery Pull to Refresh
-    > a jquery plugin for the lovely refresh on mobilephone!
 
   -> PHPMailer
     > A PHP Mail framework, to send better verify-registration-emails!
@@ -36,9 +30,7 @@
   -> jquery: https://jquery.com/
   -> fullpage: http://alvarotrigo.com/fullPage/
   -> Remodal: http://vodkabears.github.io/remodal/
-  -> notie: https://jaredreich.com/projects/notie/
   -> circle-progress: http://kottenator.github.io/jquery-circle-progress/
-  -> jQuery Pull to Refresh: https://github.com/luis-kaufmann-silva/jquery-p2r
 
 
 - Khadim Fall

@@ -45,6 +45,9 @@ function defineStuff() {
   adminUserSearchForm.addEventListener('submit', adminUserSearchFormSubmitHandler);
 
   /* LOGO */
+  notifyBox = document.querySelector("#notify");
+
+  /* LOGO */
   logo = document.querySelector("#logo");
 
   /* UPLOAD OVERLAY */
@@ -202,9 +205,9 @@ function startNextUpload(){
   uploadFileQueue.shift();
   if(file.type=="image/jpeg" || (typeof file.type == 'undefined')){
     uploadPicture(file, function(data){console.log(data);
-      if(data.error){notie.alert(3,data.error,2);}
-      else if(!data){notie.alert(3,'Unknown Error occured!',2);}
-      else{notie.alert(1, 'Picture uploaded successful!', 2);}
+      if(data.error){notify(3,data.error,2);}
+      else if(!data){notify(3,'Unknown Error occured!',2);}
+      else{notify(1, 'Picture uploaded successful!', 2);}
       galleryLoad();
       uploadFileBusy = false;
       refreshQueue();
@@ -212,7 +215,7 @@ function startNextUpload(){
       uploadStatusUpdate(status, false)
     });
   }else{
-    notie.alert(3,'Currently only JPEG-Images allowed!',2);
+    notify(3,'Currently only JPEG-Images allowed!',2);
     uploadFileBusy = false;
     refreshQueue();
   }
@@ -306,8 +309,8 @@ function adminUserPageSelectChange(e){
 function adminRefreshUsers(data){
   adminUserPageSelect.innerHTML = "";
   adminUserContainer.innerHTML = "";
-  if(data.error){notie.alert(3, data.error, 2);}
-  else if(!data.response){notie.alert(3, 'Unknown error occured!', 2);}
+  if(data.error){notify(3, data.error, 2);}
+  else if(!data.response){notify(3, 'Unknown error occured!', 2);}
   for(var i=1;i<=data.response.pages;i++){
     var selected = "";
     if(i == adminUserSearchCurrentPage){selected = " selected";}
@@ -348,7 +351,7 @@ function uploadPictureHandler(e){
 
 function snapshotUploadBtnHandler(e){
   // DISABLED ATM
-  // notie.alert(4, 'Not available atm!', 3);return;
+  // notify(4, 'Not available atm!', 3);return;
   addToUploadQueue(snapshotImage.src);
   resetSnaptshot();
 }
@@ -409,7 +412,7 @@ var videosettings = {
 
 function webcamSnapshotHandler(e){
   // DISABLED ATM
-  //notie.alert(4, 'Not available atm!', 3);return;
+  //notify(4, 'Not available atm!', 3);return;
 
   // IF MOBILE
   if(checkMobile()){
@@ -417,7 +420,7 @@ function webcamSnapshotHandler(e){
   }
 
   resetSnaptshot();
-  var onFail = function(){notie.alert(3, 'Unknown Error!', 3);}
+  var onFail = function(){notify(3, 'Unknown Error!', 3);}
   if (hasGetUserMedia()) {
     if (navigator.getUserMedia) {
       navigator.getUserMedia(videosettings, function(stream) {
@@ -432,10 +435,10 @@ function webcamSnapshotHandler(e){
         $(webcamSnapshotArea).fadeIn(200);
       }, onFail);
     } else {
-      notie.alert(3, 'Unknown Error!', 3);
+      notify(3, 'Unknown Error!', 3);
     }
   } else {
-    notie.alert(3, 'getUserMedia() is not supported in your browser', 3);
+    notify(3, 'getUserMedia() is not supported in your browser', 3);
   }
 }
 
@@ -455,9 +458,9 @@ function displaySettingsSubmitHandler(e){
         displaySettingsImage.value = "";
         refreshUserInfo();
         displaySettingsPreloaderVisible(false);
-        if(data.error){notie.alert(3, data.error, 2);}
-        else if(!data.response){notie.alert(3, 'Unknown error occured!', 2);}
-        else{notie.alert(1, 'Account settings updated!', 2);}
+        if(data.error){notify(3, data.error, 2);}
+        else if(!data.response){notify(3, 'Unknown error occured!', 2);}
+        else{notify(1, 'Account settings updated!', 2);}
       }
     });
   }else{imageUploadFinished = true;}
@@ -469,9 +472,9 @@ function displaySettingsSubmitHandler(e){
       if(imageUploadFinished){
         refreshUserInfo();
         displaySettingsPreloaderVisible(false);
-        if(data.error){notie.alert(3, data.error, 2);}
-        else if(!data.response){notie.alert(3, 'Unknown error occured!', 2);}
-        else{notie.alert(1, 'Account settings updated!', 2);}
+        if(data.error){notify(3, data.error, 2);}
+        else if(!data.response){notify(3, 'Unknown error occured!', 2);}
+        else{notify(1, 'Account settings updated!', 2);}
       }
     });
   }else{changeNameFinished = true;}
@@ -484,16 +487,16 @@ function accountSettingsSubmitHandler(e){
     accountSettingsPreloaderVisible(true);
     updatePassword(accountSettingsPassOld.value, accountSettingsPass.value, function(data){console.log(data);
       if(data.error){
-        notie.alert(3, data.error, 2);
+        notify(3, data.error, 2);
       }else{
         accountSettingsPassOld.value = "";
         accountSettingsPass.value = "";
         accountSettingsPass2.value = "";
-        notie.alert(1, 'Account Password updated!', 2);
+        notify(1, 'Account Password updated!', 2);
       }
       accountSettingsPreloaderVisible(false);
     });
-  }else{notie.alert(3, "Passwords don't match!", 2);}
+  }else{notify(3, "Passwords don't match!", 2);}
 }
 
 function userGalleryButtonHandler(e){
@@ -710,8 +713,8 @@ function refreshUserInfo(loadGallery){
 function updateSession(){
   active_sessions.innerHTML = "";
   userGetSessions(function(data){
-    if(data.error){notie.alert(3, data.error, 2);}
-    else if(!data.response){notie.alert(3, 'Unknown error occured!', 2);}
+    if(data.error){notify(3, data.error, 2);}
+    else if(!data.response){notify(3, 'Unknown error occured!', 2);}
     for(var i=0;i<data.response.length;i++){
       var session = data.response[i];
       var sessionText = session.session.substr(0,16)+"...";
@@ -749,9 +752,9 @@ function delete_session(session){
   var sessionText = session.substr(0,16)+"...";
   niceConfirm('Really?','Sure you want to delete User-Session: '+sessionText+"?",function(){
     deleteSession(session,function(data){
-      if(data.error){notie.alert(3, data.error, 2);}
-      else if(!data.response){notie.alert(3, 'Unknown error occured!', 2);}
-      else{notie.alert(1, 'Session deleted successful!', 2);}
+      if(data.error){notify(3, data.error, 2);}
+      else if(!data.response){notify(3, 'Unknown error occured!', 2);}
+      else{notify(1, 'Session deleted successful!', 2);}
       updateSession();
     });
   });
@@ -823,9 +826,9 @@ function createAdminUserItem(user){
 function deauthUser(sender, user){
   niceConfirm('Deauthenticate?', 'You sure u want to DEAUTH user with id:  '+user, function(){
     admin_deauthUser(user, function(data){
-      if(data.error){/* ERROR */notie.alert(3, data.error, 2);return;}
-      if(!data.response){/* ERROR */notie.alert(3, 'Unknown Error!', 2);return;}
-      notie.alert(1, 'User deauthenticated!', 2);
+      if(data.error){/* ERROR */notify(3, data.error, 2);return;}
+      if(!data.response){/* ERROR */notify(3, 'Unknown Error!', 2);return;}
+      notify(1, 'User deauthenticated!', 2);
     });
   });
 }
@@ -833,10 +836,10 @@ function deauthUser(sender, user){
 function deleteUser(sender, user){
   niceConfirm('Delete?', 'You sure u want to DELETE user with id:  '+user, function(){
     admin_deleteUser(user, function(data){console.log(data);
-      if(data.error){/* ERROR */notie.alert(3, data.error, 2);return;}
-      if(!data.response){/* ERROR */notie.alert(3, 'Unknown Error!', 2);return;}
+      if(data.error){/* ERROR */notify(3, data.error, 2);return;}
+      if(!data.response){/* ERROR */notify(3, 'Unknown Error!', 2);return;}
       sender.parentElement.parentElement.parentElement.Remove();
-      notie.alert(1, 'User deleted!', 2);
+      notify(1, 'User deleted!', 2);
     });
   });
 }
@@ -845,8 +848,8 @@ function lockUser(sender, user, state){
   if(state){var action = "Lock";}else{var action = "Unlock";}
   niceConfirm(action+'?', 'You sure u want to '+action.toUpperCase()+' user with id:  '+user, function(){
     var finish = function(data){
-      if(data.error){/* ERROR */notie.alert(3, data.error, 2);return;}
-      if(!data.response){/* ERROR */notie.alert(3, 'Unknown Error!', 2);return;}
+      if(data.error){/* ERROR */notify(3, data.error, 2);return;}
+      if(!data.response){/* ERROR */notify(3, 'Unknown Error!', 2);return;}
       var blockclass = getBlockClass(state);
       var blocktext = getBlockText(state);
       sender.querySelector('i').className = blockclass;
@@ -854,7 +857,7 @@ function lockUser(sender, user, state){
       sender.onclick = function(){
         lockUser(sender, user, !state);
       };
-      notie.alert(1, 'User '+action+'ed!', 2);
+      notify(1, 'User '+action+'ed!', 2);
     }
 
     if(state){
@@ -869,15 +872,15 @@ function adminRights(sender, user, state){
   if(state){var action = "Give Adminrights to";}else{var action = "Strip Adminrights from";}
   niceConfirm(action+'?', 'You sure u want to '+action.toUpperCase()+' user with id:  '+user, function(){
     var finish = function(data){
-      if(data.error){/* ERROR */notie.alert(3, data.error, 2);return;}
-      if(!data.response){/* ERROR */notie.alert(3, 'Unknown Error!', 2);return;}
+      if(data.error){/* ERROR */notify(3, data.error, 2);return;}
+      if(!data.response){/* ERROR */notify(3, 'Unknown Error!', 2);return;}
       var adminclass = getAdminClass(state);
       sender.querySelector('i').className = adminclass;
       sender.onclick = function(){
         adminRights(sender, user, !state);
       };
-      if(state){notie.alert(1, 'User got adminrights now!', 2);}
-      if(!state){notie.alert(1, 'User got no adminrights anymore!', 2);}
+      if(state){notify(1, 'User got adminrights now!', 2);}
+      if(!state){notify(1, 'User got no adminrights anymore!', 2);}
     }
 
     if(state){
@@ -976,7 +979,7 @@ function showSharePictureModal(id){
     });
   };
   priphShareBtn.onclick = function(){
-    notie.alert(4, 'Not available atm!', 3);
+    notify(4, 'Not available atm!', 3);
   };
   onetimeShareBtn.onclick = function(){
     remodalMenu.style.display = "none";
@@ -998,8 +1001,8 @@ function showSharePictureModal(id){
 }
 
 function shareLinkCallback(data, input, shortInput){
-  if(data.error){/* ERROR */notie.alert(3, data.error, 2);return;}
-  if(!data.response){/* ERROR */notie.alert(3, 'Unknown Error!', 2);return;}
+  if(data.error){/* ERROR */notify(3, data.error, 2);return;}
+  if(!data.response){/* ERROR */notify(3, 'Unknown Error!', 2);return;}
   var link = "https://priph.com/share.php?image="+data.response.id+"&verifier="+data.response.verifier;
   input.value = link;
   shortInput.value = "loading..";
@@ -1054,4 +1057,24 @@ function initBackground(videoSkin){
   }else{
     backgroundVideo.style.display = "block"
   }
+}
+
+function notify(type, text, time, left){
+  if(!time){time=3;}
+  notifyBox.className = "notify";
+  if(left){notifyBox.className += " notify-left";}
+  if(type == 1){  // success
+    notifyBox.className += " notify-success";
+  }else if(type == 2){  // warning
+    notifyBox.className += " notify-warning";
+  }else if(type == 3){  // error
+    notifyBox.className += " notify-error";
+  }else if(type == 4){  // info
+    notifyBox.className += " notify-info";
+  }
+  notifyBox.innerHTML = text;
+  $(notifyBox).fadeIn(200);
+  setTimeout(function(){
+      $(notifyBox).fadeOut(400);
+  }, time * 1000);
 }
