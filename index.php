@@ -346,7 +346,7 @@ if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video
                   <label for="displayname">Displayname:</label>
                   <input class="priph" id="displaysettings_displayname" pattern="[A-z0-9_-]{3,64}" type="text" name="displayname" value=""><br>
                   <div id="displaysettingsPreloader" class="bubblingG settingsPreloader"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div>
-                  <button class="discard">Discard</button>
+                  <!-- <button class="discard">Discard</button> -->
                   <button class="save" type="submit">Save</button>
                 </form>
 
@@ -361,7 +361,7 @@ if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video
                   <label for="pass2">New Password repeat:</label>
                   <input class="priph" id="accountsettings_pass2" pattern=".{4,128}" type="password" name="pass2" value="" required><br>
                   <div id="accountSettingsPreloader" class="bubblingG settingsPreloader"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div>
-                  <button class="discard">Discard</button>
+                  <!-- <button class="discard">Discard</button> -->
                   <button class="save" type="submit">Save</button>
                 </form>
 
