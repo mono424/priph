@@ -91,7 +91,7 @@ function defineStuff() {
   displaySettingsImage = document.querySelector('#displaysettings_image');
   displaySettingsPreloader = document.querySelector('#displaysettingsPreloader');
   displaySettingsSave = displaySettingsForm.querySelector('.save');
-  displaySettingsDiscard = displaySettingsForm.querySelector('.discard');
+  // displaySettingsDiscard = displaySettingsForm.querySelector('.discard');
   displaySettingsForm.addEventListener('submit', displaySettingsSubmitHandler);
   displaySettingsImage.addEventListener('change', validateProfileImage);
 
@@ -621,11 +621,11 @@ function validateProfileImage(){
 
 function displaySettingsPreloaderVisible(state){
   if(state){
-    displaySettingsDiscard.style.display = "none";
+    // displaySettingsDiscard.style.display = "none";
     displaySettingsSave.style.display = "none";
     displaySettingsPreloader.style.display = "block";
   }else{
-    displaySettingsDiscard.style.display = "block";
+    // displaySettingsDiscard.style.display = "block";
     displaySettingsSave.style.display = "block";
     displaySettingsPreloader.style.display = "none";
   }
