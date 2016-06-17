@@ -1,3 +1,99 @@
+######  ABOUT  ######
+
+Projekt: Priph
+Autor: Khadim Fall
+
+
+
+
+
+
+
+######  SETUP  ######
+
+1. Priph-Projekt in Webroot-Verzeichnis kopieren.
+2. "[Die Domain oder IP]/api/setup" im Browser aufrufen.
+3. Felder ausfüllen und mit dem Button "Setup Priph-System" bestätigen.
+	-> Email Einstellungen können leer gelassen werden. Registrierungs-Funktion der Seite darausfolgend nicht funktionieren!
+4. Fertig! Loggen sie sich in ihren Adminitrator Account ein :).
+
+*. Falls Sie änderungen der Config vornehmen möchten, welche noch viele weitere einstellungsmöglichkeiten bietet,
+   können sie dies einfach durch das editieren der folgenden Datei: "api/config.v1.json".
+   Falls Sie einfach nur das Setup erneut durchführen möchten, können sie diese Datei einfach löschen.
+   Solang die Datei existiert kann aus Sicherheitsgründen das Setup nicht ein weiteres mal ausgeführt werden!
+
+
+
+
+
+
+
+###### CONFIG-FILE ######
+
+Die Config Datei siet wie folgt aus:
+{
+  "db": {
+    "host": "localhost",
+    "user": "root",
+    "pass": "",
+    "db": "priph_test",
+    "tables": {
+      "member": "member",
+      "login_attempts": "login_attempts",
+      "session_token": "session_token",
+      "upload_token": "upload_token",
+      "pictures": "pictures",
+      "share": "share",
+      "public_picture_token": "public_picture_token",
+      "picture_comments": "picture_comments",
+      "comment_token": "comment_token"
+    }
+  },
+  "login": {
+    "max_attempts": 10,
+    "attempt_time": 600,
+    "cookie_name": "login_token",
+    "cookie_delimiter": "/",
+    "cookie_expire": 2147483647
+  },
+  "upload": {
+    "max_profilpicture_size": 2000000,
+    "profilpicture_extensions": [
+      "jpeg",
+      "jpg"
+    ],
+    "profilpicture_size": {
+      "width": 200,
+      "height": 200
+    },
+    "profilpicture_path": "../../images/profil",
+    "max_picture_size": 5000000,
+    "picture_extensions": [
+      "jpeg",
+      "jpg"
+    ],
+    "picture_path": "../../images/uploaded"
+  },
+  "comment": {
+    "token_valid": 30
+  },
+  "mail": {
+    "host": "",
+    "user": "",
+    "pass": "",
+    "port": "",
+    "SMTPSecure": "",
+    "from_name": "",
+    "reply_mail": "",
+    "reply_name": ""
+  }
+}
+
+
+
+
+
+
 
 ######  EXTERNAL STUFF IN PRIPH  ######
 
@@ -23,6 +119,12 @@
 
   -> PHPMailer
     > A PHP Mail framework, to send better verify-registration-emails!
+
+
+
+
+
+
 
 ######  LINKS TO THE EXTERNAL STUFF  ######
 

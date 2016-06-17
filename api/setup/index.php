@@ -77,10 +77,10 @@
         <form id="setupForm" method="post">
           <div class="group">
             <h2>Database</h2>
-            <input type="text" name="db[host]" placeholder="Host">
+            <input type="text" name="db[host]" placeholder="Host*" required>
             <input type="text" name="db[user]" placeholder="Username">
             <input type="text" name="db[pass]" placeholder="Password">
-            <input type="text" name="db[db]" placeholder="Database">
+            <input type="text" name="db[db]" placeholder="Database*" required>
           </div>
           <div class="group">
             <h2>Email Settings</h2>
@@ -92,8 +92,8 @@
           </div>
           <div class="group">
             <h2>Administrator</h2>
-            <input type="text" name="email" placeholder="Email">
-            <input type="text" name="pass" placeholder="Password">
+            <input type="email" name="email" placeholder="Email*" required>
+            <input type="text" name="pass" placeholder="Password*" required>
           </div>
           <button id="submit" type="submit" href="">Setup Priph-System</button>
         </form>
