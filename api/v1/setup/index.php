@@ -1,12 +1,13 @@
 <?php
 
-require '../config.php';
+require '../v1/config.php';
+$force_install = true;
 
 $link = openCON();
 if(!$link){die('Connection ERROR!');}
 
 $db_selected = mysqli_select_db($link, $config['db']['db']);
-if (!$db_selected) {
+if (!$db_selected || $force_install) {
   // START SETUP
   if(file_exists('setup.sql')){
     $link->query('CREATE DATABASE IF NOT EXISTS '.$config['db']['db'].';');

@@ -3,6 +3,18 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
+--
+-- Table structure for table `comment_token`
+--
+
+CREATE TABLE IF NOT EXISTS `comment_token` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `picture_id` int(11) NOT NULL,
+  `token` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `valid` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=118 ;
+
 -- --------------------------------------------------------
 
 --
@@ -34,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `member` (
   `blocked` tinyint(1) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=26 ;
 
 -- --------------------------------------------------------
 
@@ -48,7 +60,34 @@ CREATE TABLE IF NOT EXISTS `pictures` (
   `name` varchar(64) CHARACTER SET latin1 NOT NULL,
   `path` varchar(128) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=120 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `picture_comments`
+--
+
+CREATE TABLE IF NOT EXISTS `picture_comments` (
+  `comment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `picture_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `text` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`comment_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=57 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `public_picture_token`
+--
+
+CREATE TABLE IF NOT EXISTS `public_picture_token` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `picture_id` int(11) NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=220 ;
 
 -- --------------------------------------------------------
 
@@ -79,9 +118,10 @@ CREATE TABLE IF NOT EXISTS `share` (
   `restrict_to_user_id` int(11) NOT NULL,
   `comments_enabled` tinyint(1) NOT NULL,
   `single_time_link` tinyint(1) NOT NULL,
+  `views` int(11) NOT NULL DEFAULT '0',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=37 ;
 
 -- --------------------------------------------------------
 
@@ -94,17 +134,3 @@ CREATE TABLE IF NOT EXISTS `upload_token` (
   `token` varchar(64) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `picture_comments`
---
-
-CREATE TABLE IF NOT EXISTS `picture_comments` (
-  `comment_id` int(11) NOT NULL AUTO_INCREMENT,
-  `picture_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `text` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`comment_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=4 ;

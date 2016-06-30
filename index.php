@@ -28,9 +28,6 @@ if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video
   <!-- FULLPAGE CSS -->
   <link rel="stylesheet" href="css/jquery.fullpage.min.css" />
 
-  <!-- NOTIE CSS -->
-  <link rel="stylesheet" href="css/notie.css" />
-
   <!-- REMODAL CSS -->
   <link rel="stylesheet" href="css/remodal.css" />
   <link rel="stylesheet" href="css/remodal-default-theme.css" />
@@ -42,6 +39,7 @@ if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video
   <link rel="stylesheet" href="/css/master.css">
   <link rel="stylesheet" href="/css/about_slide.css">
   <link rel="stylesheet" href="/css/mobile.css">
+  <link rel="stylesheet" href="/css/notify.css">
 
   <!-- JQUERY -->
   <script src="js/jquery-1.12.3.min.js"></script>
@@ -51,14 +49,8 @@ if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video
   <script type="text/javascript" src="js/jquery.fullpage.min.js"></script>
   <script type="text/javascript" src="js/jquery.fullpage.setup.js"></script>
 
-  <!-- masonry -->
-  <script type="text/javascript" src="js/masonry.min.js"></script>
-
   <!-- REMODAL -->
   <script type="text/javascript" src="js/remodal.min.js"></script>
-
-  <!-- PULL 2 REFRESH -->
-  <script type="text/javascript" src="js/jquery.p2r.min.js" defer></script>
 
   <!-- CIRCLE PROGRESS -->
   <script type="text/javascript" src="js/circle-progress.js"></script>
@@ -354,7 +346,7 @@ if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video
                   <label for="displayname">Displayname:</label>
                   <input class="priph" id="displaysettings_displayname" pattern="[A-z0-9_-]{3,64}" type="text" name="displayname" value=""><br>
                   <div id="displaysettingsPreloader" class="bubblingG settingsPreloader"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div>
-                  <button class="discard">Discard</button>
+                  <!-- <button class="discard">Discard</button> -->
                   <button class="save" type="submit">Save</button>
                 </form>
 
@@ -369,7 +361,7 @@ if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video
                   <label for="pass2">New Password repeat:</label>
                   <input class="priph" id="accountsettings_pass2" pattern=".{4,128}" type="password" name="pass2" value="" required><br>
                   <div id="accountSettingsPreloader" class="bubblingG settingsPreloader"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div>
-                  <button class="discard">Discard</button>
+                  <!-- <button class="discard">Discard</button> -->
                   <button class="save" type="submit">Save</button>
                 </form>
 
@@ -605,7 +597,7 @@ if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video
         </div>
       </div>
 
-      <!-- NOTIE -->
-      <script type="text/javascript" src="js/notie.min.js"></script>
+      <!-- NOTIFY -->
+      <div id="notify"></div>
     </body>
     </html>
