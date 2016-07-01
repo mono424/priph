@@ -9,12 +9,12 @@ Autor: Khadim Fall
 
 
 
-######  SETUP  ######
+######  SETUP - DEUTSCH  ######
 
 1. Priph-Projekt in Webroot-Verzeichnis kopieren.
 2. "[Die Domain oder IP]/api/setup" im Browser aufrufen.
 3. Felder ausfüllen und mit dem Button "Setup Priph-System" bestätigen.
-	-> Email Einstellungen können leer gelassen werden. Registrierungs-Funktion der Seite darausfolgend nicht funktionieren!
+	-> Email Einstellungen können leer gelassen werden. Registrierungs-Funktion der Seite wird darausfolgend nicht funktionieren!
 4. Fertig! Loggen sie sich in ihren Adminitrator Account ein :).
 
 *. Falls Sie änderungen der Config vornehmen möchten, welche noch viele weitere einstellungsmöglichkeiten bietet,
@@ -30,7 +30,7 @@ Autor: Khadim Fall
 
 ###### CONFIG-FILE ######
 
-Die Config Datei siet wie folgt aus:
+A Default Config-File looks like:
 {
   "db": {
     "host": "localhost",
