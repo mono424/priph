@@ -63,6 +63,14 @@
     <p>
       Every Answer given by API is JSON encoded. Nothing else available!
     </p><br>
+    <h2>Error Handling</h2>
+    <p>
+      If something went wrong on our side, we will provide you an error description:
+    </p>
+    <pre>
+      {"response":null,"error":"Sorry, the API is not Public atm!"}
+    </pre>
+    <br>
 
 
 
@@ -215,13 +223,13 @@
     </p>
     <br><hr><br>
     <h3>Verify new Users Registration</h3>
-    <code>GET: http://priph.com/api/v1/?action=validate&user=[email]&verification=[code]
-      &pass=[password]&displayname=[displayname]&pass2=[password_repeat_optional]</code><br>
+    <code>GET: http://priph.com/api/v1/?action=validate&user=[email]&verification=[code]&pass=[password]&displayname=[displayname]&pass2=[password_repeat_optional]</code><br>
     Success:
     <pre>
       {"response":true,"error":false}
     </pre>
     <br><hr><br>
+
   </div>
 </body>
 </html>
