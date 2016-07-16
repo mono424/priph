@@ -1,5 +1,16 @@
 <?php
 
+// INFO FOR API
+/* --[api_info]--
+{
+  "headline": "Admin Lock User",
+  "url": "GET: http://priph.com/api/v1/?action=admin-lock-user&user=[user]",
+  "success": "{\"response\":true,\"error\":false}",
+  "unsuccess": null,
+  "note": []
+}
+   --[api_info]-- */
+
 function run_action(){
   if(attemptAuth(false,false)){
     $user = getUserFromCookie();
@@ -14,5 +25,3 @@ function run_action(){
     error('Not logged in!');
   }
 }
-
- ?>

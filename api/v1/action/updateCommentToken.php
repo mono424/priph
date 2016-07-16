@@ -1,4 +1,17 @@
 <?php
+// INFO FOR API
+/* --[api_info]--
+{
+  "headline": "Update Comment Token",
+  "url": "GET: http://priph.com/api/v1/?action=updateCommentToken&pictureid=[pictureid]&token=[token]",
+  "success": "{\"response\":true,\"error\":false}",
+  "unsuccess": null,
+  "note": ["Otherwise the Token expires after a specific Time(30sec)!"]
+}
+   --[api_info]-- */
+
+
+
 
 function run_action(){
 

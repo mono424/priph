@@ -1,5 +1,20 @@
 <?php
 
+// INFO FOR API
+/* --[api_info]--
+{
+  "headline": "Short Link",
+  "url": "GET: http://priph.com/api/v1/?action=short-link&link=[link]",
+  "success": "{\"response\":\"https:\/\/goo.gl\/XXXXX\",\"error\":false}",
+  "unsuccess": null,
+  "note": []
+}
+   --[api_info]-- */
+
+
+
+
+
 function run_action(){
 
   // LOGGED IN ??
@@ -16,5 +31,3 @@ function run_action(){
   }
 
 }
-
- ?>

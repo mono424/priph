@@ -1,4 +1,17 @@
 <?php
+// INFO FOR API
+/* --[api_info]--
+{
+  "headline": "Change User Profilepicture",
+  "url": [
+          "GET: http://priph.com/api/v1/?action=uploadProfilePicture&token=[upload-token]",
+          "POST: file=[jpg-image]"
+  ],
+  "success": "{\"response\":true,\"error\":false}",
+  "unsuccess": null,
+  "note": ["<b>NOTE:</b> You will need to create a upload-token first!"]
+}
+   --[api_info]-- */
 
 function run_action(){
   // GLOBAL CONFIG STUFF
@@ -56,5 +69,3 @@ function run_action(){
   return true;
 
 }
-
-?>

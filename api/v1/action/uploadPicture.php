@@ -1,4 +1,18 @@
 <?php
+// INFO FOR API
+/* --[api_info]--
+{
+  "headline": "Upload Picture",
+  "url": [
+          "GET: http://priph.com/api/v1/?action=uploadPicture&token=[upload-token]",
+          "POST: file=[jpg-image]"
+  ],
+  "success": "{\"response\":true,\"error\":false}",
+  "unsuccess": null,
+  "note": []
+}
+   --[api_info]-- */
+
 
 function run_action(){
 
@@ -96,5 +110,3 @@ function run_action(){
   return true;
 
 }
-
-?>

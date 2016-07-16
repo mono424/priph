@@ -1,5 +1,17 @@
 <?php
 
+// INFO FOR API
+/* --[api_info]--
+{
+  "headline": "Delete Picture Comment",
+  "url": "GET: http://priph.com/api/v1/?action=deletePictureComment&commentid=[comment_id]&token=[token]",
+  "success": "{\"response\":true,\"error\":false}",
+  "unsuccess": null,
+  "note": []
+}
+   --[api_info]-- */
+
+
 function run_action(){
   if(attemptAuth()){
     // LOGGED IN ??
@@ -21,5 +33,3 @@ function run_action(){
     error('Not logged in!');
   }
 }
-
-?>

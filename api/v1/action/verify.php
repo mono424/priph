@@ -1,4 +1,15 @@
 <?php
+// INFO FOR API
+/* --[api_info]--
+{
+  "headline": "Verify new Users Registration",
+  "url": "GET: http://priph.com/api/v1/?action=validate&user=[email]&verification=[code]&pass=[password]&displayname=[displayname]&pass2=[password_repeat_optional]",
+  "success": "{\"response\":true,\"error\":false}",
+  "unsuccess": null,
+  "note": []
+}
+   --[api_info]-- */
+
 
 function run_action(){
   // PARAMS
@@ -13,8 +24,3 @@ function run_action(){
   // NOW DO VERIFICATION
   return verifyUser($user, $verification, $pass, $displayname);
 }
-
-
-
-
- ?>

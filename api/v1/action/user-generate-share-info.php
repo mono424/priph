@@ -1,4 +1,17 @@
 <?php
+// INFO FOR API
+/* --[api_info]--
+{
+  "headline": "Generate Share Information",
+  "url": "GET: http://priph.com/api/v1/?action=user-generate-share-info&picture=[picture_id]&to-user=[user_email_optional]&comments=[comments_enabled_default_1]$single-time-link=[single_time_link_default_1]",
+  "success": "{\"response\":{\"id\":68,\"verifier\":\"MQaZOc8YYj49RwOt07SimvfPD9rpaxe5\"},\"error\":false}",
+  "unsuccess": null,
+  "note": []
+}
+   --[api_info]-- */
+
+
+
 
 function run_action(){
 
@@ -19,5 +32,3 @@ function run_action(){
   // GENERATE LINK
   return generatePictureShareInfo($user, $picture, $userRestrictionID, $commentsEnabled, $singleTimeLink);
 }
-
- ?>

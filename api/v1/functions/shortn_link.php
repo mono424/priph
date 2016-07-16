@@ -2,6 +2,8 @@
 
 function shortn_link($long_link){
 
+  //TODO: check if link is allowed Domain!
+
   $apiKey = 'AIzaSyC4NI1j1KGcLIW2dRYxeeuSUIX1O9s-t5E';
 
   $postData = array('longUrl' => $long_link);

@@ -1,5 +1,18 @@
 <?php
 
+// INFO FOR API
+/* --[api_info]--
+{
+  "headline": "Admin Unlock User",
+  "url": "GET: http://priph.com/api/v1/?action=admin-unlock-user&user=[user]",
+  "success": "{\"response\":true,\"error\":false}",
+  "unsuccess": null,
+  "note": []
+}
+   --[api_info]-- */
+
+
+
 function run_action(){
   if(attemptAuth(false,false)){
     $user = getUserFromCookie();
@@ -14,5 +27,3 @@ function run_action(){
     error('Not logged in!');
   }
 }
-
- ?>

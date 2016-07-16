@@ -1,5 +1,19 @@
 <?php
 
+
+// INFO FOR API
+/* --[api_info]--
+{
+  "headline": "Public get Picture",
+  "url": "GET: http://priph.com/api/v1/?action=publicGetPicture&id=[picture_id]&token=[valid_token]&width=[width_optional]&height=[height_optional]",
+  "success": "IMAGE - JPEG",
+  "unsuccess": null,
+  "note": []
+}
+   --[api_info]-- */
+
+
+
 function run_action(){
     // GET PARAM
     if(isset($_GET['id'])){$id = $_GET['id'];}else{die('');/* TODO: MAYBE DISPALY ERROR IMAGE*/}
@@ -26,5 +40,3 @@ function run_action(){
     header('Content-Type: image/jpeg');
     imagejpeg($image);
 }
-
-?>

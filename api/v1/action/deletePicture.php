@@ -1,4 +1,17 @@
 <?php
+// INFO FOR API
+/* --[api_info]--
+{
+  "headline": "Delete User Uploaded Picture",
+  "url": "GET: http://priph.com/api/v1/?action=deletePicture&id=[picture_id]",
+  "success": "{\"response\":true,\"error\":false}",
+  "unsuccess": null,
+  "note": []
+}
+   --[api_info]-- */
+ ?>
+
+<?php
 
 function run_action(){
   if(attemptAuth()){

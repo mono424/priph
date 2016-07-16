@@ -1,4 +1,17 @@
 <?php
+// INFO FOR API
+/* --[api_info]--
+{
+  "headline": "Register new User",
+  "url": "GET: http://priph.com/api/v1/?action=register&user=[email]",
+  "success": "{\"response\":true,\"error\":false}",
+  "unsuccess": null,
+  "note": ["<b>NOTE:</b> User has to verfiy Account before logging in to it!"]
+}
+   --[api_info]-- */
+ ?>
+
+<?php
 
 function run_action(){
     // DISABLED

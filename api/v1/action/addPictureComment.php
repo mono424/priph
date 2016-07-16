@@ -1,5 +1,16 @@
 <?php
 
+// INFO FOR API
+/* --[api_info]--
+{
+  "headline": "Add Picture Comment",
+  "url": "GET: http://priph.com/api/v1/?action=addPictureComment&pictureid=[picture_id]&comment=[comment]&token=[token_optional]",
+  "success": "{\"response\":{\"comment_id\":63,\"user_id\":\"22\"},\"error\":false}",
+  "unsuccess": null,
+  "note": []
+}
+   --[api_info]-- */
+
 function run_action(){
 
   // LOGGED IN ??

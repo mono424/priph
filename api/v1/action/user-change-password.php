@@ -1,4 +1,15 @@
 <?php
+// INFO FOR API
+/* --[api_info]--
+{
+  "headline": "Change User Password",
+  "url": "GET: http://priph.com/api/v1/?action=user-change-password&pass=[password]&new_pass=[new-password]",
+  "success": "{\"response\":true,\"error\":false}",
+  "unsuccess": null,
+  "note": []
+}
+   --[api_info]-- */
+
 
 function run_action(){
 
@@ -22,5 +33,3 @@ function run_action(){
   return true;
 
 }
-
- ?>

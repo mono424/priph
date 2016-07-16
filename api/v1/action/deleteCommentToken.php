@@ -1,5 +1,18 @@
 <?php
 
+// INFO FOR API
+/* --[api_info]--
+{
+  "headline": "Delete Comment Token",
+  "url": "GET: http://priph.com/api/v1/?action=deleteCommentToken&pictureid=[picture_id]&token=[token]",
+  "success": "{\"response\":true,\"error\":false}",
+  "unsuccess": null,
+  "note": []
+}
+   --[api_info]-- */
+
+
+
 function run_action(){
 
   // LOGGED IN ??
