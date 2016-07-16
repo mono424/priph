@@ -3,6 +3,9 @@
 /* API RESTRICTION SESSION */
 require 'session.php';
 
+/* YOUR DOMAIN */
+$domain = "http://priph.com";
+
 /* SKIN */
 $skin = isset($_COOKIE['skin']) ? $_COOKIE['skin'] :"ice-cream";
 $skin_muted = true;
@@ -72,6 +75,7 @@ if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video
   <?php
   if(isset($_GET['verify'])){echo "startPage = 'verify';";}
   ?>
+  var domain = "<?php echo $domain; ?>";
   var skinVideoDisabled = <?php echo (!$skin_video) ? 'true' : 'false'; ?>;
   </script>
 

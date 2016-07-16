@@ -1004,7 +1004,7 @@ function showSharePictureModal(id){
 function shareLinkCallback(data, input, shortInput){
   if(data.error){/* ERROR */notify(3, data.error, 2);return;}
   if(!data.response){/* ERROR */notify(3, 'Unknown Error!', 2);return;}
-  var link = "https://priph.com/share.php?image="+data.response.id+"&verifier="+data.response.verifier;
+  var link = domain+"/share.php?image="+data.response.id+"&verifier="+data.response.verifier;
   input.value = link;
   shortInput.value = "loading..";
   shortLink(link, function(data){
