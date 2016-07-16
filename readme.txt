@@ -87,7 +87,7 @@ A Default Config-File looks like:
     "user": "",
     "pass": "",
     "port": "",
-    "SMTPSecure": "tls",
+    "SMTPSecure": "",
     "from_name": "",
     "reply_mail": "",
     "reply_name": ""
