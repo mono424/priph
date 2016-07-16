@@ -32,11 +32,15 @@ Autor: Khadim Fall
 
 A Default Config-File looks like:
 {
+  "server": {
+    "name": "Priph",
+    "domain": "http://priph.com"
+  },
   "db": {
     "host": "localhost",
     "user": "root",
     "pass": "",
-    "db": "priph_test",
+    "db": "priph",
     "tables": {
       "member": "member",
       "login_attempts": "login_attempts",
@@ -82,7 +86,7 @@ A Default Config-File looks like:
     "user": "",
     "pass": "",
     "port": "",
-    "SMTPSecure": "",
+    "SMTPSecure": "tls",
     "from_name": "",
     "reply_mail": "",
     "reply_name": ""
