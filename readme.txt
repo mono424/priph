@@ -15,7 +15,8 @@ Autor: Khadim Fall
 2. "[Die Domain oder IP]/api/setup" im Browser aufrufen.
 3. Felder ausfüllen und mit dem Button "Setup Priph-System" bestätigen.
 	-> Email Einstellungen können leer gelassen werden. Registrierungs-Funktion der Seite wird darausfolgend nicht funktionieren!
-4. Fertig! Loggen sie sich in ihren Adminitrator Account ein :).
+5. $domain Variable in der "index.php" im Root-Verzeichnis anpassen.
+5. Fertig! Loggen sie sich in ihren Adminitrator Account ein :).
 
 *. Falls Sie änderungen der Config vornehmen möchten, welche noch viele weitere einstellungsmöglichkeiten bietet,
    können sie dies einfach durch das editieren der folgenden Datei: "api/config.v1.json".
