@@ -7,6 +7,7 @@ require '../v1/functions/member.php';
 if($config_found){die("already setup! You can manually change settings in your 'api/config.v1.json' ;)");}
 
 // TEMP CONFIG OVERWRITE
+$config['server'] = array_replace ($config['server'], $_POST['server']);
 $config['db'] = array_replace ($config['db'], $_POST['db']);
 $config['mail'] = array_replace($config['mail'], $_POST['mail']);
 
@@ -24,9 +25,21 @@ if(file_exists('setup.sql')){
   die('setup.sql not found!');
 }
 
+// WAIT FOR MULTIQUERY
+do {
+    if($result = mysqli_store_result($link)){
+        mysqli_free_result($link);
+    }
+} while(mysqli_next_result($link));
+
+if(mysqli_error($link)) {
+    die(mysqli_error($link));
+}
+
+
 // REOPEN CONNECTION
-mysqli_close($link);
-$link = openDB();
+// mysqli_close($link);
+// $link = openDB();
 
 // CREATE ADMIN USER
 $table = $config['db']['tables']['member'];

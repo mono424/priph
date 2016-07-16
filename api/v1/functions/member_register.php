@@ -15,6 +15,9 @@ function registerUser($user, $pass = ""){
   $con = openDB();
   if($con === false){error('SQL ERROR');}
 
+  // DISABLE AUTO COMMIT FOR ROLLBACK
+  $con->autocommit(FALSE);
+
   // SECURITY
   $user = $con->real_escape_string($user);
   $pass = $con->real_escape_string($pass);
@@ -26,11 +29,25 @@ function registerUser($user, $pass = ""){
   // EMAIL-VERIFICATION
   $emailverify = randomPass();
 
-  // SEND MAIL
-  sendMail($user, $emailverify);
-
   // WRITE TO DB
-  $con->query("INSERT INTO $table (`email`,`password`,`salt`,`email_verification`,`admin`,`blocked`) VALUES ('$user','$hashedPassword','$salt','$emailverify',0,1)");
+  if(!$con->query("INSERT INTO $table (`email`,`password`,`salt`,`email_verification`,`admin`,`blocked`) VALUES ('$user','$hashedPassword','$salt','$emailverify',0,1)")){
+    // ROLLBACK AND ERROR
+    $con->rollback();
+    error('Database exception!');
+  }
+
+  // SEND MAIL
+  if(!sendMail($user, $emailverify)){
+    // ROLLBACK AND ERROR
+    $con->rollback();
+    error('mail couldnt be sent!');
+  }
+
+  // FINISH STUFF
+  $con->commit();
+
+  // ENABLE AUTO COMMIT AGAIN
+  $con->autocommit(TRUE);
 
   //RETURN
   return true;
@@ -86,21 +103,21 @@ function sendMail($user, $verifycode){
   $mail->isHTML(true);
 
   $mail->Subject = 'Thank you for your Registration';
-  $mail->Body    = "Welcome to Priph!<br><br><b>Please verify your Account <a href=\"http://priph.com?user=$user&verify=$verifycode\">here</a></b>.<br><br>
-    Or manually on http://priph.com?verify with following verification code: <i>$verifycode</i>.<br><br>
+  $mail->Body    = "Welcome to ".$config['server']['name']."!<br><br><b>Please verify your Account <a href=\"".$config['server']['domain']."?user=$user&verify=$verifycode\">here</a></b>.<br><br>
+    Or manually on ".$config['server']['domain']."?verify with following verification code: <i>$verifycode</i>.<br><br>
     Gratefully<br><br><br>
-    Priph
+    ".$config['server']['name']."
     ";
-  $mail->AltBody = "Thank you for your Registration at priph.com!\nPlease verify your Account here: http://priph.com?user=$user&verify=$verifycode .\n
-    Or manually on http://priph.com?verify with following verification code: $verifycode.\n\n
+  $mail->AltBody = "Thank you for your Registration at ".$config['server']['name']."!\nPlease verify your Account here: ".$config['server']['domain']."?user=$user&verify=$verifycode .\n
+    Or manually on ".$config['server']['domain']."?verify with following verification code: $verifycode.\n\n
     Gratefully\n\n\n
-    Priph
+    ".$config['server']['name']."
     ";
 
   if(!$mail->send()) {
     //echo 'Message could not be sent.';
     //echo 'Mailer Error: ' . $mail->ErrorInfo;
-    error('mail couldnt be sent!');
+    return false;
   }
 
   return true;

@@ -522,7 +522,7 @@ function userOverlayDisplayClickHandler(e){
 
 function logoutButtonHandler(e){
   userLogout(function(data){
-    location.reload();
+    location.href = "/";
   });
 }
 

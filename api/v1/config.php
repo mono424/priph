@@ -2,7 +2,11 @@
 
 /* DB-CONFIG */
 
-// GLOBAL OFFLINE
+// SERVER
+$config['server']['name'] = "Priph";
+$config['server']['domain'] = "https://priph.com";
+
+// DATABASE
 $config['db']['host'] = "localhost";
 $config['db']['user'] = "root";
 $config['db']['pass'] = "";

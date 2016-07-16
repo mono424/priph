@@ -33,8 +33,10 @@ function mobileStuff(){
     backgroundVideo.parentElement.style.background="url("+backgroundVideo.poster+") 50% 50%";
     backgroundVideo.parentElement.style.backgroundSize="cover";
     backgroundVideo.innerHTML = "";
-    backgroundVideo.style.display = "none"
+    backgroundVideo.style.display = "none";
   }
+
+  load_skin(start_skin_name, start_skin_webm, start_skin_mp4);
 
   if(checkMobile()){
     //webcamSnapshotBtn.innerHTML = "Camera Snapshot";

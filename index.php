@@ -8,7 +8,6 @@ $skin = isset($_COOKIE['skin']) ? $_COOKIE['skin'] :"ice-cream";
 $skin_muted = true;
 $skin_video = false;
 if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video = true;}
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -98,23 +97,18 @@ if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video
         <div class="intro-video">
           <!-- SKIN BACKGROUND POSTER -->
           <?php
+          $path_webm = "skin/$skin/video.webm";
+          $path_mp4 = "skin/$skin/video.mp4";
           $poster = "skin/$skin/poster.jpg";
           if(file_exists($poster)){$poster = " poster=\"$poster\"";}else{$poster="";} ?>
-          <video id="backgroundVideo" autoplay loop<?php echo $poster; ?> preload="auto" <?php if($skin_muted){echo "muted";} ?>>
-            <!-- SKIN BACKGROUND VIDEO WEBM -->
-            <?php
-            $path = "skin/$skin/video.webm";
-            if(file_exists($path) && $skin_video){
-              echo '<source src="'.$path.'" type="video/webm" />Your browser does not support the video tag. I suggest you upgrade your browser.'."\n";
-            } ?>
+          <video id="backgroundVideo" autoplay loop preload="auto"<?php echo $poster; ?><?php if($skin_muted){echo " muted";} ?>></video>
 
-            <!-- SKIN BACKGROUND VIDEO MP4 -->
-            <?php
-            $path = "skin/$skin/video.mp4";
-            if(file_exists($path) && $skin_video){
-              echo '<source src="'.$path.'" type="video/mp4" />Your browser does not support the video tag. I suggest you upgrade your browser.'."\n";
-            } ?>
-          </video>
+          <script type="text/javascript">
+            var start_skin_name = "<?php echo $skin; ?>";
+            var start_skin_webm = <?php echo (file_exists($path_webm) && $skin_video) ? "true" : "false"; ?>;
+            var start_skin_mp4 = <?php echo (file_exists($path_mp4) && $skin_video) ? "true" : "false"; ?>;
+          </script>
+
         </div>
 
         <!-- PRIPH -->

@@ -48,10 +48,10 @@
   }
   .wrapper{
     width: 800px;
-    margin: 20px auto;
+    margin: 40px auto;
   }
   .wrapper_body{
-    height: 700px;
+    height: 900px;
     border-radius: 4px;
     background-color: white;
     padding: 10px;
@@ -75,6 +75,11 @@
       ?>
       <div class="wrapper_body">
         <form id="setupForm" method="post">
+          <div class="group">
+            <h2>Server</h2>
+            <input type="text" name="server[name]" placeholder="Name*" required>
+            <input type="text" name="server[domain]" placeholder="Domain*" required>
+          </div>
           <div class="group">
             <h2>Database</h2>
             <input type="text" name="db[host]" placeholder="Host*" required>

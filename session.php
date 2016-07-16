@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-if(!$_SESSION['sessionid']){
+if(!isset($_SESSION['sessionid'])){
   $sessionid = md5(mt_rand(0,999999999));
   $_SESSION['sessionid'] = $sessionid;
 }else{
