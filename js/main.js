@@ -104,7 +104,7 @@ function defineStuff() {
   accountSettingsPass2 = document.querySelector('#accountsettings_pass2');
   accountSettingsPreloader = document.querySelector('#accountSettingsPreloader');
   accountSettingsSave = accountSettingsForm.querySelector('.save');
-  accountSettingsDiscard = accountSettingsForm.querySelector('.discard');
+  //accountSettingsDiscard = accountSettingsForm.querySelector('.discard');
   accountSettingsForm.addEventListener('submit', accountSettingsSubmitHandler);
 
   /* USER SLIDE */
@@ -634,11 +634,11 @@ function displaySettingsPreloaderVisible(state){
 
 function accountSettingsPreloaderVisible(state){
   if(state){
-    accountSettingsDiscard.style.display = "none";
+    //accountSettingsDiscard.style.display = "none";
     accountSettingsSave.style.display = "none";
     accountSettingsPreloader.style.display = "block";
   }else{
-    accountSettingsDiscard.style.display = "block";
+    //accountSettingsDiscard.style.display = "block";
     accountSettingsSave.style.display = "block";
     accountSettingsPreloader.style.display = "none";
   }
