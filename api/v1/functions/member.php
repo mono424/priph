@@ -990,6 +990,44 @@ function deletePictureComment($authorid, $commentid, $token, $con = false){
 
 
 
+/* SHARELINK MANAGE SYSTEM */
+
+// -> GET SHARELINKS
+function getPictureSharelinks($picture_id, $user, $con = false){
+  // GLOBAL STUFF
+  global $config;
+  $table = $config['db']['tables']['share'];
+  $table_pictures = $config['db']['tables']['pictures'];
+
+  // OPEN NEW DB CONNECTION IF NOT EXISTS
+  if(!$con){
+    $con = openDB();
+    if($con === false){error('SQL ERROR');}
+  }
+
+  // SECURITY
+  $picture_id = $con->real_escape_string($picture_id);
+  if($user){
+    $user = $con->real_escape_string($user);
+  }else{
+    return false;
+  }
+
+
+  // LOOK IF EXISTS AND GET SESSIONS
+  $res = $con->query("SELECT `$table`.* FROM `$table`
+                      JOIN `$table_pictures` ON `$table`.`picture_id`=`$table_pictures`.`id`
+                      WHERE `$table`.`picture_id` = '$picture_id' AND `$table_pictures`.`user_id`='$user' ORDER BY `created` DESC");
+
+  // EXISTS IF YES DO OUTPUT
+  $sharelinks = [];
+  if($res && $res->num_rows > 0){
+    while($sharelink = $res->fetch_assoc()){
+      $sharelinks[] = $sharelink;
+    }
+    return $sharelinks;
+  }else{return $sharelinks;}
+}
 
 
  ?>
