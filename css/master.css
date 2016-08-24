@@ -206,6 +206,12 @@ button.priph:hover{
 }
 
 
+/* UPLOAD OVERLAY */
+#upload-overlay{
+  display:none;
+}
+
+
 /* IMPRESSUM OVERLAY */
 
 #overlay_impressum{
@@ -423,7 +429,7 @@ button.priph:hover{
 }
 
 #loginmenu-overlay ul li a{
-  color: rgba(81,135,181, 0.85);
+  color: rgba(218, 218, 218, 0.92);
   transition: ease-in 0.2s;
 }
 

@@ -245,6 +245,7 @@ if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video
                 if(file_exists("skin/".$_skin."/video.mp4")){$mp4 = "true";}else{$mp4 = "false";}
                 if($webm == "true" || $mp4 == "true"){
                   $type = "Video";
+                  continue; // Video skins disabled atm. There is a bug.. :(
                 }else{
                   $type = "Picture";
                 }
