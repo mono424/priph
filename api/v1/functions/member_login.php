@@ -235,7 +235,7 @@ function updateUserSession($user_id, $session, $con = false){
   $new_token = randomPass(64);
 
   // GET MORE CLIENT INFO
-  $browser = $con->real_escape_string(get_browser()->browser);
+  $browser = $con->real_escape_string(getBrowser());
   $ip = $con->real_escape_string($_SERVER['REMOTE_ADDR']);
 
   // CREATE USER SESSION
