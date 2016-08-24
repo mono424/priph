@@ -4,17 +4,13 @@ Projekt: Priph
 Autor: Khadim Fall
 
 
-
-
-
-
 ######  SETUP - ENGLISH  ######
 
 1. Copy priph in your webroot-directory.
 2. Navigate to "[Your Domain or IP]/api/setup" in the Browser you prefer.
 3. Complete the form and submit with "Setup Priph-System".
 	-> You can leave the email settings blank but that causes that the registration functions wont work!
-5. Change the value of the $domain variable in "index.php" wich is located in the root directory to your domain or ip.
+4. Change the value of the $domain variable in "index.php" wich is located in the root directory to your domain or ip.
 5. You finished the setup! You should be able to log in with your administrator credentials.
 
 *. If you want to change the config after the installation, wich offers much more settings than you have seen in the setup form,
@@ -32,9 +28,9 @@ Autor: Khadim Fall
 1. Priph-Projekt in Webroot-Verzeichnis kopieren.
 2. "[Die Domain oder IP]/api/setup" im Browser aufrufen.
 3. Felder ausfüllen und mit dem Button "Setup Priph-System" bestätigen.
-	-> Email Einstellungen können leer gelassen werden. Registrierungs-Funktion der Seite wird darausfolgend nicht funktionieren!
-5. $domain Variable in der "index.php" im Root-Verzeichnis anpassen.
-5. Fertig! Loggen sie sich in ihren Adminitrator Account ein :).
+	-> Email Einstellungen können leer gelassen werden. Registrierungs-Funktion der Seite wird daraus folgend nicht funktionieren!
+4. $domain Variable in der "index.php" im Root-Verzeichnis anpassen.
+5. Fertig! Loggen sie sich in ihren Administrator Account ein :).
 
 *. Falls Sie änderungen der Config vornehmen möchten, welche noch viele weitere einstellungsmöglichkeiten bietet,
    können sie dies einfach durch das editieren der folgenden Datei: "api/config.v1.json".
