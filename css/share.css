@@ -212,6 +212,58 @@ hr {
 }
 
 
+/* SHARELINKS */
+
+#sharelinks{
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+#sharelinks h2{
+  margin: 0 0 30px 0;
+  color: rgb(150, 150, 150);
+}
+
+.sharelink-headline{
+  width: 100%;
+  height: 20px;
+  margin-bottom: 30px;
+  padding: 0;
+  text-align: center;
+}
+
+.sharelink-headline div{
+  display:inline-block;
+  width: 16%;
+  margin: 0 1%;
+  overflow:hidden;
+  max-height: 18px;
+}
+
+.sharelink-item{
+  text-align: center;
+  cursor:pointer;
+  width: 100%;
+  margin-bottom: 10px;
+  border-radius: 3px;
+  border: 1px solid rgb(201, 201, 201);
+  padding: 10px 0;
+}
+
+.sharelink-item:hover{
+  transition: ease-in 0.3s;
+  background-color: rgb(212, 212, 212);
+}
+
+.sharelink-item div{
+  display:inline-block;
+  width: 16%;
+  margin: 0 1%;
+  overflow:hidden;
+  max-height: 18px;
+}
+
+
 
 /* ERROR */
 
@@ -235,7 +287,7 @@ hr {
 
 
 /* CONTEXT MENU */
-.comment-menu {
+.context {
     display: none;
     z-index: 1000;
     position: absolute;
@@ -250,14 +302,14 @@ hr {
 }
 
 /* Each of the items in the list */
-.comment-menu li {
+.context li {
     padding: 8px 12px;
     cursor: pointer;
     list-style-type: none;
     transition: all .3s ease;
 }
 
-.comment-menu li:hover {
+.context li:hover {
     background-color: #DEF;
 }
 

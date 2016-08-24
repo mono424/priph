@@ -170,7 +170,7 @@ function deleteCommentToken(pictureid, token, cb){
 }
 
 function addPictureComment(pictureid, token, comment, cb){
-  // have to change it to post cuz to long!
+  // todo: have to change it to post cuz to long!
   comment = encodeURIComponent(comment);
   request('action=addPictureComment&pictureid='+pictureid+'&token='+token+'&comment='+comment, cb);
 }
@@ -179,6 +179,13 @@ function deletePictureComment(commentid, token, cb){
   request('action=deletePictureComment&commentid='+commentid+'&token='+token, cb);
 }
 
+function getPictureSharelinks(picture_id, cb){
+  request('action=user-get-picture-sharelinks&picture_id='+picture_id, cb);
+}
+
+function deletePictureSharelink(sharelink_id, cb){
+  request('action=user-delete-picture-sharelink&sharelink_id='+sharelink_id, cb);
+}
 
 
 /* ADMIN FUNCTIONS */

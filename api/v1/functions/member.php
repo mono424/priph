@@ -1029,5 +1029,39 @@ function getPictureSharelinks($picture_id, $user, $con = false){
   }else{return $sharelinks;}
 }
 
+// -> DELETE SHARELINK
+function deletePictureSharelink($sharelink_id, $user, $con = false){
+  // GLOBAL STUFF
+  global $config;
+  $table = $config['db']['tables']['share'];
+  $table_pictures = $config['db']['tables']['pictures'];
+
+  // OPEN NEW DB CONNECTION IF NOT EXISTS
+  if(!$con){
+    $con = openDB();
+    if($con === false){error('SQL ERROR');}
+  }
+
+  // SECURITY
+  $sharelink_id = $con->real_escape_string($sharelink_id);
+  if($user){
+    $user = $con->real_escape_string($user);
+  }else{
+    return false;
+  }
+
+
+  // LOOK IF EXISTS AND GET SESSIONS
+  $res = $con->query("DELETE `$table` FROM `$table`
+                      JOIN `$table_pictures` ON `$table`.`picture_id`=`$table_pictures`.`id`
+                      WHERE  `$table`.`id` = '$sharelink_id' AND `$table_pictures`.`user_id`='$user'");
+
+  // IF FAILED
+  if($con->error){error("SQL QUERY ERROR");}
+
+  // SUCCESS
+  return true;
+}
+
 
  ?>

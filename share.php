@@ -83,25 +83,46 @@ require 'session.php';
         <div id="commentbox" class="commentbox">
         </div>
         <div class="comment-form">
-            <img id="user_image" src="" alt="" />
-            <div class="input">
-              <input id="commenttextbox" type="text" name="comment" placeholder="Write something nice..">
-            </div>
-            <div style="clear:both;"></div>
+          <img id="user_image" src="" alt="" />
+          <div class="input">
+            <input id="commenttextbox" type="text" name="comment" placeholder="Write something nice..">
+          </div>
+          <div style="clear:both;"></div>
         </div>
 
       </div>
     </div>
 
   </div>
+
+  <!-- SHARELINK MANAGER -->
+  <div id="sharelinks" class="wrapper">
+    <h2>Sharelinks</h2>
+    <div class="sharelink-headline">
+      <div>Verifier</div>
+      <div>SingleTimeLink</div>
+      <div>CommentsAllowed</div>
+      <div>Views</div>
+      <div>Created</div>
+    </div>
+  </div>
+
+  <!-- ERROR BOX -->
   <div class="error">
     <i class="fa fa-frown-o" aria-hidden="true"></i>
     <p>Image not Found!</p>
   </div>
 
   <!-- COMMENT CONTEXT-MENU -->
-  <ul class='comment-menu'>
+  <ul class='context comment-menu'>
     <li id="comment_delete"><i class="fa fa-trash" aria-hidden="true"></i> Delete</li>
+  </ul>
+
+  <!-- SHARELINK CONTEXT-MENU -->
+  <ul class='context sharelink-menu'>
+    <li id="sharelink_open"><i class="fa fa-external-link-square" aria-hidden="true"></i> Open Link</li>
+    <li id="sharelink_copy"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Link</li>
+    <li id="sharelink_delete"><i class="fa fa-trash" aria-hidden="true"></i> Delete</li>
   </ul>
 
 </body>
