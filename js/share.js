@@ -79,8 +79,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
       if(lastContextComment){lastContextComment.style.background = "";}
     }
 
-    // If the clicked element is not the menu
-    if (!$(e.target).parents('.sharelink-menu').length > 0) {
+    // If the clicked element is not the menu or item
+    if ((!$(e.target).parents('.sharelink-menu').length > 0)  &&  (!$(e.target).parents('.sharelink-item').length > 0) && (!$(e.target).hasClass('sharelink-item'))) {
       // Hide it
       $(sharelinkContextMenu).hide(100);
       if(lastContextSharelink){lastContextSharelink.style.background = "";}
@@ -381,12 +381,12 @@ function addSharelinkContextMenuHandler(){
   var sharelinks = document.querySelectorAll('.sharelink-item');
   for(var i = 0; i < sharelinks.length; i++){
     var sharelink = sharelinks[i];
-    sharelink.oncontextmenu = sharelinkContextHandler;
+    // sharelink.oncontextmenu = sharelinkContextHandler;
+    sharelink.onclick = sharelinkContextHandler;
   }
 }
 
 function sharelinkContextHandler(e){
-    e.preventDefault();
     if(lastContextComment){lastContextComment.style.background = "";}
     lastContextSharelink = this;
     if(privateImage){
