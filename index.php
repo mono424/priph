@@ -7,7 +7,9 @@ require 'session.php';
 $domain = "http://priph.com";
 
 /* SKIN */
-$skin = isset($_COOKIE['skin']) ? $_COOKIE['skin'] :"ice-cream";
+$skinfolder = "skin";
+$default_skin = "default";
+$skin = (isset($_COOKIE['skin']) && file_exists($skinfolder."/".$_COOKIE['skin'])) ? $_COOKIE['skin'] : $default_skin;
 $skin_muted = true;
 $skin_video = false;
 if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video = true;}
@@ -241,8 +243,8 @@ if(isset($_COOKIE['skin_type']) && $_COOKIE['skin_type'] == "video"){$skin_video
               foreach($skins as $_skin){
                 if(trim($_skin,".") == ""){continue;}
                 if($_skin == $skin){$selected = " selected";}else{$selected = "";}
-                if(file_exists("skin/".$_skin."/video.webm")){$webm = "true";}else{$webm = "false";}
-                if(file_exists("skin/".$_skin."/video.mp4")){$mp4 = "true";}else{$mp4 = "false";}
+                if(file_exists($skinfolder."/".$_skin."/video.webm")){$webm = "true";}else{$webm = "false";}
+                if(file_exists($skinfolder."/".$_skin."/video.mp4")){$mp4 = "true";}else{$mp4 = "false";}
                 if($webm == "true" || $mp4 == "true"){
                   $type = "Video";
                   continue; // Video skins disabled atm. There is a bug.. :(
