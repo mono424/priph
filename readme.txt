@@ -8,6 +8,24 @@ Autor: Khadim Fall
 
 
 
+######  SETUP - ENGLISH  ######
+
+1. Copy priph in your webroot-directory.
+2. Navigate to "[Your Domain or IP]/api/setup" in the Browser you prefer.
+3. Complete the form and submit with "Setup Priph-System".
+	-> You can leave the email settings blank but that causes that the registration functions wont work!
+5. Change the value of the $domain variable in "index.php" wich is located in the root directory to your domain or ip.
+5. You finished the setup! You should be able to log in with your administrator credentials.
+
+*. If you want to change the config after the installation, wich offers much more settings than you have seen in the setup form,
+   you are able to do by editing following json-file: "api/config.v1.json".
+   If you want to run the setup again, just delete the "api/config.v1.json"-File.
+   As long as the config file exists, the setup is because of security reasons not accessable.
+
+
+
+
+
 
 ######  SETUP - DEUTSCH  ######
 
@@ -22,7 +40,6 @@ Autor: Khadim Fall
    können sie dies einfach durch das editieren der folgenden Datei: "api/config.v1.json".
    Falls Sie einfach nur das Setup erneut durchführen möchten, können sie diese Datei einfach löschen.
    Solang die Datei existiert kann aus Sicherheitsgründen das Setup nicht ein weiteres mal ausgeführt werden!
-
 
 
 
