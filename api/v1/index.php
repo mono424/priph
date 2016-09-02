@@ -10,6 +10,9 @@ error_reporting(0);
 /* SESSIONS :) */
 session_start();
 
+/* SECURITY - ANTI IFRAME */
+header('X-Frame-Options: SAMEORIGIN');
+
 /* LOAD FUNCTIONS AND CONFIG */
 require 'config.php';
 require 'functions.php';
