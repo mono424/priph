@@ -426,13 +426,13 @@ function webcamSnapshotHandler(e){
     if (navigator.getUserMedia) {
       navigator.getUserMedia(videosettings, function(stream) {
         webcamstream = stream;
-        webcamSnapshotVideo.src = stream;
+        webcamSnapshotVideo.srcObject = stream;
         $(webcamSnapshotArea).fadeIn(200);
       }, onFail);
     } else if (navigator.webkitGetUserMedia) {
       navigator.webkitGetUserMedia(videosettings, function(stream) {
         webcamstream = stream;
-        webcamSnapshotVideo.src = window.URL.createObjectURL(stream);
+        webcamSnapshotVideo.srcObject = window.URL.createObjectURL(stream);
         $(webcamSnapshotArea).fadeIn(200);
       }, onFail);
     } else {
